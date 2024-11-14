@@ -77,54 +77,6 @@ void printResults(std::string data, const std::vector<float>& uncompressed, cons
 
 }
 
-void bit_trunc_error() {
-    // Set base value
-    float val{1.0 / 3.0};
-    uint32_t intVal{*reinterpret_cast<uint32_t*>(&val)};
-
-    // Set original mask
-    uint32_t mask{0xFFFFFFFF};
-
-    // Shift mask, mask value
-    std::vector<float> maskedVals{};
-    std::vector<float> bitShift{};
-    for (int b{0}; b < 23; b++) {
-        mask = mask << 1;
-        uint32_t maskedVal{intVal & mask};
-
-        bitShift.push_back(b);
-        maskedVals.push_back(*reinterpret_cast<float*>(&maskedVal));
-    }
-
-    // Plot masked values
-    std::vector<float> valVec(maskedVals.size(), val);  
-    int numRandFloats{static_cast<int>(maskedVals.size())};
-
-    auto c = new TCanvas("c", "Masking Fraction Bits", 200, 10, 900, 700);
-
-    auto mg = new TMultiGraph();
-    auto g1 = new TGraph(numRandFloats, bitShift.data(), valVec.data());
-    auto g2 = new TGraph(numRandFloats, bitShift.data(), maskedVals.data());
-
-    g1->SetMarkerColor(kGreen);
-    g1->SetLineColor(kGreen);
-    g1->SetLineWidth(5);
-
-    g2->SetMarkerColor(kRed);
-    g2->SetLineColor(kRed);
-    g2->SetLineStyle(2);
-    g2->SetLineWidth(3);
-
-    mg->Add(g1);
-    mg->Add(g2);
-
-    mg->SetTitle("Masking Fraction Bits;# Bits Masked;Value");
-    mg->GetXaxis()->CenterTitle();
-    mg->GetYaxis()->CenterTitle();
-
-    mg->Draw("ALP");   
-}
-
 void bit_trunc_avgs() {
     // RNG setup
     // For uniform distribution over full range of floats
