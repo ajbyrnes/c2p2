@@ -1,12 +1,15 @@
 CXX = g++-13
 CXXFLAGS = -std=c++20 -pedantic -Wall -Wextra -Wno-unused-parameter
 
-EXECS = zlib-example
+SZ3_DIR = $(HOME)/SZ3
+LDFLAGS = -I$(SZ3_DIR)/include
+
+EXECS = sz-example
 
 all: $(EXECS)
 
-zlib-example: zlib-example.cpp
-	$(CXX) $(CXXFLAGS) -o $@ $< -lz
+sz-example: sz-example.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
 clean:
 	rm -f $(EXECS)
