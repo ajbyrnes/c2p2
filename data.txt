@@ -1,0 +1,3 @@
+https://corpus.canterbury.ac.nz/descriptions/
+https://opendata.cern.ch/record/80000
+https://www.kaggle.com/competitions/PLAsTiCC-2018/data

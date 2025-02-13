@@ -1,0 +1,60 @@
+(2025-02-11 19:40:48.314422812) Reading file: data/artificl.tar
+(2025-02-11 19:40:48.335712010) Compressing data...
+(2025-02-11 19:40:48.339280510) Decompressing data...
+
+File: data/artificl.tar
+Original data size: 307200 bytes
+Compressed data size: 77007 bytes
+Compression ratio: 3.98925
+Compression time: 3 ms
+Decompression time: 0 ms
+Total time: 3 ms
+
+(2025-02-11 19:40:48.339894810) Reading file: data/calgary.tar
+(2025-02-11 19:40:48.568108397) Compressing data...
+(2025-02-11 19:40:48.773450386) Decompressing data...
+
+File: data/calgary.tar
+Original data size: 3265536 bytes
+Compressed data size: 1060431 bytes
+Compression ratio: 3.07944
+Compression time: 205 ms
+Decompression time: 9 ms
+Total time: 214 ms
+
+(2025-02-11 19:40:48.783767185) Reading file: data/cantrbry.tar
+(2025-02-11 19:40:48.979410374) Compressing data...
+(2025-02-11 19:40:49.421918850) Decompressing data...
+
+File: data/cantrbry.tar
+Original data size: 2821120 bytes
+Compressed data size: 730044 bytes
+Compression ratio: 3.86432
+Compression time: 442 ms
+Decompression time: 6 ms
+Total time: 448 ms
+
+(2025-02-11 19:40:49.429596249) Reading file: data/large.tar
+(2025-02-11 19:40:50.202211506) Compressing data...
+(2025-02-11 19:40:53.189456867) Decompressing data...
+
+File: data/large.tar
+Original data size: 11162624 bytes
+Compressed data size: 3200026 bytes
+Compression ratio: 3.48829
+Compression time: 2987 ms
+Decompression time: 27 ms
+Total time: 3014 ms
+
+(2025-02-11 19:40:53.217407366) Reading file: data/misc.tar
+(2025-02-11 19:40:53.308274562) Compressing data...
+(2025-02-11 19:40:53.363606759) Decompressing data...
+
+File: data/misc.tar
+Original data size: 1003520 bytes
+Compressed data size: 470600 bytes
+Compression ratio: 2.13243
+Compression time: 55 ms
+Decompression time: 2 ms
+Total time: 57 ms
+

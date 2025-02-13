@@ -1,15 +1,21 @@
 CXX = g++-13
 CXXFLAGS = -std=c++20 -pedantic -Wall -Wextra -Wno-unused-parameter
 
-SZ3_DIR = $(HOME)/SZ3
-LDFLAGS = -I$(SZ3_DIR)/include
+ZLIB_FLAGS = -lz
 
-EXECS = sz-example
+SZ3_DIR = $(HOME)/SZ3
+SZ_FLAGS = -I$(SZ3_DIR)/include
+
+
+EXECS = test-zlib test-rounding
 
 all: $(EXECS)
 
-sz-example: sz-example.cpp
-	$(CXX) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
+test-zlib: test-zlib.cpp compression_lib.hpp
+	$(CXX) $(CXXFLAGS) -o $@ $< compression_lib.hpp $(ZLIB_FLAGS)
+
+test-rounding: test-rounding.cpp compression_lib.hpp
+	$(CXX) $(CXXFLAGS) -o $@ $< compression_lib.hpp
 
 clean:
 	rm -f $(EXECS)
