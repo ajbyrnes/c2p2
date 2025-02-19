@@ -1,3 +1,4 @@
+#include <bitset>
 #include <format>
 #include <iostream>
 #include <random>
@@ -6,24 +7,22 @@
 
 int main() {
     // Generate random floats
-    std::vector<float> randData(10);
-    std::default_random_engine gen(12345);
-    std::uniform_real_distribution<float> dis(0.0, 1.0);
+    for (int i{0}; i < 10; ++i) {
+        std::mt19937 gen(12345);
+        std::uniform_real_distribution<float> dis(-1.0, 1.0);
 
-    for (float& value : randData) {
-        value = dis(gen);
-    }
+        float randomFloat{dis(gen)};
+        std::cout << std::format("random float: {:.32f}", randomFloat) << std::endl;
+    
+        // Truncate float
+        for (int i{1}; i <= 4; ++i) {
+            int bits{2 ** i};
 
-    // Print floats
-    for (const float& value : randData) {
-        std::cout << std::format("{:.32f}", value) << std::endl;
-    }
-
-    // Truncate floats
-    for (int bits{1}; bits <= 23; ++bits) {
-        std::cout << "Truncating with " << bits << " bits:" << std::endl;
-        for (const float& value : randData) {
-            std::cout << std::format("{:.32f}", truncateNoRounding(value, bits)) << std::endl;
+            float roundedTruncated{truncate(randomFloat, bits)};
+            float unroundedTruncated{truncate(randomFloat, bits, false)};
+            
+            std::cout << std::format("truncated {:2} bits: {:.32f} ", bits, roundedTruncated) << std::endl;
+            std::cout << std::format("truncated {:2} bits: {:.32f} ", bits, unroundedTruncated) << std::endl;
         }
-    }   
+    }
 }

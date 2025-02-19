@@ -83,24 +83,37 @@ std::vector<T> zlibDecompress(const std::vector<uint8_t>& compressedData, const 
 
 // Bit truncation -------------------------------------------------------------------------------------------------
 
-float truncateNoRounding(float value, const int& bits) {
+float truncate(float value, const int& bits, bool round=true) {
     // Do nothing for 0 bits
     if (bits == 0) return value;
 
-    // Valid that only mantissa bits are truncated
-    if (bits > 23) {
+    // Only mantissa bits should be truncated
+    if (bits < 0 || bits > 23) {
         throw std::runtime_error("truncateNoRounding: bits must be between 0 and 23");
     }
 
-    // Create mask
-    uint32_t mask{~((0x1 << bits) - 1u)};
+    // Convert float to int
+    int32_t intVal{*reinterpret_cast<int32_t*>(&value)};
 
-    // Reinterpret float as int for truncation
-    uint32_t intVal{*reinterpret_cast<uint32_t*>(&value)};
+    // Create masks for dropping and keeping bits
+    int32_t dropMask{((static_cast<int32_t>(1) << bits) - static_cast<int32_t>(1))};
+    int32_t keepMask{~dropMask};        // This is also the maximum truncated value
 
-    // Truncate the value
-    uint32_t truncatedIntVal{intVal & mask};
+    // Truncate value
+    int32_t truncatedIntVal{intVal & keepMask};
 
+    // Round-to-even if value won't overflow
+    if (round && truncatedIntVal < keepMask) {
+        // Round-to-even has us round up if the truncated bits are greater than 2^(bits - 1)
+        // Ex: If bits = 4, we round up if the 4 dropped bits are greater than 2^3 = 1000
+        int32_t droppedVal{intVal & dropMask};      // The dropped bits
+        int32_t roundUpLimit{(1 << (bits - 1))};
+
+        if (droppedVal > roundUpLimit) {
+            truncatedIntVal = ((truncatedIntVal >> bits) + 1) << bits;
+        }
+    }
+    
     // Return truncated value as float
     return *reinterpret_cast<float*>(&truncatedIntVal);
 }

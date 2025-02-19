@@ -16,6 +16,7 @@ test-zlib: test-zlib.cpp compression_lib.hpp
 
 test-rounding: test-rounding.cpp compression_lib.hpp
 	$(CXX) $(CXXFLAGS) -o $@ $< compression_lib.hpp
+	# $(CXX) $(CXXFLAGS) -o $@ $<
 
 clean:
 	rm -f $(EXECS)
