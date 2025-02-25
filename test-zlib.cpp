@@ -1,60 +1,125 @@
 #include <chrono>
 #include <iostream>
-
 #include "compression_lib.hpp"
 
-void compressionTest(const std::string& filepath, const int& trial, const int& trialMax) {
-    // Read file data
-    std::cout << "(" << std::chrono::system_clock::now() << ") Reading file: " << filepath << std::endl;
-    std::vector<uint8_t> data{readData(filepath)};
+struct CompressionResults {
+    std::vector<uint8_t> compressedData{};
+    std::chrono::duration<long, std::nano> duration{};
+};
+
+struct DecompressionResults {
+    std::vector<float> decompressedData{};
+    std::chrono::duration<long, std::nano> duration{};
+};
+
+struct CompressionDecompressionResults {
+    size_t originalSize{};
+    size_t compressedSize{};
+    std::chrono::duration<long, std::nano> compressionDuration{};
+    std::chrono::duration<long, std::nano> decompressionDuration{};
+    std::vector<float> decompressedData{};
+};
+
+CompressionResults timedCompress(std::vector<float> basket, const int& bits) {
+    // Start timer
+    std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
 
     // Compress data
-    std::cout << "(" << std::chrono::system_clock::now() << ") Compressing data..." << std::endl;
-    std::chrono::high_resolution_clock::time_point compressionStart{std::chrono::high_resolution_clock::now()};
-    std::vector<uint8_t> compressedData{zlibCompress(data)};
-    std::chrono::high_resolution_clock::time_point compressionEnd{std::chrono::high_resolution_clock::now()};
+    std::vector<uint8_t> compressedData{zlibTruncateCompress(basket, bits)};
 
-    // Decompress data
-    std::cout << "(" << std::chrono::system_clock::now() << ") Decompressing data..." << std::endl;
-    std::chrono::high_resolution_clock::time_point decompressionStart{std::chrono::high_resolution_clock::now()};
-    std::vector<uint8_t> decompressedData{zlibDecompress<uint8_t>(compressedData, data.size())};
-    std::chrono::high_resolution_clock::time_point decompressionEnd{std::chrono::high_resolution_clock::now()};
+    // End timer
+    std::chrono::high_resolution_clock::time_point end{std::chrono::high_resolution_clock::now()};
 
-    std::cout << std::endl;
-
-    // Calculate results
-    double compressionRatio{static_cast<double>(data.size()) / compressedData.size()};
-    int64_t compressionTime{std::chrono::duration_cast<std::chrono::milliseconds>(compressionEnd - compressionStart).count()};
-    int64_t decompressionTime{std::chrono::duration_cast<std::chrono::milliseconds>(decompressionEnd - decompressionStart).count()};
-
-    // Print results
-    std::cout << "File: " << filepath << std::endl;
-    if (trialMax > 1) std::cout << "Trial: " << trial << "/" << trialMax << std::endl;
-    std::cout << "Original data size: " << data.size() << " bytes" << std::endl;
-    std::cout << "Compressed data size: " << compressedData.size() << " bytes" << std::endl;
-    std::cout << "Compression ratio: " << compressionRatio << std::endl;
-
-    std::cout << "Compression time: " << compressionTime << " ms" << std::endl;
-    std::cout << "Decompression time: " << decompressionTime << " ms" << std::endl;
-    std::cout << "Total time: " << compressionTime + decompressionTime << " ms" << std::endl;
-
-    std::cout << std::endl;
+    // Report results
+    std::chrono::duration<long, std::nano> duration{std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)};
+    return {compressedData, duration};      // This is needlessly pythonic, should be using pass-by-ref instead
 }
 
-int main(int argc, char* argv[]) { 
-    // Read args
-    int trialMax{1};
+DecompressionResults timedDecompress(std::vector<uint8_t> compressedBasket, const size_t& originalBasketSize) {
+    // Start timer
+    std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
 
-    if (argc > 1) {
-        trialMax = std::stoi(argv[1]);
+    // Decompress data
+    std::vector<float> decompressedData{zlibDecompress<float>(compressedBasket, originalBasketSize)};
+
+    // End timer
+    std::chrono::high_resolution_clock::time_point end{std::chrono::high_resolution_clock::now()};
+
+    // Report results
+    std::chrono::duration<long, std::nano> duration{std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)};
+    return {decompressedData, duration};      
+}
+
+void printHeader() {
+    std::cout << "Distribution,";
+    std::cout << "Bits,";
+    std::cout << "Original Size,";
+    std::cout << "Compressed Size,";
+    std::cout << "Compression Ratio,";
+    std::cout << "Compression Duration (ns),";
+    std::cout << "Decompression Duration (ns),";
+    std::cout << "Decompressed Mean,";
+    std::cout << "Decompressed RMS" << std::endl;
+}
+
+void reportResults(const CompressionDecompressionResults results, const std::string& distribution, const int& bits) {
+    // Create histogram of decompressed data
+    TH1F* h{basketToHistogram(results.decompressedData, std::format("hist_{}_{}", distribution, bits))};
+    
+    // Write results to stdout
+    std::cout << distribution << ",";
+    std::cout << bits << ",";
+    std::cout << results.originalSize << ",";
+    std::cout << results.compressedSize << ",";
+    std::cout << static_cast<double>(results.originalSize) / results.compressedSize << ",";
+    std::cout << results.compressionDuration.count() << ",";
+    std::cout << results.decompressionDuration.count() << ",";
+    std::cout << h->GetMean() << ",";
+    std::cout << h->GetRMS() << std::endl;
+
+    // Delete histogram
+    delete h;
+}
+
+template <typename Distribution>
+void testDistribution(const Distribution& distribution, const std::string& distName, const int& basketSize, const int& seed) {
+    // Generate basket
+    std::vector<float> basket{generateRandomBasket(distribution, seed, basketSize)};
+
+    // Test compression and decompression for each number of bits
+    std::vector<CompressionDecompressionResults> results(24);
+    for (int bits{0}; bits <= 23; bits++) {
+        // Compress
+        CompressionResults compResult{timedCompress(basket, bits)};
+        results[bits].originalSize = basket.size() * sizeof(float);
+        results[bits].compressedSize = compResult.compressedData.size();
+        results[bits].compressionDuration = compResult.duration;
+
+        // Decompress
+        DecompressionResults decompResult{timedDecompress(compResult.compressedData, results[bits].originalSize)};
+        results[bits].decompressedData = decompResult.decompressedData;
+        results[bits].decompressionDuration = decompResult.duration;
+
+        // Report results
+        reportResults(results[bits], distName, bits);
     }
+}
 
-    // Run tests
-    for (const std::string& filepath : corpus) {
-        for (int trial{1}; trial <= trialMax; ++trial) {
-            compressionTest(filepath, trial, trialMax);
-        }
-    }
+int main() {
+    int basketSize{8000};
+    int seed{12345};
+    std::string distName{};
 
+    // Uniform distribution
+    float min{0};
+    float max{static_cast<float>(1 << 5)};
+    distName = std::format("uniform_min={}_max={}", min, max);
+    std::uniform_real_distribution<float> uniformDistribution(min, max);
+
+    // Test distributions
+    printHeader();
+    testDistribution(uniformDistribution, distName, basketSize, seed);
+    
+        
     return 0;
 }

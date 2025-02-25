@@ -1,5 +1,9 @@
-DAOD*
-old/many_normals
-old/single_normal
-old/truncation
-old/zlib-example
+many_normals
+single_normal
+truncation
+zlib-example
+
+data/*
+
+test-zlib
+test-sz
