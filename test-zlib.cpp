@@ -1,4 +1,5 @@
 #include <chrono>
+#include <fstream>
 #include <iostream>
 #include "compression_lib.hpp"
 
@@ -14,10 +15,21 @@ struct DecompressionResults {
 
 struct CompressionDecompressionResults {
     size_t originalSize{};
+    float originalMean{};
+    float originalMeanError{};
+    float originalRMS{};
+    float originalRMSError{};
     size_t compressedSize{};
+    float decompressedMean{};
+    float decompressedMeanError{};
+    float decompressedRMS{};
+    float decompressedRMSError{};
+    float meanCE{};
+    float meanErrorCE{};
+    float rmsCE{};
+    float rmsErrorCE{};
     std::chrono::duration<long, std::nano> compressionDuration{};
     std::chrono::duration<long, std::nano> decompressionDuration{};
-    std::vector<float> decompressedData{};
 };
 
 CompressionResults timedCompress(std::vector<float> basket, const int& bits) {
@@ -50,63 +62,136 @@ DecompressionResults timedDecompress(std::vector<uint8_t> compressedBasket, cons
     return {decompressedData, duration};      
 }
 
-void printHeader() {
-    std::cout << "Distribution,";
-    std::cout << "Bits,";
-    std::cout << "Original Size,";
-    std::cout << "Compressed Size,";
-    std::cout << "Compression Ratio,";
-    std::cout << "Compression Duration (ns),";
-    std::cout << "Decompression Duration (ns),";
-    std::cout << "Decompressed Mean,";
-    std::cout << "Decompressed RMS" << std::endl;
+// Write header to file
+void writeHeader(std::ofstream& file) {
+    // Write header to file
+    file << "Distribution,";
+    file << "Bits Truncated,";
+    file << "Compression Duration (ns),";
+    file << "Decompression Duration (ns),";
+    file << "Original Size,";
+    file << "Compressed Size,";
+    file << "Compression Ratio,";
+    file << "Original Mean,";
+    file << "Original Mean Error,";
+    file << "Original RMS,";
+    file << "Original RMS Error,";
+    file << "Decompressed Mean,";
+    file << "Decompressed Mean Error,";
+    file << "Decompressed RMS,";
+    file << "Decompressed RMS Error,";
+    file << "Mean CE,";
+    file << "Mean Error CE,";
+    file << "RMS CE,";
+    file << "RMS Error CE" << std::endl;
 }
 
-void reportResults(const CompressionDecompressionResults results, const std::string& distribution, const int& bits) {
-    // Create histogram of decompressed data
-    TH1F* h{basketToHistogram(results.decompressedData, std::format("hist_{}_{}", distribution, bits))};
-    
-    // Write results to stdout
-    std::cout << distribution << ",";
-    std::cout << bits << ",";
-    std::cout << results.originalSize << ",";
-    std::cout << results.compressedSize << ",";
-    std::cout << static_cast<double>(results.originalSize) / results.compressedSize << ",";
-    std::cout << results.compressionDuration.count() << ",";
-    std::cout << results.decompressionDuration.count() << ",";
-    std::cout << h->GetMean() << ",";
-    std::cout << h->GetRMS() << std::endl;
+void writeResults(std::ofstream& file, const CompressionDecompressionResults& results, const std::string& distribution, const int& bits) {
+    file << std::format("{}," , distribution);
+    file << std::format("{}," , bits);
+    file << std::format("{}," , results.compressionDuration.count());
+    file << std::format("{}," , results.decompressionDuration.count());
+    file << std::format("{}," , results.originalSize);
+    file << std::format("{}," , results.compressedSize);
+    file << std::format("{}," , static_cast<double>(results.originalSize) / results.compressedSize);
+    file << std::format("{}," , results.originalMean);
+    file << std::format("{}," , results.originalMeanError);
+    file << std::format("{}," , results.originalRMS);
+    file << std::format("{}," , results.originalRMSError);
+    file << std::format("{}," , results.decompressedMean);
+    file << std::format("{}," , results.decompressedMeanError);
+    file << std::format("{}," , results.decompressedRMS);
+    file << std::format("{}," , results.decompressedRMSError);
+    file << std::format("{}," , results.meanCE);
+    file << std::format("{}," , results.meanErrorCE);
+    file << std::format("{}," , results.rmsCE);
+    file << std::format("{}" , results.rmsErrorCE);
+    file << std::endl;
+}
 
-    // Delete histogram
-    delete h;
+void printLog(const CompressionDecompressionResults& results, const std::string& distribution, const int& bits) {
+    // Print log to console
+    std::cout << "Distribution: " << distribution << std::endl;
+    std::cout << "Bits Truncated: " << bits << std::endl;
+    std::cout << "Compression Duration (ns): " << results.compressionDuration.count() << std::endl;
+    std::cout << "Decompression Duration (ns): " << results.decompressionDuration.count() << std::endl;
+    std::cout << "Original Size: " << results.originalSize << std::endl;
+    std::cout << "Compressed Size: " << results.compressedSize << std::endl;
+    std::cout << "Compression Ratio: " << static_cast<double>(results.originalSize) / results.compressedSize << std::endl;
+    std::cout << "Original Mean: " << results.originalMean << std::endl;
+    std::cout << "==========" << std::endl;
 }
 
 template <typename Distribution>
-void testDistribution(const Distribution& distribution, const std::string& distName, const int& basketSize, const int& seed) {
+void testDistribution(std::ofstream& file, const Distribution& distribution, const std::string& distName, const int& basketSize, const int& seed) {
     // Generate basket
+    std::cout << "(" << std::chrono::system_clock::now() << ") ";
+    std::cout << "Generating basket with " << basketSize << " elements for " << distName << std::endl;
+
     std::vector<float> basket{generateRandomBasket(distribution, seed, basketSize)};
 
+    // Collect original distribution stats
+    CompressionDecompressionResults results{};
+    TH1F* h{basketToHistogram(basket, distName)};
+    results.originalSize = basket.size();
+    results.originalMean = h->GetMean();
+    results.originalMeanError = h->GetMeanError();
+    results.originalRMS = h->GetRMS();
+    results.originalRMSError = h->GetRMSError();
+    delete h;
+
     // Test compression and decompression for each number of bits
-    std::vector<CompressionDecompressionResults> results(24);
     for (int bits{0}; bits <= 23; bits++) {
         // Compress
+        std::cout << "(" << std::chrono::system_clock::now() << ") ";
+        std::cout << "Compressing with " << bits << "-bit truncation" << std::endl;
+
         CompressionResults compResult{timedCompress(basket, bits)};
-        results[bits].originalSize = basket.size() * sizeof(float);
-        results[bits].compressedSize = compResult.compressedData.size();
-        results[bits].compressionDuration = compResult.duration;
+        results.originalSize = basket.size();
+        results.compressedSize = compResult.compressedData.size();
+        results.compressionDuration = compResult.duration;
 
         // Decompress
-        DecompressionResults decompResult{timedDecompress(compResult.compressedData, results[bits].originalSize)};
-        results[bits].decompressedData = decompResult.decompressedData;
-        results[bits].decompressionDuration = decompResult.duration;
+        std::cout << "(" << std::chrono::system_clock::now() << ") ";
+        std::cout << "Decompressing..." << std::endl;
 
-        // Report results
-        reportResults(results[bits], distName, bits);
+        DecompressionResults decompResult{timedDecompress(compResult.compressedData, results.originalSize)};
+        results.decompressionDuration = decompResult.duration;
+
+        // Collect decompressed distribution stats
+        TH1F* h{basketToHistogram(decompResult.decompressedData, std::format("hist_{}_{}", distName, bits))};
+
+        results.decompressedMean = h->GetMean();
+        results.decompressedMeanError = h->GetMeanError();
+        results.decompressedRMS = h->GetRMS();
+        results.decompressedRMSError = h->GetRMSError();
+        
+        results.meanCE = results.originalMean - results.decompressedMean;
+        results.meanErrorCE = results.originalMeanError + results.decompressedMeanError;
+        results.rmsCE = results.originalRMS - results.decompressedRMS;
+        results.rmsErrorCE = results.originalRMSError + results.decompressedRMSError;
+        
+        delete h;
+
+        // Calculate compression ratio
+        double compressionRatio{static_cast<double>(results.originalSize) / results.compressedSize};
+
+        // Write results to file
+        writeResults(file, results, distName, bits);
     }
 }
 
-int main() {
-    int basketSize{8000};
+int main(int argc, char* argv[]) {
+    // Get filename from args, otherwise use default
+    std::string filename{};
+    if (argc > 1) {
+        filename = argv[1];
+    } else {
+        filename = "results.csv";
+    }
+    std::cout << "Using filename: " << filename << std::endl;
+
+    int basketSize{BASKET_SIZE};
     int seed{12345};
     std::string distName{};
 
@@ -116,10 +201,18 @@ int main() {
     distName = std::format("uniform_min={}_max={}", min, max);
     std::uniform_real_distribution<float> uniformDistribution(min, max);
 
-    // Test distributions
-    printHeader();
-    testDistribution(uniformDistribution, distName, basketSize, seed);
+    // Normal distribution
     
+
+    // Open file for writing
+    std::ofstream file{filename};
+    writeHeader(file);
+
+    // Test distributions
+    testDistribution(file, uniformDistribution, distName, basketSize, seed);
+
+    // Close file
+    file.close();
         
     return 0;
 }

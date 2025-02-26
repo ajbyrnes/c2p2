@@ -89,7 +89,7 @@ void testDistribution(const Distribution& distribution, const std::string& distN
 
     // Compress
     CompressionResults compResult{timedCompress(basket)};
-    results.originalSize = basket.size() * sizeof(float);
+    results.originalSize = basket.size();
     results.compressedSize = compResult.compressedData.size();
     results.compressionDuration = compResult.duration;
 
@@ -103,7 +103,7 @@ void testDistribution(const Distribution& distribution, const std::string& distN
 }
 
 int main() {
-    int basketSize{800'000};
+    int basketSize{BASKET_SIZE};
     int seed{12345};
     std::string distName{};
 

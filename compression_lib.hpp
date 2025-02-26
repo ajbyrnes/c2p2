@@ -24,7 +24,7 @@ std::vector<std::string> corpus{
     "data/misc.tar"             // First 1,000,000 digits of pi    
 };    
 
-constexpr int BASKET_SIZE{32'000 / sizeof(float)};
+constexpr int BASKET_SIZE{400'000'000 / sizeof(float)};
 
 // zlib compression ----------------------------------------------------------------------------------------------
 // Modified from https://gitlab.cern.ch/-/snippets/3301
