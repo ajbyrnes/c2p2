@@ -93,19 +93,19 @@ void writeResults(std::ofstream& file, const CompressionDecompressionResults& re
     file << std::format("{}," , results.decompressionDuration.count());
     file << std::format("{}," , results.originalSize);
     file << std::format("{}," , results.compressedSize);
-    file << std::format("{}," , static_cast<double>(results.originalSize) / results.compressedSize);
-    file << std::format("{}," , results.originalMean);
-    file << std::format("{}," , results.originalMeanError);
-    file << std::format("{}," , results.originalRMS);
-    file << std::format("{}," , results.originalRMSError);
-    file << std::format("{}," , results.decompressedMean);
-    file << std::format("{}," , results.decompressedMeanError);
-    file << std::format("{}," , results.decompressedRMS);
-    file << std::format("{}," , results.decompressedRMSError);
-    file << std::format("{}," , results.meanCE);
-    file << std::format("{}," , results.meanErrorCE);
-    file << std::format("{}," , results.rmsCE);
-    file << std::format("{}" , results.rmsErrorCE);
+    file << std::format("{:.16f}," , static_cast<double>(results.originalSize) / results.compressedSize);
+    file << std::format("{:.16f}," , results.originalMean);
+    file << std::format("{:.16f}," , results.originalMeanError);
+    file << std::format("{:.16f}," , results.originalRMS);
+    file << std::format("{:.16f}," , results.originalRMSError);
+    file << std::format("{:.16f}," , results.decompressedMean);
+    file << std::format("{:.16f}," , results.decompressedMeanError);
+    file << std::format("{:.16f}," , results.decompressedRMS);
+    file << std::format("{:.16f}," , results.decompressedRMSError);
+    file << std::format("{:.16f}," , results.meanCE);
+    file << std::format("{:.16f}," , results.meanErrorCE);
+    file << std::format("{:.16f}," , results.rmsCE);
+    file << std::format("{:.16f}" , results.rmsErrorCE);
     file << std::endl;
 }
 
@@ -122,18 +122,29 @@ void printLog(const CompressionDecompressionResults& results, const std::string&
     std::cout << "==========" << std::endl;
 }
 
+
 template <typename Distribution>
-void testDistribution(std::ofstream& file, const Distribution& distribution, const std::string& distName, const int& basketSize, const int& seed) {
+std::vector<float> generateRandomTestData(const Distribution& distribution, const std::string& distName, const int& seed, const int& dataSize, const bool& sorted) {
     // Generate basket
     std::cout << "(" << std::chrono::system_clock::now() << ") ";
-    std::cout << "Generating basket with " << basketSize << " elements for " << distName << std::endl;
+    std::cout << "Generating vector with " << dataSize << " elements for " << distName << std::endl;
 
-    std::vector<float> basket{generateRandomBasket(distribution, seed, basketSize)};
+    std::vector<float> data{generateRandomData(distribution, seed, dataSize)};
 
+    if (sorted) {
+        std::cout << "(" << std::chrono::system_clock::now() << ") ";
+        std::cout << "Sorting vector..." << std::endl;
+        std::sort(data.begin(), data.end());
+    }
+
+    return data;
+}
+
+void testCompressionDecompression(std::ofstream& file, const std::vector<float>& data, const std::string& dataName, const int& seed) {
     // Collect original distribution stats
     CompressionDecompressionResults results{};
-    TH1F* h{basketToHistogram(basket, distName)};
-    results.originalSize = basket.size();
+    TH1F* h{vectorToHistogram(data, dataName)};
+    results.originalSize = data.size();
     results.originalMean = h->GetMean();
     results.originalMeanError = h->GetMeanError();
     results.originalRMS = h->GetRMS();
@@ -146,8 +157,8 @@ void testDistribution(std::ofstream& file, const Distribution& distribution, con
         std::cout << "(" << std::chrono::system_clock::now() << ") ";
         std::cout << "Compressing with " << bits << "-bit truncation" << std::endl;
 
-        CompressionResults compResult{timedCompress(basket, bits)};
-        results.originalSize = basket.size();
+        CompressionResults compResult{timedCompress(data, bits)};
+        results.originalSize = data.size();
         results.compressedSize = compResult.compressedData.size();
         results.compressionDuration = compResult.duration;
 
@@ -159,17 +170,17 @@ void testDistribution(std::ofstream& file, const Distribution& distribution, con
         results.decompressionDuration = decompResult.duration;
 
         // Collect decompressed distribution stats
-        TH1F* h{basketToHistogram(decompResult.decompressedData, std::format("hist_{}_{}", distName, bits))};
+        TH1F* h{vectorToHistogram(decompResult.decompressedData, std::format("hist_{}_{}", dataName, bits))};
 
         results.decompressedMean = h->GetMean();
         results.decompressedMeanError = h->GetMeanError();
         results.decompressedRMS = h->GetRMS();
         results.decompressedRMSError = h->GetRMSError();
         
-        results.meanCE = results.originalMean - results.decompressedMean;
-        results.meanErrorCE = results.originalMeanError + results.decompressedMeanError;
-        results.rmsCE = results.originalRMS - results.decompressedRMS;
-        results.rmsErrorCE = results.originalRMSError + results.decompressedRMSError;
+        results.meanCE = std::abs(results.originalMean - results.decompressedMean);
+        results.meanErrorCE = std::abs(results.originalMeanError - results.decompressedMeanError);
+        results.rmsCE = std::abs(results.originalRMS - results.decompressedRMS);
+        results.rmsErrorCE = std::abs(results.originalRMSError - results.decompressedRMSError);
         
         delete h;
 
@@ -177,39 +188,72 @@ void testDistribution(std::ofstream& file, const Distribution& distribution, con
         double compressionRatio{static_cast<double>(results.originalSize) / results.compressedSize};
 
         // Write results to file
-        writeResults(file, results, distName, bits);
+        writeResults(file, results, dataName, bits);
     }
 }
 
 int main(int argc, char* argv[]) {
-    // Get filename from args, otherwise use default
-    std::string filename{};
+    // Get distribution from args, otherwise use default
+    int MODE{0};
     if (argc > 1) {
-        filename = argv[1];
-    } else {
-        filename = "results.csv";
+        MODE = std::stoi(argv[1]);
     }
-    std::cout << "Using filename: " << filename << std::endl;
+    else {
+        // Usage
+        std::cout << "Usage: " << argv[0] << " <mode>" << std::endl;
+        std::cout << "Modes:" << std::endl;
+        std::cout << "1: Uniform Random Data" << std::endl;    
+        std::cout << "2: Normal Random Data" << std::endl;
+        std::cout << "3: Sorted Uniform Random Data" << std::endl;
+        std::cout << "4: Sorted Normal Random Data" << std::endl;
+        return 1;
+    }
 
-    int basketSize{BASKET_SIZE};
+    int dataSize{DATA_SIZE};
     int seed{12345};
-    std::string distName{};
 
     // Uniform distribution
     float min{0};
     float max{static_cast<float>(1 << 5)};
-    distName = std::format("uniform_min={}_max={}", min, max);
+    std::string uniformName{std::format("uniform_min={}_max={}", min, max)};
+    std::string uniformSortedName{std::format("uniform_sorted_min={}_max={}", min, max)};
     std::uniform_real_distribution<float> uniformDistribution(min, max);
 
     // Normal distribution
-    
+    float muNorm{0};
+    float sigmaNorm{1};
+    std::string normalName{std::format("normal_mu={}_sigma={}", muNorm, sigmaNorm)};
+    std::string normalSortedName{std::format("normal_sorted_mu={}_sigma={}", muNorm, sigmaNorm)};
+    std::normal_distribution<float> normalDistribution(muNorm, sigmaNorm);
 
     // Open file for writing
+    std::string filename{std::format("test-zlib-{}.csv", MODE)};
     std::ofstream file{filename};
     writeHeader(file);
 
     // Test distributions
-    testDistribution(file, uniformDistribution, distName, basketSize, seed);
+    std::vector<float> testData{};
+    switch(MODE) {
+        case 1:
+            testData = generateRandomTestData(uniformDistribution, uniformName, seed, dataSize, false);
+            testCompressionDecompression(file, testData, uniformName, dataSize);
+            break;
+        case 2:
+            testData = generateRandomTestData(normalDistribution, normalName, seed, dataSize, false);
+            testCompressionDecompression(file, testData, normalName, dataSize);
+            break;
+        case 3:
+            testData = generateRandomTestData(uniformDistribution, uniformSortedName, seed, dataSize, true);
+            testCompressionDecompression(file, testData, uniformSortedName, dataSize);
+            break;
+        case 4:
+            testData = generateRandomTestData(normalDistribution, normalSortedName, seed, dataSize, true);
+            testCompressionDecompression(file, testData, normalSortedName, dataSize);
+            break;
+        default:
+            std::cout << "Invalid distribution" << std::endl;
+            return 1;
+    }
 
     // Close file
     file.close();

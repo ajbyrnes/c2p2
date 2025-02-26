@@ -6,13 +6,13 @@ void truncateDistribution(std::vector<float>& basket, const int& min, const int&
     std::vector<std::vector<float>> truncatedBaskets;
     truncatedBaskets.push_back(basket);
     for (int i{1}; i <= 23; i++) {
-        truncatedBaskets.push_back(truncateBasket(basket, i));
+        truncatedBaskets.push_back(truncateVectorData(basket, i));
     }
 
     // Create histograms
     std::vector<TH1F*> histograms;
     for (size_t i{0}; i < truncatedBaskets.size(); i++) {
-        histograms.push_back(basketToHistogram(truncatedBaskets[i], min, max, std::format("{}_{:02d}_bits", distribution, i)));
+        histograms.push_back(vectorToHistogram(truncatedBaskets[i], min, max, std::format("{}_{:02d}_bits", distribution, i)));
     }
 
     // Print histogram statistics
@@ -37,7 +37,7 @@ void truncation(){
 
     // Uniform distribution
     std::uniform_real_distribution<float> uniformDistribution(min, max);
-    std::vector<float> uniformBasket{generateRandomBasket(uniformDistribution, seed, basketSize)};
+    std::vector<float> uniformBasket{generateRandomData(uniformDistribution, seed, basketSize)};
 
     // Truncate data and report results
     std::cout << "UNIFORM DISTRIBUTION" << std::endl;
@@ -52,7 +52,7 @@ void truncation(){
     float mean{16.0};
     float sigma{4.0};
     std::normal_distribution<float> normalDistribution(mean, sigma);
-    std::vector<float> normalBasket{generateRandomBasket(normalDistribution, seed, basketSize)};
+    std::vector<float> normalBasket{generateRandomData(normalDistribution, seed, basketSize)};
 
     // Truncate data and report results
     std::cout << "NORMAL DISTRIBUTION" << std::endl;

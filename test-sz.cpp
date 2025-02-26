@@ -63,7 +63,7 @@ void printHeader() {
 
 void reportResults(const CompressionDecompressionResults results, const std::string& distribution) {
     // Create histogram of decompressed data
-    TH1F* h{basketToHistogram(results.decompressedData, std::format("hist_{}", distribution))};
+    TH1F* h{vectorToHistogram(results.decompressedData, std::format("hist_{}", distribution))};
     
     // Write results to stdout
     std::cout << distribution << ",";
@@ -82,7 +82,7 @@ void reportResults(const CompressionDecompressionResults results, const std::str
 template <typename Distribution>
 void testDistribution(const Distribution& distribution, const std::string& distName, const int& basketSize, const int& seed) {
     // Generate basket
-    std::vector<float> basket{generateRandomBasket(distribution, seed, basketSize)};
+    std::vector<float> basket{generateRandomData(distribution, seed, basketSize)};
 
     // Allocate CompressionDecompressionResults
     CompressionDecompressionResults results{};
@@ -103,7 +103,7 @@ void testDistribution(const Distribution& distribution, const std::string& distN
 }
 
 int main() {
-    int basketSize{BASKET_SIZE};
+    int basketSize{DATA_SIZE};
     int seed{12345};
     std::string distName{};
 

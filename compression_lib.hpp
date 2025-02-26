@@ -24,7 +24,7 @@ std::vector<std::string> corpus{
     "data/misc.tar"             // First 1,000,000 digits of pi    
 };    
 
-constexpr int BASKET_SIZE{400'000'000 / sizeof(float)};
+constexpr int DATA_SIZE{400'000'000 / sizeof(float)};
 
 // zlib compression ----------------------------------------------------------------------------------------------
 // Modified from https://gitlab.cern.ch/-/snippets/3301
@@ -186,64 +186,64 @@ void writeChars(const std::string& filename, const std::vector<uint8_t>& data) {
 // Data generation -------------------------------------------------------------------------------------------------
 
 template <typename Distribution>
-std::vector<float> generateRandomBasket(Distribution distribution, int basketSize=BASKET_SIZE) {
+std::vector<float> generateRandomData(Distribution distribution, int dataSize=DATA_SIZE) {
     // Allocate basket
-    std::vector<float> basket(basketSize);
+    std::vector<float> data(dataSize);
 
     // Seed generator with random device
     std::random_device rd;
     std::mt19937 generator(rd());
 
     // Generate data
-    for (int i{0}; i < basketSize; i++) {
-        basket[i] = distribution(generator);
+    for (int i{0}; i < dataSize; i++) {
+        data[i] = distribution(generator);
     }
 
-    return basket;
+    return data;
 }
 
 template <typename Distribution>
-std::vector<float> generateRandomBasket(Distribution distribution, int seed, int basketSize=BASKET_SIZE) {
+std::vector<float> generateRandomData(Distribution distribution, int seed, int dataSize=DATA_SIZE) {
     // Allocate basket
-    std::vector<float> basket(basketSize);
+    std::vector<float> data(dataSize);
 
     // Seed generator with provided seed
     std::mt19937 generator;
     generator.seed(seed);
 
     // Generate data
-    for (int i{0}; i < basketSize; i++) {
-        basket[i] = distribution(generator);
+    for (int i{0}; i < dataSize; i++) {
+        data[i] = distribution(generator);
     }
 
-    return basket;
+    return data;
 }
 
 // Other utilities -------------------------------------------------------------------------------------------------
 
-TH1F* basketToHistogram(const std::vector<float>& basket, const std::string& name) {
+TH1F* vectorToHistogram(const std::vector<float>& data, const std::string& name) {
     // Get min, max values
-    float basketMin{*std::min_element(basket.begin(), basket.end())};
-    float basketMax{*std::max_element(basket.begin(), basket.end())};
+    float basketMin{*std::min_element(data.begin(), data.end())};
+    float basketMax{*std::max_element(data.begin(), data.end())};
 
     // Create histogram
-    TH1F* h{new TH1F(name.c_str(), name.c_str(), basket.size(), basketMin, basketMax)};
+    TH1F* h{new TH1F(name.c_str(), name.c_str(), data.size(), basketMin, basketMax)};
 
     // Fill histogram
-    for (const float& value : basket) {
+    for (const float& value : data) {
         h->Fill(value);
     }
 
     return h;
 }
 
-std::vector<float> truncateBasket(const std::vector<float>& basket, const int& bits) {
+std::vector<float> truncateVectorData(const std::vector<float>& data, const int& bits) {
     // Allocate truncated basket
-    std::vector<float> truncatedBasket(basket.size());
+    std::vector<float> truncatedBasket(data.size());
 
     // Truncate basket
-    for (size_t i{0}; i < basket.size(); i++) {
-        truncatedBasket[i] = truncate(basket[i], bits);
+    for (size_t i{0}; i < data.size(); i++) {
+        truncatedBasket[i] = truncate(data[i], bits);
     }
 
     return truncatedBasket;
