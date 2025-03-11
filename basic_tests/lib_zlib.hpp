@@ -1,9 +1,11 @@
-#ifndef LIB_ZLIB_HPP
-#define LIB_ZLIB_HPP
-
 #include <cstdint>
 #include <vector>
 #include <zlib.h>
+
+#include "lib_utils.hpp"
+
+#ifndef LIB_ZLIB_HPP
+#define LIB_ZLIB_HPP
 
 // zlib compression ----------------------------------------------------------------------------------------------
 // Modified from https://gitlab.cern.ch/-/snippets/3301
@@ -53,5 +55,26 @@ std::vector<uint8_t> zlibTruncateCompress(const std::vector<float>& data,
 float truncate(float value, const int& bits, const bool& round=true);
 std::vector<float> truncateVectorData(const std::vector<float>& data, 
                                       const int& bits, bool round=true);
+
+// Test functions ---------------------------------------------------------------------------------------------------
+
+CompressionResults timedZlibCompress(std::vector<char> data, const int& level);
+CompressionResults timedZlibTruncateCompress(std::vector<float> data, const int& bits, const int& level=Z_DEFAULT_COMPRESSION);
+
+template<typename T>
+DecompressionResults<T> timedZlibDecompress(std::vector<uint8_t> compressedData, const size_t& originalDataSize) {
+    // Start timer
+    std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
+
+    // Decompress data
+    std::vector<T> decompressedData{zlibDecompress<T>(compressedData, originalDataSize)};
+
+    // End timer
+    std::chrono::high_resolution_clock::time_point end{std::chrono::high_resolution_clock::now()};
+
+    // Report results
+    std::chrono::duration<long, std::nano> duration{std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)};
+    return {decompressedData, duration};      
+}
 
 #endif

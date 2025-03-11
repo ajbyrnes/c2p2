@@ -1,7 +1,41 @@
 #include <algorithm>
 #include <string>
 #include <stdexcept>
+
+#include "lib_utils.hpp"
 #include "lib_zlib.hpp"
+
+// Test functions
+
+CompressionResults timedZlibCompress(std::vector<char> data, const int& level=Z_DEFAULT_COMPRESSION) {
+    // Start timer
+    std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
+
+    // Compress data
+    std::vector<uint8_t> compressedData{zlibCompress<char>(data, level)};
+
+    // End timer
+    std::chrono::high_resolution_clock::time_point end{std::chrono::high_resolution_clock::now()};
+
+    // Report results
+    std::chrono::duration<long, std::nano> duration{std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)};
+    return {compressedData, duration};
+}
+
+CompressionResults timedZlibTruncateCompress(std::vector<float> data, const int& bits, const int& level) {
+    // Start timer
+    std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
+
+    // Compress data
+    std::vector<uint8_t> compressedData{zlibTruncateCompress(data, bits, level)};
+
+    // End timer
+    std::chrono::high_resolution_clock::time_point end{std::chrono::high_resolution_clock::now()};
+
+    // Report results
+    std::chrono::duration<long, std::nano> duration{std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)};
+    return {compressedData, duration};      // This is needlessly pythonic, should be using pass-by-ref instead
+}
 
 // Compression -----------------------------------------------------------------------------------------------------
 

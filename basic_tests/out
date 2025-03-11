@@ -1,0 +1,23 @@
+g++-13 -o random_sz random_sz.cpp lib_sz.o lib_utils.o -pthread -std=c++17 -m64 -I/home/abyrnes/root/include -L/home/abyrnes/root/lib -lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lROOTVecOps -lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lMultiProc -lROOTDataFrame -Wl,-rpath,/home/abyrnes/root/lib -pthread -lm -ldl -rdynamic -std=c++20 -pedantic -Wno-unused-parameter -L/home/abyrnes/SZ3/lib -lSZ3C -lzstd -I/home/abyrnes/SZ3/include 
+In file included from /home/abyrnes/root/include/ROOT/RConfig.hxx:23,
+                 from /home/abyrnes/root/include/RtypesCore.h:23,
+                 from /home/abyrnes/root/include/Rtypes.h:23,
+                 from /home/abyrnes/root/include/TObject.h:17,
+                 from /home/abyrnes/root/include/TNamed.h:25,
+                 from /home/abyrnes/root/include/TAxis.h:24,
+                 from /home/abyrnes/root/include/TH1.h:24,
+                 from /home/abyrnes/root/include/TH1F.h:24,
+                 from lib_utils.hpp:7,
+                 from lib_sz.hpp:4,
+                 from random_sz.cpp:239:
+/home/abyrnes/root/include/RConfigure.h:30:4: warning: #warning before C++23 is a GCC extension
+   30 | #  warning "The C++ standard in this build does not match ROOT configuration (201703L); this might cause unexpected issues"
+      |    ^~~~~~~
+/home/abyrnes/root/include/RConfigure.h:30:4: warning: #warning "The C++ standard in this build does not match ROOT configuration (201703L); this might cause unexpected issues" [-Wcpp]
+/usr/bin/ld: lib_sz.o:(.data+0x0): multiple definition of `SZ3::COEFF_1D'; /tmp/cc9C6zSB.o:(.data+0x0): first defined here
+/usr/bin/ld: lib_sz.o:(.data+0x27fc0): multiple definition of `SZ3::COEFF_2D'; /tmp/cc9C6zSB.o:(.data+0x27fc0): first defined here
+/usr/bin/ld: lib_sz.o:(.data+0xb6a20): multiple definition of `SZ3::COEFF_3D'; /tmp/cc9C6zSB.o:(.data+0xb6a20): first defined here
+/usr/bin/ld: lib_sz.o:(.data+0x1caa40): multiple definition of `SZ3::COEFF_4D'; /tmp/cc9C6zSB.o:(.data+0x1caa40): first defined here
+/usr/bin/ld: cannot find -lSZ3C: No such file or directory
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:37: random_sz] Error 1
