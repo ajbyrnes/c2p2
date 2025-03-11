@@ -1,66 +1,8 @@
 #include <chrono>
 #include <fstream>
 #include <iostream>
-#include "compression_lib.hpp"
 
-struct CompressionResults {
-    std::vector<uint8_t> compressedData{};
-    std::chrono::duration<long, std::nano> duration{};
-};
-
-struct DecompressionResults {
-    std::vector<float> decompressedData{};
-    std::chrono::duration<long, std::nano> duration{};
-};
-
-struct CompressionDecompressionResults {
-    size_t originalSize{};
-    float originalMean{};
-    float originalMeanError{};
-    float originalRMS{};
-    float originalRMSError{};
-    size_t compressedSize{};
-    float decompressedMean{};
-    float decompressedMeanError{};
-    float decompressedRMS{};
-    float decompressedRMSError{};
-    float meanCE{};
-    float meanErrorCE{};
-    float rmsCE{};
-    float rmsErrorCE{};
-    std::chrono::duration<long, std::nano> compressionDuration{};
-    std::chrono::duration<long, std::nano> decompressionDuration{};
-};
-
-CompressionResults timedCompress(std::vector<float> basket, const int& bits, const int& level=Z_DEFAULT_COMPRESSION) {
-    // Start timer
-    std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
-
-    // Compress data
-    std::vector<uint8_t> compressedData{zlibTruncateCompress(basket, bits, level)};
-
-    // End timer
-    std::chrono::high_resolution_clock::time_point end{std::chrono::high_resolution_clock::now()};
-
-    // Report results
-    std::chrono::duration<long, std::nano> duration{std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)};
-    return {compressedData, duration};      // This is needlessly pythonic, should be using pass-by-ref instead
-}
-
-DecompressionResults timedDecompress(std::vector<uint8_t> compressedBasket, const size_t& originalBasketSize) {
-    // Start timer
-    std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
-
-    // Decompress data
-    std::vector<float> decompressedData{zlibDecompress<float>(compressedBasket, originalBasketSize)};
-
-    // End timer
-    std::chrono::high_resolution_clock::time_point end{std::chrono::high_resolution_clock::now()};
-
-    // Report results
-    std::chrono::duration<long, std::nano> duration{std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)};
-    return {decompressedData, duration};      
-}
+#include "lib_test.hpp"
 
 // Write header to file
 void writeHeader(std::ofstream& file) {
@@ -112,21 +54,6 @@ void writeResults(std::ofstream& file, const CompressionDecompressionResults& re
     file << std::format("{:.16f}", results.rmsErrorCE);
     file << std::endl;
 }
-
-void printLog(const CompressionDecompressionResults& results, const std::string& mode, const int& bits, const int& level) {
-    // Print log to console
-    std::cout << "Mode: " << mode << std::endl;
-    std::cout << "Bits Truncated: " << bits << std::endl;
-    std::cout << "Compression Level: " << level << std::endl;
-    std::cout << "Compression Duration (ns): " << results.compressionDuration.count() << std::endl;
-    std::cout << "Decompression Duration (ns): " << results.decompressionDuration.count() << std::endl;
-    std::cout << "Original Size: " << results.originalSize << std::endl;
-    std::cout << "Compressed Size: " << results.compressedSize << std::endl;
-    std::cout << "Compression Ratio: " << static_cast<double>(results.originalSize) / results.compressedSize << std::endl;
-    std::cout << "Original Mean: " << results.originalMean << std::endl;
-    std::cout << "==========" << std::endl;
-}
-
 
 template <typename Distribution>
 std::vector<float> generateRandomTestData(const Distribution& distribution, const std::string& distName, const int& seed, const int& dataSize, const bool& sorted) {
@@ -242,7 +169,7 @@ int main(int argc, char* argv[]) {
     std::normal_distribution<float> normalDistribution(muNorm, sigmaNorm);
 
     // Open file for writing
-    std::string filename{std::format("test-zlib-d={}-l={}.csv", MODE, LEVEL)};
+    std::string filename{std::format("test-zlib-{}.csv", MODE)};
     std::ofstream file{filename};
     writeHeader(file);
 

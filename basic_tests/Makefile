@@ -11,31 +11,22 @@ SZ_FLAGS = $(SZ_COMPILE_FLAGS) $(SZ_LINK_FLAGS)
 
 ROOT_FLAGS = $(shell root-config --cflags --libs)
 
-# EXECS = hello-zlib hello-sz \
-# 		test-rounding test-truncation \
-# 		test-zlib test-sz
+LIBS_HDRS = lib_zlib.hpp lib_test.hpp
+LIBS_SRCS = lib_zlib.cpp lib_test.cpp
+LIBS_OBJS = $(LIBS_SRCS:.cpp=.o)
 
-EXECS = test-zlib test-sz
+EXECS = corpus_zlib
 
 all: $(EXECS)
 
-hello-zlib: hello-zlib.cpp compression_lib.hpp
-	$(CXX) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) $(ZLIB_FLAGS) $(SZ_FLAGS)
+lib_zlib.o: lib_zlib.cpp lib_zlib.hpp
+	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
-hello-sz: hello-sz.cpp compression_lib.hpp
-	$(CXX) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) $(ZLIB_FLAGS) $(SZ_FLAGS)
+lib_test.o: lib_test.cpp lib_test.hpp lib_zlib.hpp
+	$(CXX) -c -o $@ $< $(CXXFLAGS) $(ROOT_FLAGS) 
 
-test-rounding: test-rounding.cpp compression_lib.hpp
-	$(CXX) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) $(ZLIB_FLAGS) $(SZ_FLAGS)
-
-test-truncation: test-truncation.cpp compression_lib.hpp
-	$(CXX) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) $(ZLIB_FLAGS) $(SZ_FLAGS)
-
-test-zlib: test-zlib.cpp compression_lib.hpp
-	$(CXX) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) $(ZLIB_FLAGS) $(SZ_FLAGS)
-
-test-sz: test-sz.cpp compression_lib.hpp
-	$(CXX) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) $(ZLIB_FLAGS) $(SZ_FLAGS)
+corpus_zlib: corpus_zlib.cpp lib_zlib.o lib_test.o
+	$(CXX) -o $@ $^ $(ROOT_FLAGS)  $(CXXFLAGS) $(ZLIB_FLAGS)
 
 clean:
 	rm -f $(EXECS) *.o

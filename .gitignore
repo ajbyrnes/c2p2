@@ -7,3 +7,5 @@ data/*
 
 test-zlib
 test-sz
+
+*.o
