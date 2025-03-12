@@ -5,7 +5,7 @@
 
 #include <unistd.h>
 
-#include <TH1F.h>
+// #include <TH1F.h>
 
 #ifndef LIB_UTILS_HPP
 #define LIB_UTILS_HPP
@@ -44,20 +44,14 @@ struct CompressionDecompressionResults {
     float absErrorBound{};
     int trial{};
     size_t originalSize{};
-    float originalMean{};
-    float originalMeanError{};
-    float originalRMS{};
-    float originalRMSError{};
+    double originalMean{};
+    double originalRMS{};
     size_t compressedSize{};
     float compressionRatio{};
-    float decompressedMean{};
-    float decompressedMeanError{};
-    float decompressedRMS{};
-    float decompressedRMSError{};
-    float meanCE{};
-    float meanErrorCE{};
-    float rmsCE{};
-    float rmsErrorCE{};
+    double decompressedMean{};
+    double decompressedRMS{};
+    double meanCE{};
+    double rmsCE{};
     std::chrono::duration<long, std::nano> compressionDuration{};
     std::chrono::duration<long, std::nano> decompressionDuration{};
 };
@@ -122,20 +116,35 @@ std::string getHost() {
     return std::string(host);
 }
 
-TH1F* vectorToHistogram(const std::vector<float>& data, const std::string& name) {
-    // Get min, max values
-    float basketMin{*std::min_element(data.begin(), data.end())};
-    float basketMax{*std::max_element(data.begin(), data.end())};
+double calculateMean(const std::vector<float>& data) {
+    return std::accumulate(data.begin(), data.end(), 0.0) / data.size();
+}
 
-    // Create histogram
-    TH1F* h{new TH1F(name.c_str(), name.c_str(), data.size(), basketMin, basketMax)};
+double calculateRMS(const std::vector<float>& data) {
+    double mean{calculateMean(data)};
+    double sum{0.0};
 
-    // Fill histogram
     for (const float& value : data) {
-        h->Fill(value);
+        sum += std::pow(value - mean, 2);
     }
 
-    return h;
+    return std::sqrt(sum / data.size());
 }
+
+// TH1F* vectorToHistogram(const std::vector<float>& data, const std::string& name) {
+//     // Get min, max values
+//     float basketMin{*std::min_element(data.begin(), data.end())};
+//     float basketMax{*std::max_element(data.begin(), data.end())};
+
+//     // Create histogram
+//     TH1F* h{new TH1F(name.c_str(), name.c_str(), data.size(), basketMin, basketMax)};
+
+//     // Fill histogram
+//     for (const float& value : data) {
+//         h->Fill(value);
+//     }
+
+//     return h;
+// }
 
 #endif

@@ -15,13 +15,13 @@ EXECS = corpus_zlib random_zlib random_sz
 all: $(EXECS)
 
 corpus_zlib: corpus_zlib.cpp lib_zlib.hpp lib_utils.hpp
-	$(CXX) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) $(ZLIB_FLAGS) 
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(ZLIB_FLAGS) 
 
 random_zlib: random_zlib.cpp lib_zlib.hpp lib_utils.hpp
-	$(CXX) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) $(ZLIB_FLAGS)
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(ZLIB_FLAGS)
 
 random_sz: random_sz.cpp lib_sz.hpp lib_utils.hpp
-	$(CXX) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) $(SZ_INCLUDE_FLAGS) $(SZ_LINK_FLAGS)
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(SZ_INCLUDE_FLAGS) $(SZ_LINK_FLAGS)
 
 clean:
 	rm -f $(EXECS) *.o

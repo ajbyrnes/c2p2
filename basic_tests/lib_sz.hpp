@@ -10,9 +10,8 @@
 // Modified from https://github.com/physnerds/ldrd_compressions/blob/feature/tree/tests/mytest.cxx
 
 std::vector<uint8_t> szCompress(std::vector<float> data, SZ3::EB errorBoundMode, SZ3::ALGO algo, SZ3::INTERP_ALGO ialgo, float absErrorBound) {
-    std::cout << "Compressing data..." << std::endl;
     // Configuration
-    SZ3::Config conf({data.size() * sizeof(float)});
+    SZ3::Config conf{};
     conf.errorBoundMode = errorBoundMode;
     conf.cmprAlgo = algo;
     conf.interpAlgo = ialgo;
@@ -27,16 +26,14 @@ std::vector<uint8_t> szCompress(std::vector<float> data, SZ3::EB errorBoundMode,
 }
 
 std::vector<float> szDecompress(const std::vector<uint8_t>& compressedData, const size_t& uncompressedSize) {
-    std::cout << "Decompressing data..." << std::endl;
     // Configuration
-    SZ3::Config conf({uncompressedSize});
+    SZ3::Config conf{};
 
     // Convert compressed data to char*
     const char* compressedDataPtr{reinterpret_cast<const char*>(compressedData.data())};
 
     // Allocate memory for decompressed data
     float* decompressedDataPtr{};
-
     SZ_decompress(conf, compressedDataPtr, compressedData.size(), decompressedDataPtr);
 
     return std::vector<float>(decompressedDataPtr, decompressedDataPtr + uncompressedSize);
@@ -44,7 +41,7 @@ std::vector<float> szDecompress(const std::vector<uint8_t>& compressedData, cons
 
 // Test functions ---------------------------------------------------------------------------------------------------
 
-CompressionResults timedSzCompress(std::vector<float> data, SZ3::EB errorBoundMode, SZ3::ALGO algo, SZ3::INTERP_ALGO ialgo, float absErrorBound) {
+CompressionResults timedSzCompress(const std::vector<float>& data, SZ3::EB errorBoundMode, SZ3::ALGO algo, SZ3::INTERP_ALGO ialgo, float absErrorBound) {
     // Start timer
     std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
 

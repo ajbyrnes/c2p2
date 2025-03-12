@@ -19,17 +19,12 @@ void writeHeader(std::ofstream& file) {
     file << "Compressed Size,";
     file << "Compression Ratio,";
     file << "Original Mean,";
-    file << "Original Mean Error,";
     file << "Original RMS,";
-    file << "Original RMS Error,";
     file << "Decompressed Mean,";
-    file << "Decompressed Mean Error,";
     file << "Decompressed RMS,";
-    file << "Decompressed RMS Error,";
     file << "Mean CE,";
-    file << "Mean Error CE,";
     file << "RMS CE,";
-    file << "RMS Error CE" << std::endl;
+    file << std::endl;
 }
 
 void writeResults(std::ofstream& file, const CompressionDecompressionResults& results) {
@@ -45,17 +40,11 @@ void writeResults(std::ofstream& file, const CompressionDecompressionResults& re
     file << std::format("{},", results.compressedSize);
     file << std::format("{:.16f},", results.compressionRatio);
     file << std::format("{:.16f},", results.originalMean);
-    file << std::format("{:.16f},", results.originalMeanError);
     file << std::format("{:.16f},", results.originalRMS);
-    file << std::format("{:.16f},", results.originalRMSError);
     file << std::format("{:.16f},", results.decompressedMean);
-    file << std::format("{:.16f},", results.decompressedMeanError);
     file << std::format("{:.16f},", results.decompressedRMS);
-    file << std::format("{:.16f},", results.decompressedRMSError);
     file << std::format("{:.16f},", results.meanCE);
-    file << std::format("{:.16f},", results.meanErrorCE);
     file << std::format("{:.16f},", results.rmsCE);
-    file << std::format("{:.16f}", results.rmsErrorCE);
     file << std::endl;
 }
 
@@ -81,12 +70,8 @@ void test(std::ofstream& file, const std::string& host, const std::vector<float>
     results.dataName = dataName;
     results.compressionLevel = level;
 
-    TH1F* h{vectorToHistogram(original, dataName)};
-    results.originalMean = h->GetMean();
-    results.originalMeanError = h->GetMeanError();
-    results.originalRMS = h->GetRMS();
-    results.originalRMSError = h->GetRMSError();
-    delete h;
+    results.originalMean = calculateMean(original);
+    results.originalRMS = calculateRMS(original);
 
     // Test compression and decompression for each number of bits
     for (int bits{0}; bits <= 23; bits++) {
@@ -114,20 +99,12 @@ void test(std::ofstream& file, const std::string& host, const std::vector<float>
             // Collect decompressed distribution stats
             results.decompressionDuration = decompResult.duration;
 
-            TH1F* h{vectorToHistogram(decompResult.decompressedData, std::format("hist_{}_{}", dataName, bits))};
-
-            results.decompressedMean = h->GetMean();
-            results.decompressedMeanError = h->GetMeanError();
-            results.decompressedRMS = h->GetRMS();
-            results.decompressedRMSError = h->GetRMSError();
+            results.decompressedMean = calculateMean(decompResult.decompressedData);
+            results.decompressedRMS = calculateRMS(decompResult.decompressedData);
             
             results.meanCE = std::abs(results.originalMean - results.decompressedMean);
-            results.meanErrorCE = std::abs(results.originalMeanError - results.decompressedMeanError);
             results.rmsCE = std::abs(results.originalRMS - results.decompressedRMS);
-            results.rmsErrorCE = std::abs(results.originalRMSError - results.decompressedRMSError);
             
-            delete h;
-
             // Calculate compression ratio
             results.compressionRatio = static_cast<double>(results.originalSize) / results.compressedSize;
 
@@ -148,7 +125,7 @@ int main(int argc, char* argv[]) {
         // Usage
         std::cout << "Usage: " << argv[0] << " <level> <dataSize> <mode> <numTrials>" << std::endl;
         std::cout << "<level>: Compression level, 0 - 9" << std::endl;
-        std::cout << "<dataSize>: Size of data to compress in MB" << std::endl;
+        std::cout << "<dataSize>: Size of data to compress in KB" << std::endl;
         std::cout << "<mode>:" << std::endl;
         std::cout << "\t1: Uniform Random Data" << std::endl;    
         std::cout << "\t2: Normal Random Data" << std::endl;
@@ -159,7 +136,7 @@ int main(int argc, char* argv[]) {
     }
     else {
         LEVEL = std::stoi(argv[1]);
-        DATASIZE = std::stoi(argv[2]) * MB / sizeof(float);
+        DATASIZE = std::stoi(argv[2]) * KB / sizeof(float);
         MODE = std::stoi(argv[3]);
         TRIALS = std::stoi(argv[4]);
     }
@@ -191,7 +168,7 @@ int main(int argc, char* argv[]) {
     std::string dataName{};
 
     std::cout << "(" << std::chrono::system_clock::now() << ") ";
-    std::cout << "Generating vector with " << DATASIZE << " floats (" << (DATASIZE * sizeof(float)) / MB << " MB)..." << std::endl;
+    std::cout << "Generating vector with " << DATASIZE << " floats (" << (DATASIZE * sizeof(float)) / KB << " KB)..." << std::endl;
 
     int seed{12345};
 
