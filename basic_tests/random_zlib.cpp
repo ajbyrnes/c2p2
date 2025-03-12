@@ -73,6 +73,13 @@ void test(std::ofstream& file, const std::string& host, const std::vector<float>
     results.originalMean = calculateMean(original);
     results.originalRMS = calculateRMS(original);
 
+    // Print first 10 elements of original data
+    std::cout << "Original: ";
+    for (int i{0}; i < 10; i++) {
+        std::cout << std::format("{:12f}", original[i]) << " ";
+    }
+    std::cout << std::endl;
+
     // Test compression and decompression for each number of bits
     for (int bits{0}; bits <= 23; bits++) {
         for (int trial{1}; trial <= trials; trial++) {
@@ -95,6 +102,13 @@ void test(std::ofstream& file, const std::string& host, const std::vector<float>
             std::cout << "Decompressing..." << std::endl;
 
             DecompressionResults decompResult{timedZlibDecompress<float>(compResult.compressedData, results.originalSize)};
+
+            // Print first 10 elements of decompressed data
+            std::cout << "Decompressed: ";
+            for (int i{0}; i < 10; i++) {
+                std::cout << std::format("{:12f}", decompResult.decompressedData[i]) << " ";
+            }
+            std::cout << std::endl;
 
             // Collect decompressed distribution stats
             results.decompressionDuration = decompResult.duration;
@@ -125,7 +139,7 @@ int main(int argc, char* argv[]) {
         // Usage
         std::cout << "Usage: " << argv[0] << " <level> <dataSize> <mode> <numTrials>" << std::endl;
         std::cout << "<level>: Compression level, 0 - 9" << std::endl;
-        std::cout << "<dataSize>: Size of data to compress in KB" << std::endl;
+        std::cout << "<dataSize>: Size of data to compress in MB" << std::endl;
         std::cout << "<mode>:" << std::endl;
         std::cout << "\t1: Uniform Random Data" << std::endl;    
         std::cout << "\t2: Normal Random Data" << std::endl;
@@ -136,7 +150,7 @@ int main(int argc, char* argv[]) {
     }
     else {
         LEVEL = std::stoi(argv[1]);
-        DATASIZE = std::stoi(argv[2]) * KB / sizeof(float);
+        DATASIZE = std::stoi(argv[2]) * MB / sizeof(float);
         MODE = std::stoi(argv[3]);
         TRIALS = std::stoi(argv[4]);
     }
@@ -168,7 +182,7 @@ int main(int argc, char* argv[]) {
     std::string dataName{};
 
     std::cout << "(" << std::chrono::system_clock::now() << ") ";
-    std::cout << "Generating vector with " << DATASIZE << " floats (" << (DATASIZE * sizeof(float)) / KB << " KB)..." << std::endl;
+    std::cout << "Generating vector with " << DATASIZE << " floats (" << (DATASIZE * sizeof(float)) / MB << " MB)..." << std::endl;
 
     int seed{12345};
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-exec=random_zlib
+exec=random_sz
 trials=10
 datasize=25
 
@@ -17,10 +17,15 @@ cd $dir
 # Run test-zlib with every available distribution
 for dist in {1..4}
 do
-    for level in {0..9}
+    for eb in {0..5}
     do
-        # Run test-zlib with the current value of i
-        ./$exec $level $datasize $dist $trials | tee $exec-d=$dist-s=$datasize-l=$level.log
+        for alg in {0..4}
+        do
+            for ialg in {0..1}
+            do
+                ./$exec $eb $alg $ialg $datasize $dist $trials | tee $exec-d=$dist-eb=$eb-alg=$alg-ialg=$ialg.log
+            done
+        done
     done
 done
 

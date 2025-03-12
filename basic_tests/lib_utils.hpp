@@ -104,6 +104,54 @@ std::vector<float> generateRandomData(Distribution distribution, int seed, int d
     return data;
 }
 
+std::vector<float> generateExponentialFunction(int dataSize, float lambda) {
+    // Allocate Data
+    std::vector<float> data(dataSize);
+
+    // Generate data
+    for (int i{0}; i < dataSize; i++) {
+        data[i] = -std::log(1 - static_cast<float>(rand()) / RAND_MAX) / lambda;
+    }
+
+    return data;
+}
+
+std::vector<float> generateLinearFunction(int dataSize, float slope, float intercept) {
+    // Allocate Data
+    std::vector<float> data(dataSize);
+
+    // Generate data
+    for (int i{0}; i < dataSize; i++) {
+        data[i] = slope * i + intercept;
+    }
+
+    return data;
+}
+
+std::vector<float> generateQuadraticFunction(int dataSize, float a, float b, float c) {
+    // Allocate Data
+    std::vector<float> data(dataSize);
+
+    // Generate data
+    for (int i{0}; i < dataSize; i++) {
+        data[i] = a * i * i + b * i + c;
+    }
+
+    return data;
+}
+
+std::vector<float> genearateSinusoidalFunction(int dataSize, float amplitude, float frequency, float phase) {
+    // Allocate Data
+    std::vector<float> data(dataSize);
+
+    // Generate data
+    for (int i{0}; i < dataSize; i++) {
+        data[i] = amplitude * std::sin(2 * M_PI * frequency * i + phase);
+    }
+
+    return data;
+}
+
 // Other utilities ---------------------------------------------------------------------------------------------------
 
 std::string getHost() {

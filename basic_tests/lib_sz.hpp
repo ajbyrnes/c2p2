@@ -11,7 +11,9 @@
 
 std::vector<uint8_t> szCompress(std::vector<float> data, SZ3::EB errorBoundMode, SZ3::ALGO algo, SZ3::INTERP_ALGO ialgo, float absErrorBound) {
     // Configuration
-    SZ3::Config conf{};
+    std::vector<size_t> dims{data.size()};
+    SZ3::Config conf({dims[0]});
+
     conf.errorBoundMode = errorBoundMode;
     conf.cmprAlgo = algo;
     conf.interpAlgo = ialgo;

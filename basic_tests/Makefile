@@ -10,7 +10,7 @@ SZ_LINK_FLAGS = -L$(SZ_DIR)/bin -lzstd
 
 ROOT_FLAGS = $(shell root-config --cflags --libs)
 
-EXECS = corpus_zlib random_zlib random_sz
+EXECS = corpus_zlib random_zlib random_sz func_sz
 
 all: $(EXECS)
 
@@ -21,6 +21,9 @@ random_zlib: random_zlib.cpp lib_zlib.hpp lib_utils.hpp
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(ZLIB_FLAGS)
 
 random_sz: random_sz.cpp lib_sz.hpp lib_utils.hpp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(SZ_INCLUDE_FLAGS) $(SZ_LINK_FLAGS)
+
+func_sz: func_sz.cpp lib_sz.hpp lib_utils.hpp
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(SZ_INCLUDE_FLAGS) $(SZ_LINK_FLAGS)
 
 clean:
