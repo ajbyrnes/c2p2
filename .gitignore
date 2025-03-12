@@ -9,3 +9,7 @@ test-zlib
 test-sz
 
 *.o
+basic_tests/corpus_zlib
+basic_tests/random_sz
+.gitignore
+basic_tests/random_zlib
