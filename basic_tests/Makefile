@@ -14,38 +14,27 @@ LIBS_HDRS = lib_zlib.hpp lib_utils.hpp
 LIBS_SRCS = lib_zlib.cpp lib_utils.cpp
 LIBS_OBJS = $(LIBS_SRCS:.cpp=.o)
 
-# EXECS = corpus_zlib random_zlib test
-
-EXECS = test
+EXECS = corpus_zlib random_zlib random_sz
 
 all: $(EXECS)
 
-test_lib.o: test_lib.cpp test_lib.hpp
-	$(CXX) $(CXXFLAGS) $(SZ_INCLUDE_FLAGS) -c -o $@ $< 
+lib_utils.o: lib_utils.cpp lib_utils.hpp lib_zlib.hpp
+	$(CXX) $(ROOT_FLAGS) $(CXXFLAGS) -c -o $@ $< 
 
-test.o: test.cpp test_lib.hpp
-	$(CXX) $(CXXFLAGS) $(SZ_INCLUDE_FLAGS) -c -o $@ $<
+lib_zlib.o: lib_zlib.cpp lib_zlib.hpp lib_utils.hpp
+	$(CXX) $(ROOT_FLAGS) $(CXXFLAGS) -c -o $@ $< 
 
-test: test.o test_lib.o
-	$(CXX) $(CXXFLAGS) $(SZ_LINK_FLAGS) -o $@ $^ 
+lib_sz.o: lib_sz.cpp lib_sz.hpp lib_utils.hpp
+	$(CXX) $(SZ_INCLUDE_FLAGS) $(ROOT_FLAGS) $(CXXFLAGS) -c -o $@ $< 
+
+corpus_zlib: corpus_zlib.cpp lib_zlib.o lib_utils.o
+	$(CXX) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) $(ZLIB_FLAGS)
+
+random_zlib: random_zlib.cpp lib_zlib.o lib_utils.o
+	$(CXX) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) $(ZLIB_FLAGS)
+
+random_sz: random_sz.cpp lib_sz.o lib_utils.o
+	$(CXX) $(SZ_INCLUDE_FLAGS) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) 
 
 clean:
-	rm -f $(EXECS) *.o
-
-# lib_utils.o: lib_utils.cpp lib_utils.hpp lib_zlib.hpp
-# 	$(CXX) -c -o $@ $< $(ROOT_FLAGS) $(CXXFLAGS) 
-
-# lib_zlib.o: lib_zlib.cpp lib_zlib.hpp lib_utils.hpp
-# 	$(CXX) -c -o $@ $< $(ROOT_FLAGS) $(CXXFLAGS) 
-
-# lib_sz.o: lib_sz.cpp lib_sz.hpp lib_utils.hpp
-# 	$(CXX) $(SZ_INCLUDE_FLAGS) -c -o $@ $< $(ROOT_FLAGS) $(CXXFLAGS) 
-# corpus_zlib: corpus_zlib.cpp lib_zlib.o lib_utils.o
-# 	$(CXX) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) $(ZLIB_FLAGS)
-
-# random_zlib: random_zlib.cpp lib_zlib.o lib_utils.o
-# 	$(CXX) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) $(ZLIB_FLAGS)
-
-# random_sz: random_sz.cpp lib_sz.o lib_utils.o
-# 	$(CXX) $(SZ_INCLUDE_FLAGS) -o $@ $^ $(ROOT_FLAGS) $(CXXFLAGS) 
-
+	rm -f $(EXECS) $(LIBS_OBJS)
