@@ -1,12 +1,10 @@
 #include <algorithm>
 #include <cstdint>
 #include <vector>
+
 #include <zlib.h>
 
 #include "lib_utils.hpp"
-
-#ifndef LIB_ZLIB_HPP
-#define LIB_ZLIB_HPP
 
 // Bit truncation -------------------------------------------------------------------------------------------------
 
@@ -51,7 +49,7 @@ std::vector<float> truncateVectorData(const std::vector<float>& data, const int&
 
     // Truncate basket
     std::transform(data.begin(), data.end(), truncatedData.begin(), 
-                   [bits](float value) { return truncateFloat(value, bits, true); });
+                [bits](float value) { return truncateFloat(value, bits, true); });
 
     return truncatedData;
 }
@@ -59,100 +57,46 @@ std::vector<float> truncateVectorData(const std::vector<float>& data, const int&
 // zlib compression ----------------------------------------------------------------------------------------------
 // Modified from https://gitlab.cern.ch/-/snippets/3301
 
-template<typename T>
-std::vector<uint8_t> zlibCompress(const std::vector<T>& data, const int& level=Z_DEFAULT_COMPRESSION) {
-    // Calculate length of uncompressed data
-    uLong sourceLen{data.size() * sizeof(T)};
+CompressorOut zlibCompress(const CompressorIn& data, const CompressorParams& params) {
+    // Allocate compressed basket
+    size_t compressedSize{compressBound(data.size() * sizeof(float))};
+    std::vector<uint8_t> compressedData(compressedSize);
 
-    // Calculate maximum length of compressed data
-    uLong destLen{compressBound(sourceLen)};
+    // Compress
+    int result = compress2(compressedData.data(), &compressedSize, reinterpret_cast<const uint8_t*>(data.data()), 
+                          data.size() * sizeof(float));
 
-    // Allocate memory for compressed data
-    std::vector<uint8_t> compressedData(sourceLen);
-
-    // Compress data
-    int result{compress2(compressedData.data(), &destLen, reinterpret_cast<const Bytef*>(data.data()), sourceLen, level)};
     if (result != Z_OK) {
-        throw std::runtime_error("zlibCompress: compress2 failed with error " + std::to_string(result));
+        throw std::runtime_error("zlibCompress: compression failed");
     }
 
-    // Resize memory allocated to compressed data to its actual size
-    compressedData.resize(destLen);
+    // Resize to actual size
+    compressedData.resize(compressedSize);
 
+    // Return compressed data
     return compressedData;
 }
 
-std::vector<uint8_t> zlibTruncateCompress(std::vector<float>& data, const int& bits, const int& level) {
+CompressorOut zlibTruncateCompress(const CompressorIn& data, const CompressorParams& params) {
     // Truncate data
-    std::vector<float> truncatedData(data.size());
-    std::transform(data.begin(), data.end(), truncatedData.begin(), 
-                   [bits](float value) { return truncateFloat(value, bits, true); });
+    std::vector<float> truncatedData = truncateVectorData(data, params.at("bits"));
 
-    // Compress with zlib
-    return zlibCompress(truncatedData, level);
+    // Compress truncated data
+    return zlibCompress(truncatedData, params);
 }
 
-template <typename T>
-std::vector<T> zlibDecompress(const std::vector<uint8_t>& compressedData, const size_t& uncompressedSize) {
-    // Allocate memory for decompressed data
-    std::vector<T> decompressedData(uncompressedSize);
+DecompressorOut zlibDecompress(const DecompressorIn& compressedData, const size_t& uncompressedSize) {
+    // Allocate decompressed basket
+    std::vector<float> decompressedData(uncompressedSize / sizeof(float));
 
-    // Decompress data
-    uLongf destLen{uncompressedSize * sizeof(T)};
-    int result{uncompress(reinterpret_cast<Bytef*>(decompressedData.data()), &destLen, compressedData.data(), compressedData.size())};
+    // Decompress
+    size_t uncompressedSizeBytes = uncompressedSize * sizeof(float);
+    int result = uncompress(reinterpret_cast<uint8_t*>(decompressedData.data()), &uncompressedSizeBytes,
+                            compressedData.data(), compressedData.size());
+
     if (result != Z_OK) {
-        throw std::runtime_error("zlibDecompress: uncompress failed with error " + std::to_string(result));
+        throw std::runtime_error("zlibDecompress: decompression failed");
     }
 
     return decompressedData;
 }
-
-// Test functions ---------------------------------------------------------------------------------------------------
-
-CompressionResults timedZlibCompress(std::vector<char> data, const int& level=Z_DEFAULT_COMPRESSION) {
-    // Start timer
-    std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
-
-    // Compress data
-    std::vector<uint8_t> compressedData{zlibCompress<char>(data, level)};
-
-    // End timer
-    std::chrono::high_resolution_clock::time_point end{std::chrono::high_resolution_clock::now()};
-
-    // Report results
-    std::chrono::duration<long, std::nano> duration{std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)};
-    return {compressedData, duration};
-}
-
-CompressionResults timedZlibTruncateCompress(std::vector<float> data, const int& bits, const int& level) {
-    // Start timer
-    std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
-
-    // Compress data
-    std::vector<uint8_t> compressedData{zlibTruncateCompress(data, bits, level)};
-
-    // End timer
-    std::chrono::high_resolution_clock::time_point end{std::chrono::high_resolution_clock::now()};
-
-    // Report results
-    std::chrono::duration<long, std::nano> duration{std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)};
-    return {compressedData, duration};      // This is needlessly pythonic, should be using pass-by-ref instead
-}
-
-template<typename T>
-DecompressionResults<T> timedZlibDecompress(std::vector<uint8_t> compressedData, const size_t& originalDataSize) {
-    // Start timer
-    std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
-
-    // Decompress data
-    std::vector<T> decompressedData{zlibDecompress<T>(compressedData, originalDataSize)};
-
-    // End timer
-    std::chrono::high_resolution_clock::time_point end{std::chrono::high_resolution_clock::now()};
-
-    // Report results
-    std::chrono::duration<long, std::nano> duration{std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)};
-    return {decompressedData, duration};      
-}
-
-#endif

@@ -1,76 +1,50 @@
-#include <iostream>
-#include <vector>
-#include <SZ3/api/sz.hpp>
-#include "lib_utils.hpp"
-
 #ifndef LIB_SZ_HPP
 #define LIB_SZ_HPP
 
-// SZ3 compression ------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <SZ3/api/sz.hpp>
+#include "lib_utils.hpp"
+
+// SZ3 compression -----------------------------------------------------------------------------------------------
 // Modified from https://github.com/physnerds/ldrd_compressions/blob/feature/tree/tests/mytest.cxx
 
-std::vector<uint8_t> szCompress(std::vector<float> data, SZ3::EB errorBoundMode, SZ3::ALGO algo, SZ3::INTERP_ALGO ialgo, float absErrorBound) {
+CompressorOut szCompress(const CompressorIn& data, const CompressorParams& params) {
     // Configuration
     std::vector<size_t> dims{data.size()};
     SZ3::Config conf({dims[0]});
 
-    conf.errorBoundMode = errorBoundMode;
-    conf.cmprAlgo = algo;
-    conf.interpAlgo = ialgo;
-    conf.absErrorBound = absErrorBound;
+    conf.errorBoundMode = params.at("errorBoundMode");
+    conf.cmprAlgo = params.at("algo");
+    conf.interpAlgo = params.at("interpAlgo");
+    conf.absErrorBound = 1.0 / std::pow(10, params.at("absErrorBoundExp"));
 
-    // Compress
+    // Compress -- allocates memory!
     size_t compressedSize;
-    char* compressedData{SZ_compress(conf, data.data(), compressedSize)};
+    char* compressedData = SZ_compress(conf, data.data(), compressedSize);
 
-    // Return compressed data
-    return std::vector<uint8_t>(compressedData, compressedData + compressedSize);
+    // Wrap result in vector, then free
+    std::vector<uint8_t> compressedDataVec(compressedData, compressedData + compressedSize);
+    free(compressedData);
+
+    return compressedDataVec;
 }
 
-std::vector<float> szDecompress(const std::vector<uint8_t>& compressedData, const size_t& uncompressedSize) {
-    // Configuration
+DecompressorOut szDecompress(const DecompressorIn& compressedData, const size_t& uncompressedSize) {
+    // Reinterpret compressed data as char*
+    const char* compressedDataPtr = reinterpret_cast<const char*>(compressedData.data());
+
+    // Decompress -- allocates memory!
     SZ3::Config conf{};
-
-    // Convert compressed data to char*
-    const char* compressedDataPtr{reinterpret_cast<const char*>(compressedData.data())};
-
-    // Allocate memory for decompressed data
-    float* decompressedDataPtr{};
+    float* decompressedDataPtr = nullptr;
     SZ_decompress(conf, compressedDataPtr, compressedData.size(), decompressedDataPtr);
 
-    return std::vector<float>(decompressedDataPtr, decompressedDataPtr + uncompressedSize);
+    // Wrap result in vector, then free
+    std::vector<float> decompressedVec(decompressedDataPtr, decompressedDataPtr + uncompressedSize);
+    free(decompressedDataPtr);
+
+    return decompressedVec;
 }
 
-// Test functions ---------------------------------------------------------------------------------------------------
-
-CompressionResults timedSzCompress(const std::vector<float>& data, SZ3::EB errorBoundMode, SZ3::ALGO algo, SZ3::INTERP_ALGO ialgo, float absErrorBound) {
-    // Start timer
-    std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
-
-    // Compress data
-    std::vector<uint8_t> compressedData{szCompress(data, errorBoundMode, algo, ialgo, absErrorBound)};
-
-    // End timer
-    std::chrono::high_resolution_clock::time_point end{std::chrono::high_resolution_clock::now()};
-
-    // Report results
-    std::chrono::duration<long, std::nano> duration{std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)};
-    return {compressedData, duration};
-}
-
-DecompressionResults<float> timedSzDecompress(const std::vector<uint8_t>& compressedData, const size_t& uncompressedSize) {
-    // Start timer
-    std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
-
-    // Decompress data
-    std::vector<float> decompressedData{szDecompress(compressedData, uncompressedSize)};
-
-    // End timer
-    std::chrono::high_resolution_clock::time_point end{std::chrono::high_resolution_clock::now()};
-
-    // Report results
-    std::chrono::duration<long, std::nano> duration{std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)};
-    return {decompressedData, duration};
-}
-
-#endif
+#endif // LIB_SZ_HPP

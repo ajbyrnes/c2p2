@@ -1,30 +1,32 @@
 CXX = g++-13
-# CXXFLAGS = -std=c++20 -pedantic -Wall -Wextra -Wno-unused-parameter
 CXXFLAGS = -std=c++20 -pedantic -Wno-unused-parameter
+
+LIB_FLAGS = -I../lib
 
 ZLIB_FLAGS = -lz
 
 SZ_DIR = $(HOME)/SZ3
-SZ_INCLUDE_FLAGS = -I$(SZ_DIR)/include 
-SZ_LINK_FLAGS = -L$(SZ_DIR)/bin -lzstd
+SZ_INCLUDE = -I$(SZ_DIR)/include
+SZ_LIB = -L$(SZ_DIR)/lib -lzstd
 
 ROOT_FLAGS = $(shell root-config --cflags --libs)
 
-EXECS = corpus_zlib random_zlib random_sz func_sz
+ZLIB_SRCS = paramSweep_zlibTrunc_UniformRandom.cpp
 
-all: $(EXECS)
+SZ_SRCS = paramSweep_sz3_UniformRandom.cpp
 
-corpus_zlib: corpus_zlib.cpp lib_zlib.hpp lib_utils.hpp
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(ZLIB_FLAGS) 
+ZLIB_EXECS = $(ZLIB_SRCS:.cpp=)
+SZ_EXECS = $(SZ_SRCS:.cpp=)
 
-random_zlib: random_zlib.cpp lib_zlib.hpp lib_utils.hpp
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(ZLIB_FLAGS)
+# all: $(ZLIB_EXECS) $(SZ_EXECS)
 
-random_sz: random_sz.cpp lib_sz.hpp lib_utils.hpp
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(SZ_INCLUDE_FLAGS) $(SZ_LINK_FLAGS)
+all: $(SZ_EXECS)
 
-func_sz: func_sz.cpp lib_sz.hpp lib_utils.hpp
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(SZ_INCLUDE_FLAGS) $(SZ_LINK_FLAGS)
+$(ZLIB_EXECS): %: %.cpp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIB_FLAGS) $(ZLIB_FLAGS)
+
+$(SZ_EXECS): %: %.cpp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIB_FLAGS) $(SZ_INCLUDE) $(SZ_LIB)
 
 clean:
-	rm -f $(EXECS) *.o
+	rm -f $(ZLIB_EXECS) $(SZ_EXECS)
