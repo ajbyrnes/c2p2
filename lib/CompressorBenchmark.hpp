@@ -1,3 +1,6 @@
+#ifndef COMPRESSORBENCHMARK_HPP
+#define COMPRESSORBENCHMARK_HPP
+
 #include <iostream>
 #include <chrono>
 #include <functional>
@@ -10,31 +13,6 @@
 using Compressor =  std::function<CompressorOut(const CompressorIn&, const CompressorParams&)>;
 using Decompressor = std::function<DecompressorOut(const DecompressorIn&, const size_t& decompressedSize)>;
 
-std::ofstream openCSV(std::string filename, const CompressorParams& params) {
-    // Tag file with timestamp to avoid overwriting
-    std::string timestamp{std::format("{}_{}.csv", filename, std::chrono::system_clock::now().time_since_epoch().count())};
-    std::ofstream file(timestamp);
-    if (!file.is_open()) {
-        throw std::runtime_error("openCSV: failed to open file " + filename);
-    }
-
-    // Write header
-    file << "system,";
-    file << "timestamp,";
-    file << "name,";
-    for (const auto& param : params) {
-        file << param.first << ",";
-    }
-    file << "data size (bytes),";
-    file << "compression_time (ms),";
-    file << "decompression_time (ms),";
-    file << "compression_ratio,";
-    file << "compression_error_avg,";
-    file << "compression_error_min,";
-    file << "compression_error_max" << std::endl;
-    return file;
-}
-
 class CompressorBenchmark {
     public:
         // Constructor
@@ -43,7 +21,11 @@ class CompressorBenchmark {
                             CompressorParams params,
                             const CompressorIn& data)
             : name_{name}, iterations_{iterations}, compressor_{compressor},
-            decompressor_{decompressor}, compressorParams_{params}, uncompressedData_{data} {}
+            decompressor_{decompressor}, compressorParams_{params}, uncompressedData_{data} 
+            {
+                min_ = *std::min_element(data.begin(), data.end());
+                max_ = *std::max_element(data.begin(), data.end());
+            }
 
         // Run the benchmark
         void runBenchmark() {
@@ -82,16 +64,18 @@ class CompressorBenchmark {
                 file << param.second << ",";
             }
 
-            file << std::format("{}", uncompressedData_.size() * sizeof(float)) << ",";
+            file << std::format("{},", uncompressedData_.size() * sizeof(float));
+            file << std::format("{},", min_);
+            file << std::format("{},", max_);
 
             // Write times as milliseconds
-            file << std::format("{:.17}", compressTime_.count()) << ",";
-            file << std::format("{:.17}", decompressTime_.count()) << ",";
+            file << std::format("{:.17},", compressTime_.count());
+            file << std::format("{:.17},", decompressTime_.count());
 
             // Write calculated values
-            file << std::format("{:.17}", compressionRatio_) << ",";
-            file << std::format("{:.17}", compressionErrorAvg_) << ",";
-            file << std::format("{:.17}", compressionErrorMin_) << ",";
+            file << std::format("{:.17},", compressionRatio_);
+            file << std::format("{:.17},", compressionErrorAvg_);
+            file << std::format("{:.17},", compressionErrorMin_);
             file << std::format("{:.17}", compressionErrorMax_) << std::endl;
 
             file.flush();
@@ -108,6 +92,8 @@ class CompressorBenchmark {
         CompressorIn uncompressedData_{};
         CompressorOut compressedData_{};
         DecompressorOut decompressedData_{};
+
+        float min_{}, max_{};
 
         std::chrono::duration<double> compressTime_{};
         std::chrono::duration<double> decompressTime_{};
@@ -174,3 +160,5 @@ class CompressorBenchmark {
             compressionErrorMax_ = *std::max_element(errors.begin(), errors.end());
         }
 };
+
+#endif

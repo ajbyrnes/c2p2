@@ -11,22 +11,24 @@ SZ_LIB = -L$(SZ_DIR)/lib -lzstd
 
 ROOT_FLAGS = $(shell root-config --cflags --libs)
 
-ZLIB_SRCS = paramSweep_zlibTrunc_UniformRandom.cpp
-
-SZ_SRCS = paramSweep_sz3_UniformRandom.cpp
+ZLIB_SRCS = correctness_zlib.cpp paramSweep_zlibTrunc.cpp 
+SZ_SRCS = correctness_sz3.cpp paramSweep_sz3.cpp 
+ROOT_SRCS = graph.cpp
 
 ZLIB_EXECS = $(ZLIB_SRCS:.cpp=)
 SZ_EXECS = $(SZ_SRCS:.cpp=)
+ROOT_EXECS = $(ROOT_SRCS:.cpp=)
 
-# all: $(ZLIB_EXECS) $(SZ_EXECS)
+all: $(ZLIB_EXECS) $(SZ_EXECS) $(ROOT_EXECS)
 
-all: $(SZ_EXECS)
-
-$(ZLIB_EXECS): %: %.cpp
+$(ZLIB_EXECS): %: %.cpp lib/lib_utils.hpp lib/lib_zlib.hpp lib/CompressorBenchmark.hpp
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIB_FLAGS) $(ZLIB_FLAGS)
 
-$(SZ_EXECS): %: %.cpp
+$(SZ_EXECS): %: %.cpp lib/lib_utils.hpp lib/lib_sz.hpp lib/CompressorBenchmark.hpp
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIB_FLAGS) $(SZ_INCLUDE) $(SZ_LIB)
+
+$(ROOT_EXECS): %: %.cpp lib/lib_utils.hpp lib/lib_zlib.hpp lib/CompressorBenchmark.hpp
+	$(CXX) -o $@ $^ $(LIB_FLAGS) $(ZLIB_FLAGS) $(SZ_INCLUDE) $(SZ_LIB) $(ROOT_FLAGS)
 
 clean:
 	rm -f $(ZLIB_EXECS) $(SZ_EXECS)

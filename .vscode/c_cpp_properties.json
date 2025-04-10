@@ -5,7 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${userHome}/SZ3/include/**",
-                "${userHome}/root/include/**"
+                "${userHome}/root/root_install/include/**"
             ],
             "defines": [],
             "intelliSenseMode": "linux-clang-x64"

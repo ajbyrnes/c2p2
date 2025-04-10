@@ -1,3 +1,6 @@
+#ifndef LIB_ZLIB_HPP
+#define LIB_ZLIB_HPP
+
 #include <algorithm>
 #include <cstdint>
 #include <vector>
@@ -5,16 +8,17 @@
 #include <zlib.h>
 
 #include "lib_utils.hpp"
+#include "CompressorBenchmark.hpp"
 
 // Bit truncation -------------------------------------------------------------------------------------------------
 
-float truncateFloat(float value, const int& bits, const bool& round) {
+float truncateFloat(float value, const int& bits) {
     // Do nothing for 0 bits
     if (bits == 0) return value;
 
     // Only mantissa bits should be truncated
     if (bits < 0 || bits > 23) {
-        throw std::runtime_error("truncateNoRounding: bits must be between 0 and 23");
+        throw std::runtime_error("truncateFloat: bits must be between 0 and 23");
     }
 
     // Convert float to int
@@ -28,7 +32,7 @@ float truncateFloat(float value, const int& bits, const bool& round) {
     uint32_t truncatedIntVal{intVal & keepMask};
 
     // Round-to-even if value won't overflow
-    if (round && truncatedIntVal < keepMask) {
+    if (truncatedIntVal < keepMask) {
         // Round-to-even has us round up if the truncated bits are greater than 2^(bits - 1)
         // Ex: If bits = 4, we round up if the 4 dropped bits are greater than 2^3 = 1000
         uint32_t droppedVal{intVal & dropMask};      // The dropped bits
@@ -49,7 +53,7 @@ std::vector<float> truncateVectorData(const std::vector<float>& data, const int&
 
     // Truncate basket
     std::transform(data.begin(), data.end(), truncatedData.begin(), 
-                [bits](float value) { return truncateFloat(value, bits, true); });
+                [bits](float value) { return truncateFloat(value, bits); });
 
     return truncatedData;
 }
@@ -57,15 +61,17 @@ std::vector<float> truncateVectorData(const std::vector<float>& data, const int&
 // zlib compression ----------------------------------------------------------------------------------------------
 // Modified from https://gitlab.cern.ch/-/snippets/3301
 
-CompressorOut zlibCompress(const CompressorIn& data, const CompressorParams& params) {
+CompressorOut zlibCompress(const CompressorIn& data, const int& compressionLevel) {
     // Allocate compressed basket
     size_t compressedSize{compressBound(data.size() * sizeof(float))};
     std::vector<uint8_t> compressedData(compressedSize);
 
     // Compress
-    int result = compress2(compressedData.data(), &compressedSize, reinterpret_cast<const uint8_t*>(data.data()), 
-                          data.size() * sizeof(float));
-
+    int result = compress2(compressedData.data(), &compressedSize,
+                            reinterpret_cast<const uint8_t*>(data.data()), 
+                            data.size() * sizeof(float), compressionLevel);
+    
+    // Check for errors
     if (result != Z_OK) {
         throw std::runtime_error("zlibCompress: compression failed");
     }
@@ -78,16 +84,29 @@ CompressorOut zlibCompress(const CompressorIn& data, const CompressorParams& par
 }
 
 CompressorOut zlibTruncateCompress(const CompressorIn& data, const CompressorParams& params) {
+    int bits = params.at("bitsTruncated");
+    int level = params.at("compressionLevel");
+
+    // Error check
+    if (bits < 0 || bits > 23) {
+        throw std::runtime_error("zlibTruncateCompress: bits must be between 0 and 23");
+    }
+    
+    // Compress without truncation
+    if (bits == 0) {
+        return zlibCompress(data, level);
+    }
+    
     // Truncate data
-    std::vector<float> truncatedData = truncateVectorData(data, params.at("bits"));
+    std::vector<float> truncatedData = truncateVectorData(data, bits);
 
     // Compress truncated data
-    return zlibCompress(truncatedData, params);
+    return zlibCompress(truncatedData, level);
 }
 
 DecompressorOut zlibDecompress(const DecompressorIn& compressedData, const size_t& uncompressedSize) {
     // Allocate decompressed basket
-    std::vector<float> decompressedData(uncompressedSize / sizeof(float));
+    std::vector<float> decompressedData(uncompressedSize);
 
     // Decompress
     size_t uncompressedSizeBytes = uncompressedSize * sizeof(float);
@@ -100,3 +119,55 @@ DecompressorOut zlibDecompress(const DecompressorIn& compressedData, const size_
 
     return decompressedData;
 }
+
+// Precision ------------------------------------------------------------------------------------
+
+int calculateBitsToTruncate(int precision) {
+    // Calculate the number of bits to truncate based on the desired precision
+    int minBitsForPrecision = static_cast<int>(std::ceil(std::log2(std::pow(10, precision))));
+    return 23 - minBitsForPrecision; // 23 bits for mantissa in float
+}
+
+// zlib parameter sweep -------------------------------------------------------------------------------------
+
+void paramSweepZlib(const CompressorIn& data, int precision, int test, int iterations, double noise=-1) {
+    // Make test name
+    std::string testname{"paramSweep_zlib_" + getTestName(test)};
+
+    // Open CSV to write results
+    CompressorParams params{
+        {"compressionLevel", -1},
+        {"bitsTruncated", -1}
+    };
+
+    if (test == 4 || test == 5) {
+        params["noise"] = noise;
+    }
+
+    params["bitsTruncated"] = calculateBitsToTruncate(precision);
+    std::ofstream file = openCSV(testname, params);
+    // Loop over parameter combinations
+    for (int compressionLevel{1}; compressionLevel <= 9; ++compressionLevel) {
+        std::cout << std::format("Iteration compressionLevel: {}/9", compressionLevel) << std::endl;
+
+        // Set parameters
+        params["compressionLevel"] = compressionLevel;
+
+        // Run benchmark
+        CompressorBenchmark benchmark(
+            testname,
+            iterations,
+            zlibTruncateCompress,
+            zlibDecompress,
+            params,
+            data
+        );
+
+        benchmark.runBenchmark();
+        benchmark.writeCSVRow(file);
+    }
+
+    file.close();
+}
+
+#endif
