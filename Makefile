@@ -1,34 +1,35 @@
 CXX = g++-13
-CXXFLAGS = -std=c++20 -pedantic -Wno-unused-parameter
+CXXFLAGS = -std=c++20
 
 LIB_FLAGS = -I../lib
 
 ZLIB_FLAGS = -lz
 
-SZ_DIR = $(HOME)/SZ3
+SZ_DIR = $(HOME)/lib/SZ3/SZ3_install
 SZ_INCLUDE = -I$(SZ_DIR)/include
 SZ_LIB = -L$(SZ_DIR)/lib -lzstd
 
 ROOT_FLAGS = $(shell root-config --cflags --libs)
 
-ZLIB_SRCS = correctness_zlib.cpp paramSweep_zlibTrunc.cpp 
-SZ_SRCS = correctness_sz3.cpp paramSweep_sz3.cpp 
-ROOT_SRCS = graph.cpp
+TRUNK_SRCS = correctness_TrunkCompressor.cpp
+SZ_SRCS = correctness_SZCompressor.cpp
+BENCH_SRCS = benchmark.cpp
 
-ZLIB_EXECS = $(ZLIB_SRCS:.cpp=)
+TRUNK_EXECS = $(TRUNK_SRCS:.cpp=)
 SZ_EXECS = $(SZ_SRCS:.cpp=)
-ROOT_EXECS = $(ROOT_SRCS:.cpp=)
+BENCH_EXECS = $(BENCH_SRCS:.cpp=)
 
-all: $(ZLIB_EXECS) $(SZ_EXECS) $(ROOT_EXECS)
+# all: $(TRUNK_EXECS) $(SZ_EXECS) $(BENCH_EXECS)
+all: $(BENCH_EXECS)
 
-$(ZLIB_EXECS): %: %.cpp lib/lib_utils.hpp lib/lib_zlib.hpp lib/CompressorBenchmark.hpp
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIB_FLAGS) $(ZLIB_FLAGS)
+# $(TRUNK_EXECS): %: %.cpp lib/utils.hpp lib/TrunkCompressor.hpp
+# 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIB_FLAGS) $(ZLIB_FLAGS)
 
-$(SZ_EXECS): %: %.cpp lib/lib_utils.hpp lib/lib_sz.hpp lib/CompressorBenchmark.hpp
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIB_FLAGS) $(SZ_INCLUDE) $(SZ_LIB)
+# $(SZ_EXECS): %: %.cpp lib/utils.hpp lib/SZCompressor.hpp
+# 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIB_FLAGS) $(SZ_INCLUDE) $(SZ_LIB)
 
-$(ROOT_EXECS): %: %.cpp lib/lib_utils.hpp lib/lib_zlib.hpp lib/CompressorBenchmark.hpp
-	$(CXX) -o $@ $^ $(LIB_FLAGS) $(ZLIB_FLAGS) $(SZ_INCLUDE) $(SZ_LIB) $(ROOT_FLAGS)
+$(BENCH_EXECS): %: %.cpp lib/utils.hpp lib/TrunkCompressor.hpp lib/SZCompressor.hpp lib/CompressorBench.hpp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIB_FLAGS) $(ZLIB_FLAGS) $(SZ_INCLUDE) $(SZ_LIB)
 
 clean:
-	rm -f $(ZLIB_EXECS) $(SZ_EXECS)
+	rm -f $(TRUNK_EXECS) $(SZ_EXECS) $(BENCH_EXECS)

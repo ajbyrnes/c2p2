@@ -4,8 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${userHome}/SZ3/include/**",
-                "${userHome}/root/root_install/include/**"
+                "${userHome}/lib/SZ3/SZ3_install/include/**",
+                "${userHome}/lib/root/root_install/include/**"
             ],
             "defines": [],
             "intelliSenseMode": "linux-clang-x64"
