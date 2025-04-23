@@ -12,11 +12,11 @@ class CompressorBench{
     public:
         enum COMPRESSOR{TRUNK, SZ};
 
-        CompressorBench(const int iterations, const int precision, 
+        CompressorBench(const int iterations, const std::string dataName, const int precision, 
                         const int trunkCompressionLevel,
                         const int szErrorBoundMode, const int szAlgo, const int szInterpAlgo,
                         const bool debug=false)
-            :   _precision(precision), _trunkCompressionLevel(trunkCompressionLevel),
+            :   _dataName(dataName), _precision(precision), _trunkCompressionLevel(trunkCompressionLevel),
                 _szErrorBoundMode(szErrorBoundMode), _szAlgo(szAlgo), _szInterpAlgo(szInterpAlgo)
         {
             // Validation iterations
@@ -95,6 +95,8 @@ class CompressorBench{
 
             for (int compressor{TRUNK}; compressor <= SZ; compressor++) {
                 report += std::format("{},",(compressor == CompressorBench::TRUNK ? "Trunk" : "SZ"));
+                report += std::format("{},", _iterations);
+                report += std::format("{},", _dataName);
                 report += std::format("{},", _precision);
                 report += std::format("{},", (compressor == CompressorBench::TRUNK ? _trunkCompressionLevel : -1));
                 report += std::format("{},", (compressor == CompressorBench::SZ ? _szErrorBoundMode : -1));
@@ -153,6 +155,7 @@ class CompressorBench{
         SZCompressor _szCompressor;
         
         int _iterations;
+        std::string _dataName;
         int _precision;
 
         int _trunkCompressionLevel;

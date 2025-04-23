@@ -1,0 +1,113 @@
+Compressor,Iterations,DataName,Precision,CompressionLevel,ErrorBoundMode,Algo,InterpAlgo,CompressionTimeMS,DecompressionTimeMS,CompressionRatio,CompressedDataSize,OriginalDataSize
+Compressor: Trunk
+Compression time: 3240.6 ms
+Decompression time: 60 ms
+Compression ratio: 1.73015
+Compressed data size: 5779 KB
+Original data size: 10000 KB
+Compressor: SZ
+Compression time: 564 ms
+Decompression time: 233.2 ms
+Compression ratio: 3.40982
+Compressed data size: 2932 KB
+Original data size: 10000 KB
+Trunk,5,normal,3,9,-1,-1,-1,3240.6,60,1.7301466108936605,5779857,10000000
+SZ,5,normal,3,-1,1,0,0,564,233.2,3.4098178202534997,2932708,10000000
+Compressor: Trunk
+Compression time: 3146.2 ms
+Decompression time: 51.8 ms
+Compression ratio: 1.73015
+Compressed data size: 5779 KB
+Original data size: 10000 KB
+Compressor: SZ
+Compression time: 558 ms
+Decompression time: 242.4 ms
+Compression ratio: 3.40982
+Compressed data size: 2932 KB
+Original data size: 10000 KB
+Trunk,5,normal,3,9,-1,-1,-1,3146.2,51.8,1.7301466108936605,5779857,10000000
+SZ,5,normal,3,-1,1,0,1,558,242.4,3.4098178202534997,2932708,10000000
+Compressor: Trunk
+Compression time: 3030 ms
+Decompression time: 49.8 ms
+Compression ratio: 1.73015
+Compressed data size: 5779 KB
+Original data size: 10000 KB
+Compressor: SZ
+Compression time: 488.2 ms
+Decompression time: 239.8 ms
+Compression ratio: 3.40982
+Compressed data size: 2932 KB
+Original data size: 10000 KB
+Trunk,5,normal,3,9,-1,-1,-1,3030,49.8,1.7301466108936605,5779857,10000000
+SZ,5,normal,3,-1,1,1,0,488.2,239.8,3.4098178202534997,2932708,10000000
+Compressor: Trunk
+Compression time: 3121.2 ms
+Decompression time: 51.4 ms
+Compression ratio: 1.73015
+Compressed data size: 5779 KB
+Original data size: 10000 KB
+Compressor: SZ
+Compression time: 509 ms
+Decompression time: 256.6 ms
+Compression ratio: 3.40982
+Compressed data size: 2932 KB
+Original data size: 10000 KB
+Trunk,5,normal,3,9,-1,-1,-1,3121.2,51.4,1.7301466108936605,5779857,10000000
+SZ,5,normal,3,-1,1,1,1,509,256.6,3.4098178202534997,2932708,10000000
+Compressor: Trunk
+Compression time: 2982.6 ms
+Decompression time: 57 ms
+Compression ratio: 1.73015
+Compressed data size: 5779 KB
+Original data size: 10000 KB
+Compressor: SZ
+Compression time: 558.6 ms
+Decompression time: 240 ms
+Compression ratio: 3.40982
+Compressed data size: 2932 KB
+Original data size: 10000 KB
+Trunk,5,normal,3,9,-1,-1,-1,2982.6,57,1.7301466108936605,5779857,10000000
+SZ,5,normal,3,-1,1,2,0,558.6,240,3.4098178202534997,2932708,10000000
+Compressor: Trunk
+Compression time: 3009.8 ms
+Decompression time: 47.8 ms
+Compression ratio: 1.73015
+Compressed data size: 5779 KB
+Original data size: 10000 KB
+Compressor: SZ
+Compression time: 488.2 ms
+Decompression time: 248 ms
+Compression ratio: 3.40982
+Compressed data size: 2932 KB
+Original data size: 10000 KB
+Trunk,5,normal,3,9,-1,-1,-1,3009.8,47.8,1.7301466108936605,5779857,10000000
+SZ,5,normal,3,-1,1,2,1,488.2,248,3.4098178202534997,2932708,10000000
+Compressor: Trunk
+Compression time: 3003.2 ms
+Decompression time: 53.4 ms
+Compression ratio: 1.73015
+Compressed data size: 5779 KB
+Original data size: 10000 KB
+Compressor: SZ
+Compression time: 502.8 ms
+Decompression time: 248 ms
+Compression ratio: 3.40982
+Compressed data size: 2932 KB
+Original data size: 10000 KB
+Trunk,5,normal,3,9,-1,-1,-1,3003.2,53.4,1.7301466108936605,5779857,10000000
+SZ,5,normal,3,-1,1,3,0,502.8,248,3.4098178202534997,2932708,10000000
+Compressor: Trunk
+Compression time: 2977.4 ms
+Decompression time: 52 ms
+Compression ratio: 1.73015
+Compressed data size: 5779 KB
+Original data size: 10000 KB
+Compressor: SZ
+Compression time: 496.8 ms
+Decompression time: 249.8 ms
+Compression ratio: 3.40982
+Compressed data size: 2932 KB
+Original data size: 10000 KB
+Trunk,5,normal,3,9,-1,-1,-1,2977.4,52,1.7301466108936605,5779857,10000000
+SZ,5,normal,3,-1,1,3,1,496.8,249.8,3.4098178202534997,2932708,10000000

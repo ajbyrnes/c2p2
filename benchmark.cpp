@@ -24,6 +24,8 @@ std::ofstream& openCSV(std::string filename) {
 
     // Write header
     file << "Compresser,";
+    file << "Iterations,";
+    file << "DataName,";
     file << "Precision,";
     file << "CompressionLevel,";
     file << "ErrorBoundMode,";
@@ -43,23 +45,16 @@ int main(int argc, char* argv[]) {
     BenchmarkParams params{parseArguments(argc, argv)};
 
     // Open file for writing
-    std::string filename{
-        std::format("SZ3Sweep-{}-{}.csv",
-                    getHost(), timestamp())
-    };
+    // std::string filename{
+    //     std::format("SZ3Sweep-{}-{}-{}.csv",
+    //                 params.dataSource, getHost(), timestamp())
+    // };
 
-    std::ofstream& file{openCSV(filename)};
+    // std::ofstream& file{openCSV(filename)};
 
-    // Iterate over SZ3 params
-    for (const SZ3::ALGO& algo : algos) {
-        for (const SZ3::INTERP_ALGO interpAlgo : interpAlgos) {
-            params.szAlgo = algo;
-            params.szInterpAlgo = interpAlgo;
-            
-            file << benchmark(params);
-        }
-    }
+    // Run benchmark
+    std::cout << benchmark(params);
 
     // Close file
-    file.close();
+    // file.close();
 }

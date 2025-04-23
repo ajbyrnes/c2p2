@@ -27,10 +27,10 @@ std::vector<float> generateUniformRandomData(size_t size, float min, float max) 
 
     return data;
 }
-std::vector<float> generateGaussianRandomData(size_t size, float mean, float stddev) {
+std::vector<float> generateGaussianRandomData(size_t size, float mean, float stddev, int seed) {
     std::vector<float> data(size);
-    std::random_device rd;
-    std::mt19937 gen(rd());
+    std::random_device rd{};
+    std::mt19937 gen(seed);
     std::normal_distribution<float> dis(mean, stddev);
 
     for (size_t i = 0; i < size; ++i) {
@@ -56,7 +56,8 @@ std::string timestamp() {
 struct BenchmarkParams {
     double dataMB;
 
-    std::string dataMode;
+    std::string dataSource;
+    int seed;
     float mean;
     float stddev;
 
@@ -72,67 +73,67 @@ struct BenchmarkParams {
 };
 
 BenchmarkParams parseArguments(int argc, char* argv[]) {
-    int iterations{5};
-    int precision{3};
-    bool debug{false};
+    BenchmarkParams params;
 
-    double dataMB{10};
-    std::string dataSource{"normal"};
-    float mean{0.0f}, stddev{1.0f};
+    params.iterations = 5;
+    params.precision = 3;
+    params.debug = false;
 
-    int trunkCompressionLevel{9};
-    int szErrorBoundMode{SZ3::EB_REL};
-    int szAlgo{SZ3::ALGO_LORENZO_REG};
-    int szInterpAlgo{SZ3::INTERP_ALGO_LINEAR};
+    params.dataMB = 10;
+    params.dataSource = "normal";
+    params.seed = 12345;
+    params.mean = 0.0;
+    params.stddev = 1.0f;
 
+    params.trunkCompressionLevel = 9;
+    params.szErrorBoundMode = SZ3::EB_REL;
+    params.szAlgo = SZ3::ALGO_LORENZO_REG;
+    params.szInterpAlgo = SZ3::INTERP_ALGO_LINEAR;
 
     // Read parameters
     for (int i{1}; i < argc; ++i) {
         std::string arg{argv[i]};
         if (arg == "--iterations") {
-            iterations = std::stoi(argv[++i]);
+            params.iterations = std::stoi(argv[++i]);
         } else if (arg == "--precision") {
-            precision = std::stoi(argv[++i]);
+            params.precision = std::stoi(argv[++i]);
         } else if (arg == "--debug") {
-            debug = std::stoi(argv[++i]);
+            params.debug = std::stoi(argv[++i]);
         } else if (arg == "--dataMB") {
-            dataMB = std::stod(argv[++i]);
+            params.dataMB = std::stod(argv[++i]);
         } else if (arg == "--dataSource") {
-            dataSource = argv[++i];
+            params.dataSource = argv[++i];
         } else if (arg == "--mean") {
-            mean = std::stof(argv[++i]);
+            params.mean = std::stof(argv[++i]);
         } else if (arg == "--stddev") {
-            stddev = std::stof(argv[++i]);
+            params.stddev = std::stof(argv[++i]);
         } else if (arg == "--trunkCompressionLevel") {
-            trunkCompressionLevel = std::stoi(argv[++i]);
+            params.trunkCompressionLevel = std::stoi(argv[++i]);
         } else if (arg == "--szErrorBoundMode") {
-            szErrorBoundMode = std::stoi(argv[++i]);
+            params.szErrorBoundMode = std::stoi(argv[++i]);
         } else if (arg == "--szAlgo") {
-            szAlgo = std::stoi(argv[++i]);
+            params.szAlgo = std::stoi(argv[++i]);
         } else if (arg == "--szInterpAlgo") {
-            szInterpAlgo = std::stoi(argv[++i]);
+            params.szInterpAlgo = std::stoi(argv[++i]);
+        } else if (arg == "--seed") {
+            params.seed = std::stoi(argv[++i]);
         }
     }
 
-    return BenchmarkParams{
-        dataMB, dataSource, mean, stddev,
-        iterations, precision, debug,
-        trunkCompressionLevel,
-        szErrorBoundMode, szAlgo, szInterpAlgo
-    };
+    return params;
 }
 
 std::string benchmark(BenchmarkParams params) {
     // Generate random data
     size_t dataSize{static_cast<size_t>(params.dataMB * static_cast<double>(MB)) / sizeof(float)};
     std::vector<float> data{};
-    if (params.dataMode == "normal") {
-        data = generateGaussianRandomData(dataSize, params.mean, params.stddev);
+    if (params.dataSource == "normal") {
+        data = generateGaussianRandomData(dataSize, params.mean, params.stddev, params.seed);
     }
 
     // Run compression benchmarks
     CompressorBench bench(
-        params.iterations, params.precision, params.trunkCompressionLevel,
+        params.iterations, params.dataSource, params.precision, params.trunkCompressionLevel,
         params.szErrorBoundMode, params.szAlgo, params.szInterpAlgo,
         params.debug
     );
