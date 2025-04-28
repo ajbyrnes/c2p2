@@ -13,7 +13,7 @@ ROOT_FLAGS = $(shell root-config --cflags --libs)
 
 TRUNK_SRCS = correctness_TrunkCompressor.cpp
 SZ_SRCS = correctness_SZCompressor.cpp
-BENCH_SRCS = benchmark.cpp
+BENCH_SRCS = benchmark.cpp rootToVector.cpp
 
 TRUNK_EXECS = $(TRUNK_SRCS:.cpp=)
 SZ_EXECS = $(SZ_SRCS:.cpp=)
@@ -29,7 +29,7 @@ all: $(BENCH_EXECS)
 # 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIB_FLAGS) $(SZ_INCLUDE) $(SZ_LIB)
 
 $(BENCH_EXECS): %: %.cpp lib/utils.hpp lib/TrunkCompressor.hpp lib/SZCompressor.hpp lib/CompressorBench.hpp
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIB_FLAGS) $(ZLIB_FLAGS) $(SZ_INCLUDE) $(SZ_LIB)
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIB_FLAGS) $(ZLIB_FLAGS) $(SZ_INCLUDE) $(SZ_LIB) $(ROOT_FLAGS)
 
 clean:
 	rm -f $(TRUNK_EXECS) $(SZ_EXECS) $(BENCH_EXECS)

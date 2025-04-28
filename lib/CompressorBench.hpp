@@ -1,3 +1,6 @@
+#ifndef COMPRESSOR_BENCH_HPP
+#define COMPRESSOR_BENCH_HPP
+
 #include <format>
 #include <fstream>
 #include <functional>
@@ -8,85 +11,179 @@
 #include "TrunkCompressor.hpp"
 #include "SZCompressor.hpp"
 
+struct BenchmarkParams {
+    bool doTrunk;
+    bool doSZ;
+    bool sortData;
+
+    int iterations;
+    int precision;
+    bool debug;
+
+    double dataMB;
+    std::string dataName;
+    std::string sourceFile;
+    std::string branchName;
+
+    int seed;
+    float mean;
+    float stddev;
+
+    int trunkCompressionLevel;
+
+    int szErrorBoundMode;
+    int szAlgo;
+    int szInterpAlgo;
+};
+
+BenchmarkParams parseArguments(int argc, char* argv[]) {
+    BenchmarkParams params;
+
+    params.doTrunk = false;
+    params.doSZ = true;
+    params.sortData = false;
+
+    params.iterations = 5;
+    params.precision = 3;
+    params.debug = false;
+
+    params.dataMB = 0;
+    params.dataName = "mini";
+    params.branchName = "lep_pt";
+    params.sourceFile = "mc_361106.Zee.1largeRjet1lep.root";
+
+    params.seed = 12345;
+    params.mean = 0.0;
+    params.stddev = 1.0f;
+
+    params.trunkCompressionLevel = 9;
+    params.szErrorBoundMode = SZ3::EB_REL;
+    params.szAlgo = SZ3::ALGO_LORENZO_REG;
+    params.szInterpAlgo = SZ3::INTERP_ALGO_LINEAR;
+
+    // Read parameters
+    for (int i{1}; i < argc; ++i) {
+        std::string arg{argv[i]};
+        if (arg == "--iterations") {
+            params.iterations = std::stoi(argv[++i]);
+        } else if (arg == "--precision") {
+            params.precision = std::stoi(argv[++i]);
+        } else if (arg == "--debug") {
+            params.debug = std::stoi(argv[++i]);
+        } else if (arg == "--dataMB") {
+            params.dataMB = std::stod(argv[++i]);
+        } else if (arg == "--dataSource") {
+            params.dataName = argv[++i];
+        } else if (arg == "--sourceFile") {
+            params.sourceFile = argv[++i];
+        } else if (arg == "--branchName") {
+            params.branchName = argv[++i];
+        } else if (arg == "--mean") {
+            params.mean = std::stof(argv[++i]);
+        } else if (arg == "--stddev") {
+            params.stddev = std::stof(argv[++i]);
+        } else if (arg == "--trunkCompressionLevel") {
+            params.trunkCompressionLevel = std::stoi(argv[++i]);
+        } else if (arg == "--szErrorBoundMode") {
+            params.szErrorBoundMode = std::stoi(argv[++i]);
+        } else if (arg == "--szAlgo") {
+            params.szAlgo = std::stoi(argv[++i]);
+        } else if (arg == "--szInterpAlgo") {
+            params.szInterpAlgo = std::stoi(argv[++i]);
+        } else if (arg == "--seed") {
+            params.seed = std::stoi(argv[++i]);
+        } else if (arg == "--doTrunk") {
+            params.doTrunk = std::stoi(argv[++i]);
+        } else if (arg == "--doSZ") {
+            params.doSZ = std::stoi(argv[++i]);
+        } else if (arg == "--sortData") {
+            params.sortData = std::stoi(argv[++i]);
+        } else {
+            throw std::invalid_argument("Unknown argument: " + arg);
+        }
+    }
+
+    return params;
+}
+
+constexpr int NUMCOMPRESSORS{2};
+
 class CompressorBench{
     public:
         enum COMPRESSOR{TRUNK, SZ};
 
-        CompressorBench(const int iterations, const std::string dataName, const int precision, 
-                        const int trunkCompressionLevel,
-                        const int szErrorBoundMode, const int szAlgo, const int szInterpAlgo,
-                        const bool debug=false)
-            :   _dataName(dataName), _precision(precision), _trunkCompressionLevel(trunkCompressionLevel),
-                _szErrorBoundMode(szErrorBoundMode), _szAlgo(szAlgo), _szInterpAlgo(szInterpAlgo)
+        CompressorBench(const BenchmarkParams& params)
+            :   _doSZ(params.doSZ), _doTrunk(params.doTrunk), _sortData(params.sortData),
+                _dataName(params.dataName + "-" + params.branchName), _precision(params.precision),
+                 _trunkCompressionLevel(params.trunkCompressionLevel),
+                _szErrorBoundMode(params.szErrorBoundMode), _szAlgo(params.szAlgo), _szInterpAlgo(params.szInterpAlgo)
         {
             // Validation iterations
-            if (iterations <= 0) {
+            if (params.iterations <= 0) {
                 throw std::invalid_argument("Iterations must be greater than 0");
             }
-            _iterations = iterations;
+            _iterations = params.iterations;
 
             // Create compressor objects
-            _trunkCompressor = TrunkCompressor(precision, trunkCompressionLevel, debug);
-            _szCompressor = SZCompressor(precision, szErrorBoundMode, szAlgo, szInterpAlgo, debug);
+            _compressor.push_back(new TrunkCompressor(_precision, _trunkCompressionLevel, params.debug));
+            _compressor.push_back(new SZCompressor(_precision, _szErrorBoundMode, _szAlgo, _szInterpAlgo, params.debug));
         }
 
-        void run(const std::vector<float>& data, const int dataLength)
-        {
-            // Validate data size
-            if (dataLength <= 0) {
-                throw std::invalid_argument("Data size must be greater than 0");
+        void run(std::vector<float>& data, int iterations=-1) {
+            // Set number of iterations
+            if (iterations == -1) {
+                iterations = _iterations;
             }
-            _originalDataSize = dataLength * sizeof(float);
+
+            std::vector<uint8_t> compressedData{};
+            std::vector<std::vector<float>> decompressedData(NUMCOMPRESSORS);
+
+            _originalDataSize = data.size() * sizeof(float);
+
+            // Sort data if requested
+            if (_sortData) {
+                std::sort(data.begin(), data.end());
+            }
             
-            for (int compressor{TRUNK}; compressor <= SZ; ++compressor) {
-                std::vector<uint8_t> compressedData{};
-                std::vector<float> decompressedData{};
-
-                // Selection compression/decompression functions
-                std::function<std::vector<uint8_t>(const std::vector<float>&)> compressFunc;
-                std::function<std::vector<float>(const std::vector<uint8_t>&, const size_t&)> decompressFunc;
-                switch (compressor) {
-                    case TRUNK:
-                        compressFunc = std::bind(&TrunkCompressor::compress, &_trunkCompressor, std::placeholders::_1);
-                        decompressFunc = std::bind(&TrunkCompressor::decompress, &_trunkCompressor, std::placeholders::_1, std::placeholders::_2);
-                        break;
-                    case SZ:
-                        compressFunc = std::bind(&SZCompressor::compress, &_szCompressor, std::placeholders::_1);
-                        decompressFunc = std::bind(&SZCompressor::decompress, &_szCompressor, std::placeholders::_1, std::placeholders::_2);
-                        break;
-                    default:
-                        throw std::invalid_argument("Invalid compressor type");
-                };
-
-                // Time compression
-                for (int i = 0; i < _iterations; ++i) {
-                    _start = std::chrono::high_resolution_clock::now();
+            for (int compressor{TRUNK}; compressor <= SZ; compressor++) {
+                if ((compressor == TRUNK && !_doTrunk) || (compressor == SZ && !_doSZ)) {
+                    continue;
+                }
+                
+                for (int i{0}; i < iterations; ++i) {
                     compressedData.clear();
-                    compressedData = compressFunc(data);
+                    _start = std::chrono::high_resolution_clock::now();
+                    compressedData = _compressor[compressor]->compress(data);
                     _end = std::chrono::high_resolution_clock::now();
                     _compressionTime[compressor] += std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count();
                 }
-                
+
                 // Average over iterations
-                _compressionTime[compressor] /= _iterations;
+                _compressionTime[compressor] /= iterations;
 
-                // Record compressed data size
-                _compressedDataSize[compressor] = compressedData.size() * sizeof(uint8_t);
+                // Store compressed data size
+                _compressedDataSize[compressor] = compressedData.size();
 
-                // Record compression ratio
-                _compressionRatio[compressor] = static_cast<double>(_originalDataSize) / _compressedDataSize[compressor];
+                // Calculate compression ratio
+                _compressionRatio[compressor] = static_cast<double>(_originalDataSize) / static_cast<double>(_compressedDataSize[compressor]);
 
-                // Time decompression
-                for (int i = 0; i < _iterations; ++i) {
+                // Decompress data
+                for (int i{0}; i < iterations; ++i) {
                     _start = std::chrono::high_resolution_clock::now();
-                    decompressedData.clear();
-                    decompressedData = decompressFunc(compressedData, dataLength);
+                    decompressedData[compressor] = _compressor[compressor]->decompress(compressedData, data.size());
                     _end = std::chrono::high_resolution_clock::now();
                     _decompressionTime[compressor] += std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count();
                 }
 
                 // Average over iterations
-                _decompressionTime[compressor] /= _iterations;
+                _decompressionTime[compressor] /= iterations;
+
+                // Calculate average relative error
+                _avgRelativeError[compressor] = 0;
+                for (size_t i{0}; i < data.size(); ++i) {
+                    _avgRelativeError[compressor] += std::abs((data[i] - decompressedData[compressor][i]) / data[i]);
+                }
+                _avgRelativeError[compressor] /= data.size();
             }
         }
 
@@ -94,6 +191,10 @@ class CompressorBench{
             std::string report{};
 
             for (int compressor{TRUNK}; compressor <= SZ; compressor++) {
+                if ((compressor == TRUNK && !_doTrunk) || (compressor == SZ && !_doSZ)) {
+                    continue;
+                }
+
                 report += std::format("{},",(compressor == CompressorBench::TRUNK ? "Trunk" : "SZ"));
                 report += std::format("{},", _iterations);
                 report += std::format("{},", _dataName);
@@ -106,7 +207,8 @@ class CompressorBench{
                 report += std::format("{},", _decompressionTime[compressor]);
                 report += std::format("{},", _compressionRatio[compressor]);
                 report += std::format("{},", _compressedDataSize[compressor]);
-                report += std::format("{}", _originalDataSize);
+                report += std::format("{},", _originalDataSize);
+                report += std::format("{}", _avgRelativeError[compressor]);
                 report += "\n";
             }
 
@@ -148,15 +250,15 @@ class CompressorBench{
             _originalDataSize = 0;
         }
 
-        
-
-    private:
-        TrunkCompressor _trunkCompressor;    
-        SZCompressor _szCompressor;
-        
+    private:        
+        bool _doTrunk;
+        bool _doSZ;
+        bool _sortData;
         int _iterations;
-        std::string _dataName;
         int _precision;
+        std::string _dataName;
+
+        std::vector<MyCompressor*> _compressor;
 
         int _trunkCompressionLevel;
 
@@ -165,12 +267,15 @@ class CompressorBench{
         int _szInterpAlgo;
 
         size_t _originalDataSize;
-        size_t _compressedDataSize[2];
-        double _compressionTime[2];
-        double _decompressionTime[2];
-        double _compressionRatio[2];
+        size_t _compressedDataSize[NUMCOMPRESSORS];
+        double _compressionTime[NUMCOMPRESSORS];
+        double _decompressionTime[NUMCOMPRESSORS];
+        double _compressionRatio[NUMCOMPRESSORS];
+        double _avgRelativeError[NUMCOMPRESSORS];
 
         std::chrono::high_resolution_clock::time_point _start;
         std::chrono::high_resolution_clock::time_point _end;
 
 };
+
+#endif // COMPRESSOR_BENCH_HPP

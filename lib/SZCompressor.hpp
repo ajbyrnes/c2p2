@@ -67,7 +67,11 @@ class SZCompressor : public MyCompressor {
             SZ3::Config conf({dims[0]});
             conf.lossless = false;
             conf.dataType = SZ_FLOAT;
+
+            conf.cmprAlgo = static_cast<SZ3::ALGO>(_algo);
+            conf.interpAlgo = static_cast<SZ3::INTERP_ALGO>(_interpAlgo);
             conf.errorBoundMode = static_cast<SZ3::EB>(_errorBoundMode);
+            
             switch (_errorBoundMode) {
                 case SZ3::EB_REL:
                     conf.relErrorBound = _calculateRelativeError(_precision);
