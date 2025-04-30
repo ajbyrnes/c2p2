@@ -1,0 +1,3118 @@
+Parameters:
+  doTrunk: 1
+  doSZ: 0
+  iterations: 5
+  precision: 1
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381321869059423
+
+[DEBUG TrunkCompressor]: precision = 1, bitsTruncated = 19, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 60 ms
+[DEBUG TrunkCompressor]: compression time = 7871 ms
+[DEBUG TrunkCompressor]: precision = 1, bitsTruncated = 19, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 60 ms
+[DEBUG TrunkCompressor]: compression time = 8472 ms
+[DEBUG TrunkCompressor]: precision = 1, bitsTruncated = 19, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 64 ms
+[DEBUG TrunkCompressor]: compression time = 9917 ms
+[DEBUG TrunkCompressor]: precision = 1, bitsTruncated = 19, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 60 ms
+[DEBUG TrunkCompressor]: compression time = 8126 ms
+[DEBUG TrunkCompressor]: precision = 1, bitsTruncated = 19, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 53 ms
+[DEBUG TrunkCompressor]: compression time = 7974 ms
+[DEBUG TrunkCompressor]: decompression time = 20 ms
+[DEBUG TrunkCompressor]: decompression time = 20 ms
+[DEBUG TrunkCompressor]: decompression time = 20 ms
+[DEBUG TrunkCompressor]: decompression time = 20 ms
+[DEBUG TrunkCompressor]: decompression time = 20 ms
+[DEBUG benchmark] Compressor: Trunk
+[DEBUG benchmark] Compression time: 8534 ms
+[DEBUG benchmark] Decompression time: 25.2 ms
+[DEBUG benchmark] Compression ratio: 3.02562
+[DEBUG benchmark] Compressed data size: 3305 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 1
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381364981591035
+
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 528 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 531 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 525 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 527 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 523 ms
+[DEBUG SZCompressor]: decompression time = 299 ms
+[DEBUG SZCompressor]: decompression time = 298 ms
+[DEBUG SZCompressor]: decompression time = 300 ms
+[DEBUG SZCompressor]: decompression time = 296 ms
+[DEBUG SZCompressor]: decompression time = 296 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 528.4 ms
+[DEBUG benchmark] Decompression time: 298.8 ms
+[DEBUG benchmark] Compression ratio: 14.6918
+[DEBUG benchmark] Compressed data size: 680 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 1
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381369450352593
+
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 594 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 567 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 582 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 621 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 610 ms
+[DEBUG SZCompressor]: decompression time = 321 ms
+[DEBUG SZCompressor]: decompression time = 326 ms
+[DEBUG SZCompressor]: decompression time = 325 ms
+[DEBUG SZCompressor]: decompression time = 322 ms
+[DEBUG SZCompressor]: decompression time = 320 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 596 ms
+[DEBUG benchmark] Decompression time: 324.2 ms
+[DEBUG benchmark] Compression ratio: 14.6918
+[DEBUG benchmark] Compressed data size: 680 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 1
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381374393820869
+
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 586 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 554 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 557 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 561 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 559 ms
+[DEBUG SZCompressor]: decompression time = 88 ms
+[DEBUG SZCompressor]: decompression time = 97 ms
+[DEBUG SZCompressor]: decompression time = 98 ms
+[DEBUG SZCompressor]: decompression time = 97 ms
+[DEBUG SZCompressor]: decompression time = 98 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 565.4 ms
+[DEBUG benchmark] Decompression time: 96.6 ms
+[DEBUG benchmark] Compression ratio: 11.9347
+[DEBUG benchmark] Compressed data size: 837 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 1
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381378118620722
+
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 599 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 607 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 1831 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 604 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 598 ms
+[DEBUG SZCompressor]: decompression time = 96 ms
+[DEBUG SZCompressor]: decompression time = 99 ms
+[DEBUG SZCompressor]: decompression time = 102 ms
+[DEBUG SZCompressor]: decompression time = 97 ms
+[DEBUG SZCompressor]: decompression time = 98 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 849.6 ms
+[DEBUG benchmark] Decompression time: 99 ms
+[DEBUG benchmark] Compression ratio: 11.9347
+[DEBUG benchmark] Compressed data size: 837 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 1
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381383221559669
+
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 194 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 192 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 195 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 192 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 193 ms
+[DEBUG SZCompressor]: decompression time = 88 ms
+[DEBUG SZCompressor]: decompression time = 89 ms
+[DEBUG SZCompressor]: decompression time = 92 ms
+[DEBUG SZCompressor]: decompression time = 89 ms
+[DEBUG SZCompressor]: decompression time = 88 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 194.8 ms
+[DEBUG benchmark] Decompression time: 90 ms
+[DEBUG benchmark] Compression ratio: 11.9347
+[DEBUG benchmark] Compressed data size: 837 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 1
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381384996385787
+
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 203 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 230 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 197 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 196 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 197 ms
+[DEBUG SZCompressor]: decompression time = 94 ms
+[DEBUG SZCompressor]: decompression time = 97 ms
+[DEBUG SZCompressor]: decompression time = 96 ms
+[DEBUG SZCompressor]: decompression time = 94 ms
+[DEBUG SZCompressor]: decompression time = 93 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 206.4 ms
+[DEBUG benchmark] Decompression time: 96 ms
+[DEBUG benchmark] Compression ratio: 11.5883
+[DEBUG benchmark] Compressed data size: 862 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 1
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381386896054125
+
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 145 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 146 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 148 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 151 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 147 ms
+[DEBUG SZCompressor]: decompression time = 50 ms
+[DEBUG SZCompressor]: decompression time = 51 ms
+[DEBUG SZCompressor]: decompression time = 51 ms
+[DEBUG SZCompressor]: decompression time = 50 ms
+[DEBUG SZCompressor]: decompression time = 62 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 149.2 ms
+[DEBUG benchmark] Decompression time: 54 ms
+[DEBUG benchmark] Compression ratio: 15.4734
+[DEBUG benchmark] Compressed data size: 646 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 1
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381388233659703
+
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 148 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 147 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 145 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 146 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 146 ms
+[DEBUG SZCompressor]: decompression time = 50 ms
+[DEBUG SZCompressor]: decompression time = 50 ms
+[DEBUG SZCompressor]: decompression time = 49 ms
+[DEBUG SZCompressor]: decompression time = 50 ms
+[DEBUG SZCompressor]: decompression time = 50 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 147.4 ms
+[DEBUG benchmark] Decompression time: 50.6 ms
+[DEBUG benchmark] Compression ratio: 15.4734
+[DEBUG benchmark] Compressed data size: 646 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 1
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381389545554063
+
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 17 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 14 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 14 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 31.4 ms
+[DEBUG benchmark] Decompression time: 7.6 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 1
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381390054407943
+
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 14 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 14 ms
+[DEBUG SZCompressor]: precision = 1, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 14 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 30.2 ms
+[DEBUG benchmark] Decompression time: 6.4 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 1
+  doSZ: 0
+  iterations: 5
+  precision: 2
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381390548927253
+
+[DEBUG TrunkCompressor]: precision = 2, bitsTruncated = 16, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 54 ms
+[DEBUG TrunkCompressor]: compression time = 7308 ms
+[DEBUG TrunkCompressor]: precision = 2, bitsTruncated = 16, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 59 ms
+[DEBUG TrunkCompressor]: compression time = 7786 ms
+[DEBUG TrunkCompressor]: precision = 2, bitsTruncated = 16, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 62 ms
+[DEBUG TrunkCompressor]: compression time = 9258 ms
+[DEBUG TrunkCompressor]: precision = 2, bitsTruncated = 16, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 61 ms
+[DEBUG TrunkCompressor]: compression time = 7601 ms
+[DEBUG TrunkCompressor]: precision = 2, bitsTruncated = 16, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 52 ms
+[DEBUG TrunkCompressor]: compression time = 7354 ms
+[DEBUG TrunkCompressor]: decompression time = 24 ms
+[DEBUG TrunkCompressor]: decompression time = 24 ms
+[DEBUG TrunkCompressor]: decompression time = 24 ms
+[DEBUG TrunkCompressor]: decompression time = 24 ms
+[DEBUG TrunkCompressor]: decompression time = 24 ms
+[DEBUG benchmark] Compressor: Trunk
+[DEBUG benchmark] Compression time: 7920.6 ms
+[DEBUG benchmark] Decompression time: 29.2 ms
+[DEBUG benchmark] Compression ratio: 2.26613
+[DEBUG benchmark] Compressed data size: 4412 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 2
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381430610850648
+
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 533 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 533 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 530 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 529 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 563 ms
+[DEBUG SZCompressor]: decompression time = 361 ms
+[DEBUG SZCompressor]: decompression time = 386 ms
+[DEBUG SZCompressor]: decompression time = 368 ms
+[DEBUG SZCompressor]: decompression time = 379 ms
+[DEBUG SZCompressor]: decompression time = 382 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 540.8 ms
+[DEBUG benchmark] Decompression time: 376.6 ms
+[DEBUG benchmark] Compression ratio: 5.75967
+[DEBUG benchmark] Compressed data size: 1736 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 2
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381435529393895
+
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 528 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 567 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 573 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 573 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 577 ms
+[DEBUG SZCompressor]: decompression time = 398 ms
+[DEBUG SZCompressor]: decompression time = 397 ms
+[DEBUG SZCompressor]: decompression time = 395 ms
+[DEBUG SZCompressor]: decompression time = 395 ms
+[DEBUG SZCompressor]: decompression time = 398 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 567.2 ms
+[DEBUG benchmark] Decompression time: 397.6 ms
+[DEBUG benchmark] Compression ratio: 5.75967
+[DEBUG benchmark] Compressed data size: 1736 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 2
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381440687594444
+
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 649 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 638 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 597 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 589 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 571 ms
+[DEBUG SZCompressor]: decompression time = 151 ms
+[DEBUG SZCompressor]: decompression time = 153 ms
+[DEBUG SZCompressor]: decompression time = 164 ms
+[DEBUG SZCompressor]: decompression time = 178 ms
+[DEBUG SZCompressor]: decompression time = 175 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 612.4 ms
+[DEBUG benchmark] Decompression time: 165.8 ms
+[DEBUG benchmark] Compression ratio: 5.32953
+[DEBUG benchmark] Compressed data size: 1876 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 2
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381444935647182
+
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 615 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 612 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 1774 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 615 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 721 ms
+[DEBUG SZCompressor]: decompression time = 172 ms
+[DEBUG SZCompressor]: decompression time = 166 ms
+[DEBUG SZCompressor]: decompression time = 154 ms
+[DEBUG SZCompressor]: decompression time = 151 ms
+[DEBUG SZCompressor]: decompression time = 151 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 871.6 ms
+[DEBUG benchmark] Decompression time: 160 ms
+[DEBUG benchmark] Compression ratio: 5.32953
+[DEBUG benchmark] Compressed data size: 1876 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 2
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381450447978590
+
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 203 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 202 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 199 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 208 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 217 ms
+[DEBUG SZCompressor]: decompression time = 152 ms
+[DEBUG SZCompressor]: decompression time = 152 ms
+[DEBUG SZCompressor]: decompression time = 151 ms
+[DEBUG SZCompressor]: decompression time = 169 ms
+[DEBUG SZCompressor]: decompression time = 151 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 209.2 ms
+[DEBUG benchmark] Decompression time: 156 ms
+[DEBUG benchmark] Compression ratio: 5.32953
+[DEBUG benchmark] Compressed data size: 1876 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 2
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381452604364174
+
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 206 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 237 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 204 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 205 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 200 ms
+[DEBUG SZCompressor]: decompression time = 149 ms
+[DEBUG SZCompressor]: decompression time = 148 ms
+[DEBUG SZCompressor]: decompression time = 151 ms
+[DEBUG SZCompressor]: decompression time = 150 ms
+[DEBUG SZCompressor]: decompression time = 150 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 214.2 ms
+[DEBUG benchmark] Decompression time: 150.4 ms
+[DEBUG benchmark] Compression ratio: 5.26518
+[DEBUG benchmark] Compressed data size: 1899 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 2
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381454757273542
+
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 161 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 157 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 170 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 155 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 154 ms
+[DEBUG SZCompressor]: decompression time = 108 ms
+[DEBUG SZCompressor]: decompression time = 111 ms
+[DEBUG SZCompressor]: decompression time = 106 ms
+[DEBUG SZCompressor]: decompression time = 109 ms
+[DEBUG SZCompressor]: decompression time = 127 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 162.8 ms
+[DEBUG benchmark] Decompression time: 113.8 ms
+[DEBUG benchmark] Compression ratio: 5.9854
+[DEBUG benchmark] Compressed data size: 1670 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 2
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381456473106442
+
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 159 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 152 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 153 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 157 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 154 ms
+[DEBUG SZCompressor]: decompression time = 109 ms
+[DEBUG SZCompressor]: decompression time = 107 ms
+[DEBUG SZCompressor]: decompression time = 108 ms
+[DEBUG SZCompressor]: decompression time = 109 ms
+[DEBUG SZCompressor]: decompression time = 108 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 158.2 ms
+[DEBUG benchmark] Decompression time: 109.4 ms
+[DEBUG benchmark] Compression ratio: 5.9854
+[DEBUG benchmark] Compressed data size: 1670 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 2
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381458179991992
+
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 19 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 14 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 14 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 30.8 ms
+[DEBUG benchmark] Decompression time: 7 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 2
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381458681384602
+
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 18 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 14 ms
+[DEBUG SZCompressor]: precision = 2, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 8 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 32.2 ms
+[DEBUG benchmark] Decompression time: 9.2 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 1
+  doSZ: 0
+  iterations: 5
+  precision: 3
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381459206471062
+
+[DEBUG TrunkCompressor]: precision = 3, bitsTruncated = 13, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 55 ms
+[DEBUG TrunkCompressor]: compression time = 2220 ms
+[DEBUG TrunkCompressor]: precision = 3, bitsTruncated = 13, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 59 ms
+[DEBUG TrunkCompressor]: compression time = 2421 ms
+[DEBUG TrunkCompressor]: precision = 3, bitsTruncated = 13, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 72 ms
+[DEBUG TrunkCompressor]: compression time = 2508 ms
+[DEBUG TrunkCompressor]: precision = 3, bitsTruncated = 13, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 57 ms
+[DEBUG TrunkCompressor]: compression time = 2503 ms
+[DEBUG TrunkCompressor]: precision = 3, bitsTruncated = 13, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 56 ms
+[DEBUG TrunkCompressor]: compression time = 2571 ms
+[DEBUG TrunkCompressor]: decompression time = 37 ms
+[DEBUG TrunkCompressor]: decompression time = 37 ms
+[DEBUG TrunkCompressor]: decompression time = 37 ms
+[DEBUG TrunkCompressor]: decompression time = 37 ms
+[DEBUG TrunkCompressor]: decompression time = 37 ms
+[DEBUG benchmark] Compressor: Trunk
+[DEBUG benchmark] Compression time: 2508 ms
+[DEBUG benchmark] Decompression time: 42.4 ms
+[DEBUG benchmark] Compression ratio: 1.73015
+[DEBUG benchmark] Compressed data size: 5779 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 3
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381472293554146
+
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 578 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 582 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 577 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 536 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 558 ms
+[DEBUG SZCompressor]: decompression time = 437 ms
+[DEBUG SZCompressor]: decompression time = 435 ms
+[DEBUG SZCompressor]: decompression time = 437 ms
+[DEBUG SZCompressor]: decompression time = 430 ms
+[DEBUG SZCompressor]: decompression time = 429 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 571.6 ms
+[DEBUG benchmark] Decompression time: 435.2 ms
+[DEBUG benchmark] Compression ratio: 3.57214
+[DEBUG benchmark] Compressed data size: 2799 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 3
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381477686870833
+
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 614 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 610 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 581 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 1840 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 578 ms
+[DEBUG SZCompressor]: decompression time = 463 ms
+[DEBUG SZCompressor]: decompression time = 463 ms
+[DEBUG SZCompressor]: decompression time = 461 ms
+[DEBUG SZCompressor]: decompression time = 460 ms
+[DEBUG SZCompressor]: decompression time = 456 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 850.2 ms
+[DEBUG benchmark] Decompression time: 461.6 ms
+[DEBUG benchmark] Compression ratio: 3.57214
+[DEBUG benchmark] Compressed data size: 2799 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 3
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381484589597883
+
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 645 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 596 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 587 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 573 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 540 ms
+[DEBUG SZCompressor]: decompression time = 199 ms
+[DEBUG SZCompressor]: decompression time = 200 ms
+[DEBUG SZCompressor]: decompression time = 198 ms
+[DEBUG SZCompressor]: decompression time = 201 ms
+[DEBUG SZCompressor]: decompression time = 199 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 594 ms
+[DEBUG benchmark] Decompression time: 201 ms
+[DEBUG benchmark] Compression ratio: 3.40985
+[DEBUG benchmark] Compressed data size: 2932 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 3
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381488896297427
+
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 545 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 575 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 567 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 547 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 543 ms
+[DEBUG SZCompressor]: decompression time = 200 ms
+[DEBUG SZCompressor]: decompression time = 231 ms
+[DEBUG SZCompressor]: decompression time = 206 ms
+[DEBUG SZCompressor]: decompression time = 202 ms
+[DEBUG SZCompressor]: decompression time = 201 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 561 ms
+[DEBUG benchmark] Decompression time: 209.8 ms
+[DEBUG benchmark] Compression ratio: 3.40985
+[DEBUG benchmark] Compressed data size: 2932 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 3
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381493061193767
+
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 233 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 197 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 198 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 197 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 197 ms
+[DEBUG SZCompressor]: decompression time = 201 ms
+[DEBUG SZCompressor]: decompression time = 203 ms
+[DEBUG SZCompressor]: decompression time = 220 ms
+[DEBUG SZCompressor]: decompression time = 200 ms
+[DEBUG SZCompressor]: decompression time = 209 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 209.4 ms
+[DEBUG benchmark] Decompression time: 207.6 ms
+[DEBUG benchmark] Compression ratio: 3.40985
+[DEBUG benchmark] Compressed data size: 2932 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 3
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381495456835104
+
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 252 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 212 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 209 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 218 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 209 ms
+[DEBUG SZCompressor]: decompression time = 214 ms
+[DEBUG SZCompressor]: decompression time = 215 ms
+[DEBUG SZCompressor]: decompression time = 220 ms
+[DEBUG SZCompressor]: decompression time = 216 ms
+[DEBUG SZCompressor]: decompression time = 218 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 225.4 ms
+[DEBUG benchmark] Decompression time: 217.6 ms
+[DEBUG benchmark] Compression ratio: 3.38461
+[DEBUG benchmark] Compressed data size: 2954 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 3
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381498001024883
+
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 174 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 167 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 168 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 195 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 170 ms
+[DEBUG SZCompressor]: decompression time = 184 ms
+[DEBUG SZCompressor]: decompression time = 189 ms
+[DEBUG SZCompressor]: decompression time = 173 ms
+[DEBUG SZCompressor]: decompression time = 176 ms
+[DEBUG SZCompressor]: decompression time = 173 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 180.2 ms
+[DEBUG benchmark] Decompression time: 180.2 ms
+[DEBUG benchmark] Compression ratio: 3.69041
+[DEBUG benchmark] Compressed data size: 2709 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 3
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381500131793964
+
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 170 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 168 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 169 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 182 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 167 ms
+[DEBUG SZCompressor]: decompression time = 194 ms
+[DEBUG SZCompressor]: decompression time = 202 ms
+[DEBUG SZCompressor]: decompression time = 175 ms
+[DEBUG SZCompressor]: decompression time = 176 ms
+[DEBUG SZCompressor]: decompression time = 174 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 176.2 ms
+[DEBUG benchmark] Decompression time: 185.4 ms
+[DEBUG benchmark] Compression ratio: 3.69041
+[DEBUG benchmark] Compressed data size: 2709 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 3
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381502269862056
+
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 31.8 ms
+[DEBUG benchmark] Decompression time: 8.8 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 3
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381502825656051
+
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 3, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 31.4 ms
+[DEBUG benchmark] Decompression time: 8.6 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 1
+  doSZ: 0
+  iterations: 5
+  precision: 4
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381503356947977
+
+[DEBUG TrunkCompressor]: precision = 4, bitsTruncated = 9, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 59 ms
+[DEBUG TrunkCompressor]: compression time = 1201 ms
+[DEBUG TrunkCompressor]: precision = 4, bitsTruncated = 9, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 74 ms
+[DEBUG TrunkCompressor]: compression time = 1235 ms
+[DEBUG TrunkCompressor]: precision = 4, bitsTruncated = 9, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 58 ms
+[DEBUG TrunkCompressor]: compression time = 1217 ms
+[DEBUG TrunkCompressor]: precision = 4, bitsTruncated = 9, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 58 ms
+[DEBUG TrunkCompressor]: compression time = 1229 ms
+[DEBUG TrunkCompressor]: precision = 4, bitsTruncated = 9, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 57 ms
+[DEBUG TrunkCompressor]: compression time = 1232 ms
+[DEBUG TrunkCompressor]: decompression time = 41 ms
+[DEBUG TrunkCompressor]: decompression time = 42 ms
+[DEBUG TrunkCompressor]: decompression time = 41 ms
+[DEBUG TrunkCompressor]: decompression time = 41 ms
+[DEBUG TrunkCompressor]: decompression time = 41 ms
+[DEBUG benchmark] Compressor: Trunk
+[DEBUG benchmark] Compression time: 1286.8 ms
+[DEBUG benchmark] Decompression time: 45.2 ms
+[DEBUG benchmark] Compression ratio: 1.37036
+[DEBUG benchmark] Compressed data size: 7297 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 4
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381510359477152
+
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 569 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 571 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 573 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 566 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 567 ms
+[DEBUG SZCompressor]: decompression time = 2112 ms
+[DEBUG SZCompressor]: decompression time = 516 ms
+[DEBUG SZCompressor]: decompression time = 519 ms
+[DEBUG SZCompressor]: decompression time = 538 ms
+[DEBUG SZCompressor]: decompression time = 496 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 576.2 ms
+[DEBUG benchmark] Decompression time: 838 ms
+[DEBUG benchmark] Compression ratio: 2.53743
+[DEBUG benchmark] Compressed data size: 3940 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 4
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381517762443544
+
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 588 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 583 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 568 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 568 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 591 ms
+[DEBUG SZCompressor]: decompression time = 508 ms
+[DEBUG SZCompressor]: decompression time = 515 ms
+[DEBUG SZCompressor]: decompression time = 500 ms
+[DEBUG SZCompressor]: decompression time = 506 ms
+[DEBUG SZCompressor]: decompression time = 508 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 589.2 ms
+[DEBUG benchmark] Decompression time: 509.2 ms
+[DEBUG benchmark] Compression ratio: 2.53743
+[DEBUG benchmark] Compressed data size: 3940 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 4
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381523597893982
+
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 643 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 632 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 629 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 637 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 710 ms
+[DEBUG SZCompressor]: decompression time = 281 ms
+[DEBUG SZCompressor]: decompression time = 283 ms
+[DEBUG SZCompressor]: decompression time = 283 ms
+[DEBUG SZCompressor]: decompression time = 302 ms
+[DEBUG SZCompressor]: decompression time = 318 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 657.4 ms
+[DEBUG benchmark] Decompression time: 294.2 ms
+[DEBUG benchmark] Compression ratio: 2.46115
+[DEBUG benchmark] Compressed data size: 4063 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 4
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381528696323825
+
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 635 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 640 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 636 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 657 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 633 ms
+[DEBUG SZCompressor]: decompression time = 280 ms
+[DEBUG SZCompressor]: decompression time = 316 ms
+[DEBUG SZCompressor]: decompression time = 283 ms
+[DEBUG SZCompressor]: decompression time = 282 ms
+[DEBUG SZCompressor]: decompression time = 282 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 647.4 ms
+[DEBUG benchmark] Decompression time: 289.6 ms
+[DEBUG benchmark] Compression ratio: 2.46115
+[DEBUG benchmark] Compressed data size: 4063 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 4
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381533715737146
+
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 247 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 244 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 242 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 241 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 265 ms
+[DEBUG SZCompressor]: decompression time = 282 ms
+[DEBUG SZCompressor]: decompression time = 286 ms
+[DEBUG SZCompressor]: decompression time = 282 ms
+[DEBUG SZCompressor]: decompression time = 281 ms
+[DEBUG SZCompressor]: decompression time = 283 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 255 ms
+[DEBUG benchmark] Decompression time: 283.6 ms
+[DEBUG benchmark] Compression ratio: 2.46115
+[DEBUG benchmark] Compressed data size: 4063 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 4
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381536744996147
+
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 252 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 251 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 247 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 277 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 255 ms
+[DEBUG SZCompressor]: decompression time = 286 ms
+[DEBUG SZCompressor]: decompression time = 291 ms
+[DEBUG SZCompressor]: decompression time = 289 ms
+[DEBUG SZCompressor]: decompression time = 292 ms
+[DEBUG SZCompressor]: decompression time = 294 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 263.8 ms
+[DEBUG benchmark] Decompression time: 291.6 ms
+[DEBUG benchmark] Compression ratio: 2.44675
+[DEBUG benchmark] Compressed data size: 4087 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 4
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381539862789862
+
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 206 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 222 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 197 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 200 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 196 ms
+[DEBUG SZCompressor]: decompression time = 239 ms
+[DEBUG SZCompressor]: decompression time = 242 ms
+[DEBUG SZCompressor]: decompression time = 253 ms
+[DEBUG SZCompressor]: decompression time = 249 ms
+[DEBUG SZCompressor]: decompression time = 246 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 211.2 ms
+[DEBUG benchmark] Decompression time: 247 ms
+[DEBUG benchmark] Compression ratio: 2.62932
+[DEBUG benchmark] Compressed data size: 3803 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 4
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381542493688872
+
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 201 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 200 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 194 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 212 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 198 ms
+[DEBUG SZCompressor]: decompression time = 240 ms
+[DEBUG SZCompressor]: decompression time = 249 ms
+[DEBUG SZCompressor]: decompression time = 247 ms
+[DEBUG SZCompressor]: decompression time = 244 ms
+[DEBUG SZCompressor]: decompression time = 244 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 207.8 ms
+[DEBUG benchmark] Decompression time: 246.2 ms
+[DEBUG benchmark] Compression ratio: 2.62932
+[DEBUG benchmark] Compressed data size: 3803 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 4
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381545104989718
+
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 17 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 32.8 ms
+[DEBUG benchmark] Decompression time: 8.2 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 4
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381545652200960
+
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 17 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 4, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 32.4 ms
+[DEBUG benchmark] Decompression time: 7.4 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 1
+  doSZ: 0
+  iterations: 5
+  precision: 5
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381546184027832
+
+[DEBUG TrunkCompressor]: precision = 5, bitsTruncated = 6, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 61 ms
+[DEBUG TrunkCompressor]: compression time = 651 ms
+[DEBUG TrunkCompressor]: precision = 5, bitsTruncated = 6, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 61 ms
+[DEBUG TrunkCompressor]: compression time = 1927 ms
+[DEBUG TrunkCompressor]: precision = 5, bitsTruncated = 6, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 57 ms
+[DEBUG TrunkCompressor]: compression time = 635 ms
+[DEBUG TrunkCompressor]: precision = 5, bitsTruncated = 6, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 56 ms
+[DEBUG TrunkCompressor]: compression time = 618 ms
+[DEBUG TrunkCompressor]: precision = 5, bitsTruncated = 6, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 56 ms
+[DEBUG TrunkCompressor]: compression time = 706 ms
+[DEBUG TrunkCompressor]: decompression time = 39 ms
+[DEBUG TrunkCompressor]: decompression time = 39 ms
+[DEBUG TrunkCompressor]: decompression time = 39 ms
+[DEBUG TrunkCompressor]: decompression time = 41 ms
+[DEBUG TrunkCompressor]: decompression time = 42 ms
+[DEBUG benchmark] Compressor: Trunk
+[DEBUG benchmark] Compression time: 968.2 ms
+[DEBUG benchmark] Decompression time: 45 ms
+[DEBUG benchmark] Compression ratio: 1.22955
+[DEBUG benchmark] Compressed data size: 8133 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 5
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381551588137313
+
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 677 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 691 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 725 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 711 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 680 ms
+[DEBUG SZCompressor]: decompression time = 575 ms
+[DEBUG SZCompressor]: decompression time = 579 ms
+[DEBUG SZCompressor]: decompression time = 572 ms
+[DEBUG SZCompressor]: decompression time = 591 ms
+[DEBUG SZCompressor]: decompression time = 586 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 707 ms
+[DEBUG benchmark] Decompression time: 581.6 ms
+[DEBUG benchmark] Compression ratio: 1.78458
+[DEBUG benchmark] Compressed data size: 5603 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 5
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381558374233455
+
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 669 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 704 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 668 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 675 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 676 ms
+[DEBUG SZCompressor]: decompression time = 592 ms
+[DEBUG SZCompressor]: decompression time = 589 ms
+[DEBUG SZCompressor]: decompression time = 581 ms
+[DEBUG SZCompressor]: decompression time = 657 ms
+[DEBUG SZCompressor]: decompression time = 583 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 688.6 ms
+[DEBUG benchmark] Decompression time: 601.8 ms
+[DEBUG benchmark] Compression ratio: 1.78458
+[DEBUG benchmark] Compressed data size: 5603 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 5
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381565159703050
+
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 830 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 801 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 846 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 803 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 802 ms
+[DEBUG SZCompressor]: decompression time = 400 ms
+[DEBUG SZCompressor]: decompression time = 362 ms
+[DEBUG SZCompressor]: decompression time = 400 ms
+[DEBUG SZCompressor]: decompression time = 375 ms
+[DEBUG SZCompressor]: decompression time = 373 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 826.4 ms
+[DEBUG benchmark] Decompression time: 383.2 ms
+[DEBUG benchmark] Compression ratio: 1.73822
+[DEBUG benchmark] Compressed data size: 5752 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 5
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381571539941547
+
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 1018 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 832 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 816 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 821 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 865 ms
+[DEBUG SZCompressor]: decompression time = 387 ms
+[DEBUG SZCompressor]: decompression time = 363 ms
+[DEBUG SZCompressor]: decompression time = 350 ms
+[DEBUG SZCompressor]: decompression time = 385 ms
+[DEBUG SZCompressor]: decompression time = 397 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 880.8 ms
+[DEBUG benchmark] Decompression time: 378.2 ms
+[DEBUG benchmark] Compression ratio: 1.73822
+[DEBUG benchmark] Compressed data size: 5752 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 5
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381578170131958
+
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 331 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 324 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 318 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 324 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 339 ms
+[DEBUG SZCompressor]: decompression time = 371 ms
+[DEBUG SZCompressor]: decompression time = 358 ms
+[DEBUG SZCompressor]: decompression time = 1622 ms
+[DEBUG SZCompressor]: decompression time = 365 ms
+[DEBUG SZCompressor]: decompression time = 367 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 337.4 ms
+[DEBUG benchmark] Decompression time: 617.8 ms
+[DEBUG benchmark] Compression ratio: 1.73822
+[DEBUG benchmark] Compressed data size: 5752 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 5
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381583280730950
+
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 495 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 381 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 332 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 345 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 322 ms
+[DEBUG SZCompressor]: decompression time = 357 ms
+[DEBUG SZCompressor]: decompression time = 351 ms
+[DEBUG SZCompressor]: decompression time = 363 ms
+[DEBUG SZCompressor]: decompression time = 347 ms
+[DEBUG SZCompressor]: decompression time = 348 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 385.6 ms
+[DEBUG benchmark] Decompression time: 354.2 ms
+[DEBUG benchmark] Compression ratio: 1.72401
+[DEBUG benchmark] Compressed data size: 5800 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 5
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381587316913077
+
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 284 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 273 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 293 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 267 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 279 ms
+[DEBUG SZCompressor]: decompression time = 319 ms
+[DEBUG SZCompressor]: decompression time = 334 ms
+[DEBUG SZCompressor]: decompression time = 326 ms
+[DEBUG SZCompressor]: decompression time = 323 ms
+[DEBUG SZCompressor]: decompression time = 320 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 288.8 ms
+[DEBUG benchmark] Decompression time: 325.6 ms
+[DEBUG benchmark] Compression ratio: 1.88253
+[DEBUG benchmark] Compressed data size: 5312 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 5
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381590759092248
+
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 281 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 284 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 282 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 278 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 274 ms
+[DEBUG SZCompressor]: decompression time = 327 ms
+[DEBUG SZCompressor]: decompression time = 331 ms
+[DEBUG SZCompressor]: decompression time = 357 ms
+[DEBUG SZCompressor]: decompression time = 332 ms
+[DEBUG SZCompressor]: decompression time = 321 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 289.2 ms
+[DEBUG benchmark] Decompression time: 335 ms
+[DEBUG benchmark] Compression ratio: 1.88253
+[DEBUG benchmark] Compressed data size: 5312 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 5
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381594212486649
+
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 32.2 ms
+[DEBUG benchmark] Decompression time: 7.2 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 5
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381594742112848
+
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 5, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 32.4 ms
+[DEBUG benchmark] Decompression time: 7.2 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 1
+  doSZ: 0
+  iterations: 5
+  precision: 6
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381595272575953
+
+[DEBUG TrunkCompressor]: precision = 6, bitsTruncated = 3, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 58 ms
+[DEBUG TrunkCompressor]: compression time = 345 ms
+[DEBUG TrunkCompressor]: precision = 6, bitsTruncated = 3, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 58 ms
+[DEBUG TrunkCompressor]: compression time = 390 ms
+[DEBUG TrunkCompressor]: precision = 6, bitsTruncated = 3, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 55 ms
+[DEBUG TrunkCompressor]: compression time = 346 ms
+[DEBUG TrunkCompressor]: precision = 6, bitsTruncated = 3, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 53 ms
+[DEBUG TrunkCompressor]: compression time = 348 ms
+[DEBUG TrunkCompressor]: precision = 6, bitsTruncated = 3, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 53 ms
+[DEBUG TrunkCompressor]: compression time = 342 ms
+[DEBUG TrunkCompressor]: decompression time = 33 ms
+[DEBUG TrunkCompressor]: decompression time = 33 ms
+[DEBUG TrunkCompressor]: decompression time = 34 ms
+[DEBUG TrunkCompressor]: decompression time = 34 ms
+[DEBUG TrunkCompressor]: decompression time = 34 ms
+[DEBUG benchmark] Compressor: Trunk
+[DEBUG benchmark] Compression time: 412.2 ms
+[DEBUG benchmark] Decompression time: 38.6 ms
+[DEBUG benchmark] Compression ratio: 1.12225
+[DEBUG benchmark] Compressed data size: 8910 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 6
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381597859627619
+
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 640 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 632 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 625 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 622 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 617 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 643.2 ms
+[DEBUG benchmark] Decompression time: 6.4 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 6
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381601444033852
+
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 653 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 656 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 687 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 641 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 623 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 670.8 ms
+[DEBUG benchmark] Decompression time: 6.2 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 6
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381605164950805
+
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 663 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 658 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 637 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 638 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 680 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 671.2 ms
+[DEBUG benchmark] Decompression time: 7.8 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 6
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381608898802210
+
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 652 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 643 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 699 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 647 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 702 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 684.8 ms
+[DEBUG benchmark] Decompression time: 7.8 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 6
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381612698290213
+
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 278 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 274 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 268 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 267 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 285 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 290.4 ms
+[DEBUG benchmark] Decompression time: 6.2 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 6
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381614517664945
+
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 283 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 281 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 267 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 263 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 265 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 288 ms
+[DEBUG benchmark] Decompression time: 6.8 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 6
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381617564391293
+
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 249 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 245 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 289 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 270 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 243 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 275.4 ms
+[DEBUG benchmark] Decompression time: 7 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 6
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381619311472729
+
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 247 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 240 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 243 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 237 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 239 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 257.4 ms
+[DEBUG benchmark] Decompression time: 6 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 6
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381620964266608
+
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 31.8 ms
+[DEBUG benchmark] Decompression time: 7.4 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 6
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381621493852017
+
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 6, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 31.8 ms
+[DEBUG benchmark] Decompression time: 7.2 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 1
+  doSZ: 0
+  iterations: 5
+  precision: 7
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381622021924682
+
+[DEBUG TrunkCompressor]: precision = 7, bitsTruncated = 0, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 3 ms
+[DEBUG TrunkCompressor]: compression time = 267 ms
+[DEBUG TrunkCompressor]: precision = 7, bitsTruncated = 0, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 2 ms
+[DEBUG TrunkCompressor]: compression time = 276 ms
+[DEBUG TrunkCompressor]: precision = 7, bitsTruncated = 0, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 3 ms
+[DEBUG TrunkCompressor]: compression time = 272 ms
+[DEBUG TrunkCompressor]: precision = 7, bitsTruncated = 0, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 2 ms
+[DEBUG TrunkCompressor]: compression time = 278 ms
+[DEBUG TrunkCompressor]: precision = 7, bitsTruncated = 0, compressionLevel = 9, dataSize = 10000000
+[DEBUG TrunkCompressor]: truncation time = 1 ms
+[DEBUG TrunkCompressor]: compression time = 312 ms
+[DEBUG TrunkCompressor]: decompression time = 32 ms
+[DEBUG TrunkCompressor]: decompression time = 32 ms
+[DEBUG TrunkCompressor]: decompression time = 32 ms
+[DEBUG TrunkCompressor]: decompression time = 32 ms
+[DEBUG TrunkCompressor]: decompression time = 32 ms
+[DEBUG benchmark] Compressor: Trunk
+[DEBUG benchmark] Compression time: 285.2 ms
+[DEBUG benchmark] Decompression time: 37 ms
+[DEBUG benchmark] Compression ratio: 1.07973
+[DEBUG benchmark] Compressed data size: 9261 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 7
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381623966526267
+
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 581 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 586 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 580 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 580 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 0, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 583 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 598.4 ms
+[DEBUG benchmark] Decompression time: 6.2 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 7
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 0
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381627324036213
+
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 603 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 589 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 576 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 577 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 0, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 572 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 599.6 ms
+[DEBUG benchmark] Decompression time: 6 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 7
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381630687277384
+
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 587 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 576 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 577 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 595 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 1, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 576 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 598.6 ms
+[DEBUG benchmark] Decompression time: 7 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 7
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 1
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381634050071156
+
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 586 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 580 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 576 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 570 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 1, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 599 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 598.2 ms
+[DEBUG benchmark] Decompression time: 7.6 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 7
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381637416907361
+
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 249 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 232 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 239 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 225 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 2, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 243 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 254 ms
+[DEBUG benchmark] Decompression time: 6.6 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 7
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 2
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381639066734693
+
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 235 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 241 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 238 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 227 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 2, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 228 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 250 ms
+[DEBUG benchmark] Decompression time: 7.2 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 7
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381640696909988
+
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 219 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 226 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 207 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 206 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 3, interpAlgo = 0, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 209 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 5 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 229.4 ms
+[DEBUG benchmark] Decompression time: 6.4 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 7
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 3
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381642258616547
+
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 213 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 208 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 208 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 213 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 3, interpAlgo = 1, dataSize = 10000000
+The buffer for compressed data is not large enough.
+[DEBUG SZCompressor]: compression time = 210 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 226.6 ms
+[DEBUG benchmark] Decompression time: 7 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 7
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 0
+  host: Morgana
+  timestamp: 1745381643761174599
+
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 4, interpAlgo = 0, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 32.2 ms
+[DEBUG benchmark] Decompression time: 7 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB
+Parameters:
+  doTrunk: 0
+  doSZ: 1
+  iterations: 5
+  precision: 7
+  debug: 1
+  dataMB: 10
+  dataSource: normal
+  seed: 12345
+  mean: 0
+  stddev: 1
+  trunkCompressionLevel: 9
+  szErrorBoundMode: 1
+  szAlgo: 4
+  szInterpAlgo: 1
+  host: Morgana
+  timestamp: 1745381644292000726
+
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 39 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 25 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 16 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: precision = 7, errorBoundMode = 1, algo = 4, interpAlgo = 1, dataSize = 10000000
+[DEBUG SZCompressor]: compression time = 15 ms
+[DEBUG SZCompressor]: decompression time = 7 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG SZCompressor]: decompression time = 6 ms
+[DEBUG benchmark] Compressor: SZ
+[DEBUG benchmark] Compression time: 43 ms
+[DEBUG benchmark] Decompression time: 18.4 ms
+[DEBUG benchmark] Compression ratio: 1.08201
+[DEBUG benchmark] Compressed data size: 9242 KB
+[DEBUG benchmark] Original data size: 10000 KB

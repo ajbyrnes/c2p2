@@ -10,6 +10,7 @@
 
 #include "TrunkCompressor.hpp"
 #include "SZCompressor.hpp"
+#include "SZZlibCompressor.hpp"
 
 struct BenchmarkParams {
     bool doTrunk;
@@ -48,7 +49,7 @@ BenchmarkParams parseArguments(int argc, char* argv[]) {
     params.debug = false;
 
     params.dataMB = 0;
-    params.dataName = "mini";
+    params.dataName = "root";
     params.branchName = "lep_pt";
     params.sourceFile = "mc_361106.Zee.1largeRjet1lep.root";
 
@@ -106,7 +107,7 @@ BenchmarkParams parseArguments(int argc, char* argv[]) {
     return params;
 }
 
-constexpr int NUMCOMPRESSORS{2};
+constexpr int NUMCOMPRESSORS{3};
 
 class CompressorBench{
     public:
@@ -115,7 +116,7 @@ class CompressorBench{
         CompressorBench(const BenchmarkParams& params)
             :   _doSZ(params.doSZ), _doTrunk(params.doTrunk), _sortData(params.sortData),
                 _dataName(params.dataName + "-" + params.branchName), _precision(params.precision),
-                 _trunkCompressionLevel(params.trunkCompressionLevel),
+                _trunkCompressionLevel(params.trunkCompressionLevel),
                 _szErrorBoundMode(params.szErrorBoundMode), _szAlgo(params.szAlgo), _szInterpAlgo(params.szInterpAlgo)
         {
             // Validation iterations
@@ -127,6 +128,7 @@ class CompressorBench{
             // Create compressor objects
             _compressor.push_back(new TrunkCompressor(_precision, _trunkCompressionLevel, params.debug));
             _compressor.push_back(new SZCompressor(_precision, _szErrorBoundMode, _szAlgo, _szInterpAlgo, params.debug));
+            _compressor.push_back(new SZZlibCompressor(_precision, _trunkCompressionLevel, _szErrorBoundMode, _szAlgo, _szInterpAlgo, params.debug));
         }
 
         void run(std::vector<float>& data, int iterations=-1) {
@@ -199,10 +201,10 @@ class CompressorBench{
                 report += std::format("{},", _iterations);
                 report += std::format("{},", _dataName);
                 report += std::format("{},", _precision);
-                report += std::format("{},", (compressor == CompressorBench::TRUNK ? _trunkCompressionLevel : -1));
-                report += std::format("{},", (compressor == CompressorBench::SZ ? _szErrorBoundMode : -1));
-                report += std::format("{},", (compressor == CompressorBench::SZ ? _szAlgo : -1));
-                report += std::format("{},", (compressor == CompressorBench::SZ ? _szInterpAlgo : -1));
+                report += std::format("{},", _trunkCompressionLevel);
+                report += std::format("{},",  _szErrorBoundMode);
+                report += std::format("{},",  _szAlgo);
+                report += std::format("{},", _szInterpAlgo);
                 report += std::format("{},", _compressionTime[compressor]);
                 report += std::format("{},", _decompressionTime[compressor]);
                 report += std::format("{},", _compressionRatio[compressor]);

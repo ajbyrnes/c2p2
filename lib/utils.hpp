@@ -58,6 +58,9 @@ std::vector<float> readRootFile(const size_t size, const std::string& filename, 
     return data;
 }
 
+// Read CSV file
+
+
 
 // Data generation ----------------------------------------------------------------------------------
 std::vector<float> generateUniformRandomData(size_t size, float min, float max) {

@@ -39,6 +39,7 @@ int main(int argc, char* argv[]) {
     std::cerr << "Parameters:" << std::endl;
     std::cerr << "  doTrunk: " << params.doTrunk << std::endl;
     std::cerr << "  doSZ: " << params.doSZ << std::endl;
+    std::cerr << "  doSZZlib: " << params.doSZZlib << std::endl;
     std::cerr << "  iterations: " << params.iterations << std::endl;
     std::cerr << "  precision: " << params.precision << std::endl;
     std::cerr << "  debug: " << params.debug << std::endl;
@@ -71,8 +72,11 @@ int main(int argc, char* argv[]) {
     if (params.dataName == "normal") {
         data = generateGaussianRandomData(dataSize, params.mean, params.stddev, params.seed);
     }
-    else {
+    else if (params.dataName == "root") {
         data = readRootFile(0, params.sourceFile, params.dataName, params.branchName);
+    }
+    else if (params.dataName == "csv") {
+        // data = readCSV(params.sourceFile, params.dataName, params.branchName);
     }
 
     // Run compression benchmarks
