@@ -202,8 +202,8 @@ class CompressorBench{
                 report += std::format("{},", _dataName);
                 report += std::format("{},", _precision);
                 report += std::format("{},", _trunkCompressionLevel);
-                report += std::format("{},",  _szErrorBoundMode);
-                report += std::format("{},",  _szAlgo);
+                report += std::format("{},", _szErrorBoundMode);
+                report += std::format("{},", _szAlgo);
                 report += std::format("{},", _szInterpAlgo);
                 report += std::format("{},", _compressionTime[compressor]);
                 report += std::format("{},", _decompressionTime[compressor]);
