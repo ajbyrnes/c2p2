@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../colocation"
+		},
+		{
+			"path": "../data"
+		},
+		{
+			"path": "../lib"
+		},
+		{
+			"path": "../reference"
+		},
+		{
+			"path": "../scratch"
+		}
+	],
+	"settings": {}
+}
