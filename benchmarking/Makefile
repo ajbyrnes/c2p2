@@ -11,7 +11,7 @@ SZ_LIB = -L$(SZ_DIR)/lib -lzstd
 
 ROOT_FLAGS = $(shell root-config --cflags --libs)
 
-BENCH_SRCS = benchmark.cpp rootToVector.cpp
+BENCH_SRCS = benchmark.cpp
 
 BENCH_EXECS = $(BENCH_SRCS:.cpp=)
 
