@@ -17,6 +17,52 @@
 constexpr size_t KB{1'000};
 constexpr size_t MB{1'000'000};
 
+const std::string filepath = "/home/abelo/data/atlas/mc_361106.Zee.1largeRjet1lep.root";
+
+const std::vector<std::string> floatBranches = {
+    "mcWeight",
+    "met_et_syst",
+    "met_et",
+    "met_phi",
+    "scaleFactor_BTAG",
+    "scaleFactor_ELE",
+    "scaleFactor_LepTRIGGER",
+    "scaleFactor_MUON",
+    "scaleFactor_PHOTON",
+    "scaleFactor_PhotonTRIGGER",
+    "scaleFactor_PILEUP",
+    "scaleFactor_TAU",
+};
+
+const std::vector<std::string> vectorFloatBranches = {
+    "jet_E",
+    "jet_eta",
+    "jet_jvt",
+    "jet_MV2c10",
+    "jet_phi",
+    "jet_pt_syst",
+    "jet_pt",
+    "largeRjet_D2",
+    "largeRjet_E",
+    "largeRjet_eta",
+    "largeRjet_m",
+    "largeRjet_phi",
+    "largeRjet_pt_syst"
+    "largeRjet_pt",
+    "largeRjet_tau32",
+    "largeRjet_truthMatched",
+    "lep_E",
+    "lep_eta",
+    "lep_etcone20",
+    "lep_phi",
+    "lep_pt_syst",
+    "lep_pt",
+    "lep_ptcone30",
+    "lep_trackd0pvunbiased",
+    "lep_tracksigd0pvunbiased",
+    "lep_z0"
+};
+
 // Read ROOT file ----------------------------------------------------------------------------------
 std::vector<float> readRootFile(const size_t size, const std::string& filename, const std::string& treeName, const std::string& branchName) {
     std::cerr << std::format("[DEBUG benchmark] Reading ROOT file: \"{}\"", filename) << std::endl;
@@ -58,10 +104,6 @@ std::vector<float> readRootFile(const size_t size, const std::string& filename, 
     return data;
 }
 
-// Read CSV file
-
-
-
 // Data generation ----------------------------------------------------------------------------------
 std::vector<float> generateUniformRandomData(size_t size, float min, float max) {
     std::vector<float> data(size);
@@ -99,9 +141,5 @@ std::string getHost() {
 std::string timestamp() {
     return std::format("{}", std::chrono::system_clock::now().time_since_epoch().count());
 }
-
-// Benchmarking ------------------------------------------------------------------------------------------------------
-
-
 
 #endif
