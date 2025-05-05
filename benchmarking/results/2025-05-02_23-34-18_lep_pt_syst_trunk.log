@@ -1,0 +1,18 @@
+
+Compressor: Trunk
+Iterations: 5
+Data name: root
+Source file: mc_361106.Zee.1largeRjet1lep.root
+Tree name: mini
+Branch name: lep_pt_syst
+Precision: 3
+Trunk compression level: 9
+Average compression time: 73.40 ms (user: 72.00 ms, system: 0.00 ms)
+Average decompression time: 1.00 ms (user: 2.00 ms, system: 0.00 ms)
+Average compression memory: 0 KB
+Original data size: 370656 bytes
+Compressed data size: 202919 bytes
+Compression ratio: 1.83
+Average relative error: 0.000177
+
+

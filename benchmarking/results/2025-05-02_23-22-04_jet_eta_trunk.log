@@ -1,0 +1,18 @@
+
+Compressor: Trunk
+Iterations: 5
+Data name: root
+Source file: mc_361106.Zee.1largeRjet1lep.root
+Tree name: mini
+Branch name: jet_eta
+Precision: 3
+Trunk compression level: 9
+Average compression time: 139.00 ms (user: 140.00 ms, system: 0.00 ms)
+Average decompression time: 2.00 ms (user: 2.00 ms, system: 0.00 ms)
+Average compression memory: 0 KB
+Original data size: 535336 bytes
+Compressed data size: 303419 bytes
+Compression ratio: 1.76
+Average relative error: 0.000176
+
+

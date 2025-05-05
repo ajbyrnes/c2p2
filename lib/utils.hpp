@@ -64,10 +64,9 @@ const std::vector<std::string> vectorFloatBranches = {
 };
 
 // Read ROOT file ----------------------------------------------------------------------------------
-std::vector<float> readRootFile(const size_t size, const std::string& filename, const std::string& treeName, const std::string& branchName) {
-    std::cerr << std::format("[DEBUG benchmark] Reading ROOT file: \"{}\"", filename) << std::endl;
-
+std::vector<float> readRootFile(const size_t size, const std::string& filename, const std::string& treeName, const std::string& branchName, bool debug=false) {
     // Open ROOT file
+    if (debug) std::cerr << std::format("[DEBUG benchmark] Reading ROOT file: \"{}\"", filename) << std::endl;
     TFile* file = TFile::Open(filename.c_str());
     if (!file || file->IsZombie()) {
         throw std::runtime_error("Failed to open ROOT file: " + filename);
@@ -75,6 +74,7 @@ std::vector<float> readRootFile(const size_t size, const std::string& filename, 
     }
 
     // Load tree from file
+    if (debug) std::cerr << std::format("[DEBUG benchmark] Loading tree: \"{}\"", treeName) << std::endl;
     TTree* tree = static_cast<TTree*>(file->Get(treeName.c_str()));
 
     // Read data from tree into vector
@@ -83,21 +83,48 @@ std::vector<float> readRootFile(const size_t size, const std::string& filename, 
         return {};
     }
 
+    // Create vector to hold flattened data
     std::vector<float> data{};
-    std::vector<float>* entry = nullptr;
-    tree->SetBranchAddress(branchName.c_str(), &entry);
+    
+    // Get number of entries in the tree
+    const size_t numEntries = tree->GetEntries();
 
-    size_t numEntries = tree->GetEntries();
+    // Each entry is either a float or a vector of floats
+    if (std::find(floatBranches.begin(), floatBranches.end(), branchName) != floatBranches.end()) {
+        // If the branch is a float, set the branch address to a float pointer
+        float* entry = nullptr;
+        tree->SetBranchAddress(branchName.c_str(), &entry);
 
-    std::cerr << std::format("[DEBUG benchmark] Loading data from tree {} branch {}", treeName, branchName) << std::endl;
-    for (size_t n = 0; n < numEntries; ++n) {
-        // Load next entry
-        tree->GetEntry(n);
+        // Loop over entries and read data into vector
+        if (debug) std::cerr << std::format("[DEBUG benchmark] Loading float data from tree {} branch {}", treeName, branchName) << std::endl;
+        for (size_t n = 0; n < numEntries; ++n) {
+            if (debug) std::cerr << std::format("[DEBUG benchmark] Loading entry {}", n) << std::endl;
+            // Load next entry
+            tree->GetEntry(n);
 
-        // Print entry
-        for (size_t j = 0; j < entry->size(); ++j) {
-            data.push_back((*entry)[j]);
+            if (debug) std::cerr << std::format("[DEBUG benchmark] Entry value: {}", *entry) << std::endl;
+            // Print entry
+            data.push_back(*entry);
         }
+    } else if (std::find(vectorFloatBranches.begin(), vectorFloatBranches.end(), branchName) != vectorFloatBranches.end()) {
+        // If the branch is a vector of floats, set the branch address to a vector pointer
+        std::vector<float>* entry = nullptr;
+        tree->SetBranchAddress(branchName.c_str(), &entry);
+
+        // Loop over entries and read data into vector
+        if (debug) std::cerr << std::format("[DEBUG benchmark] Loading float-vector data from tree {} branch {}", treeName, branchName) << std::endl;
+        for (size_t n = 0; n < numEntries; ++n) {
+            // Load next entry
+            tree->GetEntry(n);
+
+            // Print entry
+            for (size_t j = 0; j < entry->size(); ++j) {
+                data.push_back((*entry)[j]);
+            }
+        }
+    } else {
+        throw std::runtime_error("Invalid branch name: " + branchName);
+        return {};
     }
 
     // Return vector

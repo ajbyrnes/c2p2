@@ -1,0 +1,20 @@
+
+Compressor: SZ
+Iterations: 5
+Data name: root
+Source file: mc_361106.Zee.1largeRjet1lep.root
+Tree name: mini
+Branch name: lep_eta
+Precision: 3
+SZ error bound mode: 1
+SZ algorithm: 0
+SZ interpolation algorithm: 0
+Average compression time: 24.20 ms (user: 24.00 ms, system: 0.00 ms)
+Average decompression time: 18.00 ms (user: 18.00 ms, system: 0.00 ms)
+Average compression memory: 26.4 KB
+Original data size: 370656 bytes
+Compressed data size: 134601 bytes
+Compression ratio: 2.75
+Average relative error: 0.016660
+
+

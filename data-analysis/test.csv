@@ -1,0 +1,3 @@
+Compressor,Iterations,Data name,Source file,Tree name,Branch name,Precision,Average compression time (ms),Average decompression time (ms),Average compression memory (KB),Original data size (bytes),Compressed data size (bytes),Compression ratio,Average relative error,Trunk compression level,SZ error bound mode,SZ algorithm,SZ interpolation algorithm
+Trunk,5,root,mc_361106.Zee.1largeRjet1lep.root,mini,jet_pt,3,105.2,1.6,,535336,276637,1.94,0.000175,9.0,,,
+SZ,5,root,mc_361106.Zee.1largeRjet1lep.root,mini,jet_E,3,31.6,23.2,,535336,136665,3.92,0.014123,,1.0,0.0,1.0
