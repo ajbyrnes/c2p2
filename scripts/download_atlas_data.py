@@ -12,12 +12,14 @@ import atlasopenmagic as atom
 # You can find the dataset in the ATLAS Open Data portal
 # https://opendata.atlas.cern/data/
 
-if len(sys.argv) > 1:
-    target = sys.argv[1]
-    print(f"Using target: {target}")
-else:
-    target = 'DAOD_PHYSLITE.37019878'
-    print("No target specified. Using default: DAOD_PHYSLITE.37019878")
+if len(sys.argv) != 2:
+    print("Usage: python download_atlas_data.py <dest>")
+    sys.exit(1)
+    
+dest = sys.argv[1]
+
+target = 'DAOD_PHYSLITE.37019878'
+print(f'Searching for URLs for target: {target}')
     
 urls = atom.get_urls('data', protocol='https')
 target_urls = [url for url in urls if target in url]
@@ -37,21 +39,25 @@ pattern = r'/([^/]+)/(DAOD_PHYSLITE\.\d+)'
 match = re.search(pattern, url)
 
 dirname = match.group(1)
-filename = match.group(2)
+dataname = match.group(2)
 
 print(f'Directory: {dirname}')
-print(f'Filename: {filename}') 
+print(f'Filename: {dataname}') 
 
 # Prompt for download
-input(f"Download {len(target_urls)} files to /mnt/d/{dirname}/{filename}? Press Enter to continue...")
+input(f"Download {len(target_urls)} files to {dest}/{dirname}/{dataname}? Press Enter to continue...")
 
 # Download to directory
 for url in target_urls:
+    # Extract filename
+    filename = url.split('/')[-1]
+    
     # Skip file if it already exists in directory
-    if os.path.exists(f'/mnt/d/{dirname}/{filename}'):
+    if os.path.exists(f'{dest}/{dirname}/{dataname}/{filename}'):
         print(f"File already exists: {filename}")
         continue
     
     # Download the file
-    os.system(f'echo /mnt/d/{dirname}/{filename}')
-    os.system(f'wget -P /mnt/d/{dirname}/{filename} {url}')
+    os.system(f'echo {dest}/{dirname}/{dataname}')
+    os.system(f'wget -P {dest}/{dirname}/{dataname} {url}')
+    

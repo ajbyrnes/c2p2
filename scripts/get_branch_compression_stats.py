@@ -19,4 +19,7 @@ for filename in os.listdir(data_dir):
         if not branch.uncompressed_bytes or not branch.compressed_bytes:
             continue
         
-        print(f"{branch.name},{branch.typename},{branch.compression},{branch.compressed_bytes},{branch.uncompressed_bytes},{branch.compression_ratio}")
+        # Replace commas in typename
+        typename = branch.typename.replace(",", "_")
+        
+        print(f"{filename},{branch.name},{typename},{branch.compression},{branch.compressed_bytes},{branch.uncompressed_bytes},{branch.compression_ratio}")
