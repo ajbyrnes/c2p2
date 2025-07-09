@@ -12,6 +12,7 @@ add_compile_options(
     -Wall
     -Wextra
     -Wno-unused-parameter
+    -fcommon
 )
 
 # Add include directories
@@ -21,10 +22,11 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 find_package(ZLIB REQUIRED)
 
 # Add ROOT IO
-find_package(ROOT 6.36 CONFIG REQUIRED)
+find_package(ROOT 6.30 CONFIG REQUIRED)
 
 # Add SZ3
-# find_package(SZ3 REQUIRED)
+set(SZ3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../SZ3/lib/cmake/SZ3")
+find_package(SZ3 REQUIRED)
 
 # Static library "utils"
 add_library(utils STATIC utils/utils.cpp utils/utils.hpp)
@@ -34,8 +36,9 @@ target_link_libraries(utils ROOT::Core ROOT::RIO ROOT::Tree)
 add_library(compressors STATIC 
     compressors/Compressor.hpp 
     compressors/TruncCompressor.cpp compressors/TruncCompressor.hpp
+    compressors/SZ3Compressor.cpp compressors/SZ3Compressor.hpp
 )
-target_link_libraries(compressors ZLIB::ZLIB)
+target_link_libraries(compressors ZLIB::ZLIB SZ3::SZ3)
 
 # Static library "benchmark"
 add_library(benchmarking STATIC 
@@ -51,8 +54,11 @@ target_link_libraries(test-readVectorFloatBranchFromFiles utils)
 add_executable(test-TruncCompressor tests/test-TruncCompressor.cpp)
 target_link_libraries(test-TruncCompressor compressors utils)
 
-add_executable(benchmark benchmarking/benchmark.cpp)
-target_link_libraries(benchmark benchmarking)
+add_executable(test-SZ3Compressor tests/test-SZ3Compressor.cpp)
+target_link_libraries(test-SZ3Compressor compressors utils)
 
 add_executable(benchmark-TruncCompressor benchmarking/benchmarkTruncCompressor.cpp)
 target_link_libraries(benchmark-TruncCompressor benchmarking)
+
+add_executable(benchmark-SZ3Compressor benchmarking/benchmarkSZ3Compressor.cpp)
+target_link_libraries(benchmark-SZ3Compressor benchmarking)

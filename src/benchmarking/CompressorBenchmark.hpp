@@ -20,6 +20,9 @@ struct BenchmarkResult {
     double compressionRatio;
     double compressionTimeMs;
     double decompressionTimeMs;
+    double rmse;
+    double avgRelativeError;
+    double maxRelativeError;
 };
 
 class CompressorBenchmark {
@@ -27,16 +30,17 @@ public:
     CompressorBenchmark(std::shared_ptr<Compressor> compressor, const UncompressedData& data, const std::string& outputFile, int iterations = 1)
         : compressor_(std::move(compressor)), data_(data), iterations_(iterations), outputFile_(outputFile) {}
 
-    void run(bool report=false);
+    void run(bool writeOnIterationFinish = true);
     void writeCSVHeader();
     void writeResultsToCSV();
     void writeLastResultToCSV();
 
 private:
     std::shared_ptr<Compressor> compressor_;
-    UncompressedData data_;
+    const UncompressedData data_;
     int iterations_ = 1; // Default number of iterations for benchmarks
-    std::vector<BenchmarkResult> results_; // Store results for multiple iterations
+    BenchmarkResult lastResult_;
+    // std::vector<BenchmarkResult> results_; // Store results for multiple iterations
     std::string outputFile_;
 
     std::string getCSVLine(const BenchmarkResult& result) const;

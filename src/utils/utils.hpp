@@ -8,12 +8,15 @@ struct Args {
     std::string branchname = "AnalysisJetsAuxDyn.pt"; // Default branch name
     size_t maxBytes = 1'000'000'000; // Default maximum bytes to read from files (1 GB)
 
-    std::string benchmark = "TruncCompressor";
+    std::string compressor = "TruncCompressor";
     int iterations = 1; // Default number of iterations for benchmarks
-    std::string outputFile = "benchmark_results.csv"; // Default output file for benchmark results
+    std::string benchmarkOutputFile = "benchmark-results.csv"; // Default output file for benchmark results
 
     int mantissaBits = 8; // Default mantissa bits
     int compressionLevel = 9; // Default compression level
+
+    int algo = 0;
+    float relErrorBound = 10e-3;
 };
 
 const Args parseArgs(int argc, char* argv[]);

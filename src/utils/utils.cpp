@@ -38,11 +38,11 @@ const Args parseArgs(int argc, char* argv[]) {
                 throw std::runtime_error("Error: --max-bytes requires a value");
             }
         }
-        else if (arg == "--benchmark") {
+        else if (arg == "--compressor") {
             if (i + 1 < argc) {
-                args.benchmark = argv[++i];
+                args.compressor = argv[++i];
             } else {
-                throw std::runtime_error("Error: --benchmark requires a value");
+                throw std::runtime_error("Error: --compressor requires a value");
             }
         }
         else if (arg == "--iterations") {
@@ -135,7 +135,9 @@ std::vector<float> readVectorFloatBranchFromFile(
         }
     }
 
+
     file->Close();
+    delete file;
 
     // Size can be reported in GB, MB, KB, or bytes
     int numBytes = flatData.size() * sizeof(float);
