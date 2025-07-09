@@ -1,2 +1,12 @@
-SZ3/
 data/
+bin/
+build
+SZ3/
+.vscode/
+
+*.o
+*.ipynb
+lib*
+Makefile
+CMakeCache.txt
+cmake_install.cmake

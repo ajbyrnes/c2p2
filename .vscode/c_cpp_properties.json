@@ -4,7 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/home/ajbyrnes/lib/root/root_build/include"
+                "/home/ajbyrnes/lib/root/root_install/include"
             ],
             "defines": [],
             "intelliSenseMode": "linux-gcc-x64"
