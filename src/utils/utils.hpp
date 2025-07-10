@@ -4,6 +4,7 @@
 #include <vector>
 
 struct Args {
+    std::string inputFile = "../data/DAOD_PHYSLITE.37019878._000001.pool.root.1"; // Default input file
     std::string treename = "CollectionTree"; // Default tree name
     std::string branchname = "AnalysisJetsAuxDyn.pt"; // Default branch name
     size_t maxBytes = 1'000'000'000; // Default maximum bytes to read from files (1 GB)

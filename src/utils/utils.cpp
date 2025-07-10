@@ -17,7 +17,14 @@ const Args parseArgs(int argc, char* argv[]) {
 
     for (int i = 1; i < argc; ++i) {
         std::string arg = argv[i];
-        if (arg == "--tree") {
+        if (arg == "--input-file") {
+            if (i + 1 < argc) {
+                args.inputFile = argv[++i];
+            } else {
+                throw std::runtime_error("Error: --input-file requires a value");
+            }
+        }
+        else if (arg == "--tree") {
             if (i + 1 < argc) {
                 args.treename = argv[++i];
             } else {
@@ -219,7 +226,7 @@ void writeFloatVectorToFile(
 }
 
 std::string getSizeString(size_t numBytes) {
-    if (numBytes >= 1024) {
+    if (numBytes >= 1024 * 1024 * 1024) {
         return std::format("{:.2f} GB", numBytes / (1024.0 * 1024.0 * 1024.0));
     } else if (numBytes >= 1024 * 1024) {
         return std::format("{:.2f} MB", numBytes / (1024.0 * 1024.0));

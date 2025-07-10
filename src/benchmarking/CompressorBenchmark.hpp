@@ -14,7 +14,9 @@ struct BenchmarkResult {
     std::map<std::string, std::string> compressorConfig;
     
     std::string timestamp;
-    int inputSize;
+    int inputSize;      // Bytes
+    int outputSize;     // Bytes
+    std::string fileName;
     std::string dataName;
 
     double compressionRatio;

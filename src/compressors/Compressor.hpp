@@ -9,6 +9,7 @@
 struct UncompressedData {
     std::vector<float> data; // Uncompressed data
     std::string dataName;
+    std::string fileName{}; // Name of the file containing the data
 };
 
 struct CompressedData {

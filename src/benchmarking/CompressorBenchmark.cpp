@@ -75,6 +75,8 @@ void CompressorBenchmark::run(bool writeOnIterationFinish) {
 
             .timestamp = getTimestamp(),
             .inputSize = static_cast<int>(data_.data.size()) * sizeof(float),
+            .outputSize = static_cast<int>(compressedData.data.size()),
+            .fileName = data_.fileName,
             .dataName = data_.dataName,
 
             .compressionRatio = compressionRatio,
@@ -99,7 +101,7 @@ void CompressorBenchmark::writeCSVHeader() {
     }
 
     // Write header for benchmark results
-    outputStream_ << "host,timestamp,inputSize,dataName,compressionRatio,compressionTimeMs,decompressionTimeMs,rmse,avgRelativeError,maxRelativeError,";
+    outputStream_ << "host,timestamp,inputSizeBytes,outputSizeBytes,fileName,dataName,compressionRatio,compressionTimeMs,decompressionTimeMs,rmse,avgRelativeError,maxRelativeError,";
 
     // Write header for compressor info
     outputStream_ << "compressor,";
@@ -116,10 +118,12 @@ void CompressorBenchmark::writeCSVHeader() {
 }
 
 std::string CompressorBenchmark::getCSVLine(const BenchmarkResult& result) const {
-    std::string line = std::format("{},{},{},{},{:.10f},{:.10f},{:.10f},{:.10f},{:.10f},{:.10f},{},",
+    std::string line = std::format("{},{},{},{},{},{},{:.10f},{:.10f},{:.10f},{:.10f},{:.10f},{:.10f},{},",
         getHost(),
         result.timestamp,
         result.inputSize,
+        result.outputSize,
+        result.fileName,
         result.dataName,
         result.compressionRatio,
         result.compressionTimeMs,
