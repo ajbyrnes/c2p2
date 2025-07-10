@@ -184,13 +184,47 @@ std::vector<float> readVectorFloatBranchFromFiles(
     return flatData;
 }
 
+void writeFloatVectorToFile(
+    const std::string& filename, 
+    const std::vector<float>& data, 
+    const std::string& treename,
+    const std::string& branchname,
+    bool recreate)
+{
+    // Open the ROOT file
+    TFile file(filename.c_str(), recreate ? "RECREATE" : "UPDATE");
+    if (!file.IsOpen()) {
+        throw std::runtime_error("Failed to open file for writing");
+    }
+
+    // Create a new tree
+    TTree tree(treename.c_str(), "Tree containing float vector data");
+
+    // Create a branch for the vector<float>
+    std::vector<float>* entryData = new std::vector<float>(data);
+    tree.Branch(branchname.c_str(), &entryData);
+
+    // Fill the tree with the data
+    tree.Fill();
+
+    // Write the tree to the file
+    tree.Write();
+
+    // Close the file
+    file.Close();
+
+    std::cout << std::format("[{}] Wrote {} values to branch '{}' in tree '{}' in file '{}'", 
+                            getTimestamp(), data.size(), branchname, treename, filename);
+    std::cout << std::endl;
+}
+
 std::string getSizeString(size_t numBytes) {
-    if (numBytes >= 1'000'000'000) {
-        return std::format("{:.2f} GB", numBytes / 1'000'000'000.0);
-    } else if (numBytes >= 1'000'000) {
-        return std::format("{:.2f} MB", numBytes / 1'000'000.0);
-    } else if (numBytes >= 1'000) {
-        return std::format("{:.2f} KB", numBytes / 1'000.0);
+    if (numBytes >= 1024) {
+        return std::format("{:.2f} GB", numBytes / (1024.0 * 1024.0 * 1024.0));
+    } else if (numBytes >= 1024 * 1024) {
+        return std::format("{:.2f} MB", numBytes / (1024.0 * 1024.0));
+    } else if (numBytes >= 1024) {
+        return std::format("{:.2f} KB", numBytes / 1024.0);
     } else {
         return std::to_string(numBytes) + " bytes";
     }

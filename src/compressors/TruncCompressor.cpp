@@ -40,7 +40,7 @@ std::map<std::string, std::string> TruncCompressor::getConfig() const {
 }
 
 std::string TruncCompressor::toString() const {
-    return "TruncCompressor";
+    return "TruncCompressor{" + std::format("bits={};lvl={}", mantissaBits_, compressionLevel_) + "}";
 }
 
 CompressedData TruncCompressor::compress(const UncompressedData& data) {

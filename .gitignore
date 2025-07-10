@@ -5,8 +5,11 @@ SZ3/
 .vscode/
 
 *.o
-*.ipynb
 lib*
 Makefile
 CMakeCache.txt
 cmake_install.cmake
+
+*.root
+*.ipynb
+.ipynb_checkpoints/

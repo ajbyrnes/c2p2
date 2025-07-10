@@ -99,7 +99,7 @@ void CompressorBenchmark::writeCSVHeader() {
     }
 
     // Write header for benchmark results
-    outputStream_ << "host,timestamp,inputSize,dataName,compressionRatio,compressionTimeMs,decompressionTimeMs,rmse,avgRelativeError,maxRelativeError";
+    outputStream_ << "host,timestamp,inputSize,dataName,compressionRatio,compressionTimeMs,decompressionTimeMs,rmse,avgRelativeError,maxRelativeError,";
 
     // Write header for compressor info
     outputStream_ << "compressor,";

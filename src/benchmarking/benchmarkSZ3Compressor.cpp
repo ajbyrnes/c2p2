@@ -18,6 +18,22 @@ int main(int argc, char* argv[]) {
         dataFiles, args.treename, args.branchname, args.maxBytes
     );
 
+    // Dummy data as sanity check
+    // Random data sorted in ascending order
+    // size_t numMB = 60 * 1024 * 1024; // 10 MB
+    // std::vector<float> dummyData(numMB / 8);
+
+    // std::random_device rd;
+    // std::mt19937 gen(rd());
+    // std::uniform_real_distribution<float> dis(0.0f, 3.0f);
+    // for (size_t i = 0; i < dummyData.size(); ++i) {
+    //     dummyData[i] = dis(gen);
+    // }
+
+    // std::sort(dummyData.begin(), dummyData.end());
+
+    // std::string dummyDataName = "RandomSorted";
+
     // Run the benchmark for each combination of compression level and mantissa bits
     // 0 = ALGO_LORENZO_REG
     // 1 = ALGO_INTERP_LORENZO
@@ -42,6 +58,7 @@ int main(int argc, char* argv[]) {
 
             // Create benchmark instance
             CompressorBenchmark benchmark(compressor, {data, args.branchname}, filename, args.iterations);
+            // CompressorBenchmark benchmark(compressor, {dummyData, dummyDataName}, filename, args.iterations);
             if (!header) {
                 benchmark.writeCSVHeader();
                 header = true;

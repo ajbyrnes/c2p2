@@ -90,5 +90,5 @@ std::map<std::string, std::string> SZ3Compressor::getConfig() const {
 }
 
 std::string SZ3Compressor::toString() const {
-    return "SZ3Compressor";
+    return "SZ3Compressor{" + std::format("rel={:.10f};algo={}", relError_, algorithm_) + "}";
 }

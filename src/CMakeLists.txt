@@ -25,7 +25,7 @@ find_package(ZLIB REQUIRED)
 find_package(ROOT 6.30 CONFIG REQUIRED)
 
 # Add SZ3
-set(SZ3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../SZ3/lib/cmake/SZ3")
+set(SZ3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SZ3/SZ3_install/lib/cmake/SZ3")
 find_package(SZ3 REQUIRED)
 
 # Static library "utils"
@@ -51,6 +51,9 @@ target_link_libraries(benchmarking compressors utils)
 add_executable(test-readVectorFloatBranchFromFiles tests/test-readVectorFloatBranchFromFiles.cpp)
 target_link_libraries(test-readVectorFloatBranchFromFiles utils)
 
+add_executable(test-writeFloatVectorToFile tests/test-writeFloatVectorToFile.cpp)
+target_link_libraries(test-writeFloatVectorToFile utils)
+
 add_executable(test-TruncCompressor tests/test-TruncCompressor.cpp)
 target_link_libraries(test-TruncCompressor compressors utils)
 
@@ -62,3 +65,6 @@ target_link_libraries(benchmark-TruncCompressor benchmarking)
 
 add_executable(benchmark-SZ3Compressor benchmarking/benchmarkSZ3Compressor.cpp)
 target_link_libraries(benchmark-SZ3Compressor benchmarking)
+
+add_executable(writeDecompressedData validation/writeDecompressedData.cpp)
+target_link_libraries(writeDecompressedData compressors utils)

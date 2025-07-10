@@ -26,26 +26,26 @@ std::string getTimestamp();
 std::string getHost();
 
 const std::vector<std::string> dataFiles = {
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000001.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000002.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000003.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000004.pool.root.1",
-    // "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000005.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000006.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000007.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000008.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000009.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000011.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000012.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000013.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000014.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000015.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000016.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000017.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000018.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000019.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000020.pool.root.1",
-    "/home/ajbyrnes/c2p2/data/DAOD_PHYSLITE.37019878._000021.pool.root.1"
+    "../data/DAOD_PHYSLITE.37019878._000001.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000002.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000003.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000004.pool.root.1",
+    // "../data/DAOD_PHYSLITE.37019878._000005.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000006.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000007.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000008.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000009.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000011.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000012.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000013.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000014.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000015.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000016.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000017.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000018.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000019.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000020.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000021.pool.root.1"
 };
 
 std::vector<float> readVectorFloatBranchFromFile(
@@ -60,4 +60,12 @@ std::vector<float> readVectorFloatBranchFromFiles(
     const std::string& treename,
     const std::string& branchname,
     size_t maxBytes = 1'000'000'000
+);
+
+void writeFloatVectorToFile(
+    const std::string& filename, 
+    const std::vector<float>& data, 
+    const std::string& treename,
+    const std::string& branchname,
+    bool recreate = true
 );

@@ -1,5 +1,3 @@
-#! /home/ajbyrnes/miniforge3/envs/env/bin/python
-
 import os
 import re
 import sys
