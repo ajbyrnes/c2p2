@@ -1,0 +1,71 @@
+
+#include <format>
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include "CompressorBenchmark.hpp"
+#include "../compressors/SZ3Compressor.hpp"
+#include "../utils/utils.hpp"
+
+int main(int argc, char* argv[]) {
+    // Read parameters from command line arguments
+    Args args{parseArgs(argc, argv)};
+
+    // Parameter setup
+    std::string outputFilename = std::format("{}-{}", getTimestamp(), args.benchmarkOutputFile);
+
+    std::string treename{"CollectionTree"};
+    std::vector<std::string> branches{
+        "AnalysisJetsAuxDyn.pt",
+        "AnalysisJetsAuxDyn.eta",
+        "AnalysisJetsAuxDyn.phi"
+    };
+
+    // std::vector<float> relErrorBounds{5e-3};
+    std::vector<float> relErrorBounds{5e-2, 5e-3, 5e-4, 5e-5};
+    std::vector<int> algorithms{0, 1, 2, 3};
+
+    for (const std::string& branch : branches) {
+        // Read data from input file
+        std::vector<float> data = readVectorFloatBranchFromFile(
+            args.inputFile, treename, branch, args.maxBytes
+        );
+
+        for (float relError : relErrorBounds) {
+            for (int algo : algorithms) {
+                std::cout << timeMessage(std::format("Running benchmark for compressor 'SZ3Compressor' with algorithm {} and relative error bound {}...", algo, relError)) << std::endl;
+
+                // Create compressor
+                std::shared_ptr<Compressor> compressor = std::make_shared<SZ3Compressor>(algo, relError);
+                std::shared_ptr<SZ3Compressor> sz3Compressor = std::dynamic_pointer_cast<SZ3Compressor>(compressor);
+
+                // Create benchmark instance
+                CompressorBenchmark benchmark(compressor, {.data = data, .dataName = branch, .fileName = args.inputFile}, outputFilename, args.iterations);
+                static bool header = false; // Static variable to ensure header is written only once
+
+                if (!header) {
+                    benchmark.writeCSVHeader();
+                    header = true;
+                }
+
+                std::cout << timeMessage(std::format("Running benchmark for branch '{}' with algorithm {} and relative error bound {}...", 
+                                            branch, algo, relError)) << std::endl;
+                try {
+                    benchmark.run();
+                } catch (const std::exception& e) {
+                    std::cerr << timeMessage(std::format("Error during benchmark: {}", e.what())) << std::endl;
+                    continue;
+                }
+
+                std::cout << timeMessage(std::format("Benchmark completed. Results written to '{}'", outputFilename)) << std::endl;
+
+                // Destroy compressor
+                compressor.reset();
+                sz3Compressor.reset();
+            }
+        }
+    }
+
+    return 0;
+}

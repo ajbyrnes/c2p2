@@ -26,6 +26,8 @@ std::string getSizeString(size_t numBytes);
 std::string getTimestamp();
 std::string getHost();
 
+std::string timeMessage(const std::string& message);
+
 const std::vector<std::string> dataFiles = {
     "../data/DAOD_PHYSLITE.37019878._000001.pool.root.1",
     "../data/DAOD_PHYSLITE.37019878._000002.pool.root.1",

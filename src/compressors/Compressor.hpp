@@ -7,9 +7,11 @@
 #include <cstdint>
 
 struct UncompressedData {
-    std::vector<float> data; // Uncompressed data
-    std::string dataName;
+    std::vector<float> data{}; // Uncompressed data
+    std::string dataName{};
     std::string fileName{}; // Name of the file containing the data
+    std::vector<size_t> dims{};
+    size_t numFloats = 0;
 };
 
 struct CompressedData {

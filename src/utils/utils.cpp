@@ -256,3 +256,7 @@ std::string getHost() {
         return "unknown_host";
     }
 }
+
+std::string timeMessage(const std::string& message) {
+    return std::format("[{}] {}", getTimestamp(), message);
+}

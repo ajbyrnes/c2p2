@@ -7,7 +7,7 @@
 
 void CompressorBenchmark::run(bool writeOnIterationFinish) {
     for (int i = 0; i < iterations_; ++i) {
-        std::cout << std::format("[{}] Running benchmark iteration {}/{}", getTimestamp(), i + 1, iterations_) << std::endl;
+        std::cout << timeMessage(std::format("Running benchmark iteration {}/{}", i + 1, iterations_)) << std::endl;
 
         auto startCompression = std::chrono::high_resolution_clock::now();
         CompressedData compressedData = compressor_->compress(data_);
@@ -23,16 +23,6 @@ void CompressorBenchmark::run(bool writeOnIterationFinish) {
         // Calculate ratio of original data size to compressed data size
         double compressionRatio =  (data_.data.size() * sizeof(float)) / static_cast<double>(compressedData.data.size());
 
-        // Calculate RMSE of decompressed data wrt original data
-        double rmse = 0.0;
-        if (decompressedData.size() == data_.data.size()) {
-            for (size_t j = 0; j < data_.data.size(); ++j) {
-                double diff = static_cast<double>(decompressedData[j]) - static_cast<double>(data_.data[j]);
-                rmse += diff * diff;
-            }
-            rmse = std::sqrt(rmse / static_cast<double>(data_.data.size()));
-        }
-
         // Calculate average point-wise relative error
         double avgRelativeError = 0.0;
         if (decompressedData.size() == data_.data.size()) {
@@ -40,12 +30,13 @@ void CompressorBenchmark::run(bool writeOnIterationFinish) {
                 double originalValue = static_cast<double>(data_.data[j]);
                 if (originalValue != 0.0) {
                     avgRelativeError += std::abs((static_cast<double>(decompressedData[j]) - originalValue) / originalValue);
-                } else {
-                    // Handle case where original value is zero to avoid division by zero
-                    if (decompressedData[j] != 0.0) {
-                        avgRelativeError += std::abs(static_cast<double>(decompressedData[j]));
-                    }
                 }
+                // } else {
+                    // Handle case where original value is zero to avoid division by zero
+                //     if (decompressedData[j] != 0.0) {
+                //         avgRelativeError += std::abs(static_cast<double>(decompressedData[j]));
+                //     }
+                // }
             }
             avgRelativeError /= static_cast<double>(data_.data.size());
         }
@@ -101,7 +92,7 @@ void CompressorBenchmark::writeCSVHeader() {
     }
 
     // Write header for benchmark results
-    outputStream_ << "host,timestamp,inputSizeBytes,outputSizeBytes,fileName,dataName,compressionRatio,compressionTimeMs,decompressionTimeMs,rmse,avgRelativeError,maxRelativeError,";
+    outputStream_ << "host,timestamp,inputSizeBytes,outputSizeBytes,fileName,dataName,compressionRatio,compressionTimeMs,decompressionTimeMs,avgRelativeError,maxRelativeError,";
 
     // Write header for compressor info
     outputStream_ << "compressor,";
@@ -118,7 +109,7 @@ void CompressorBenchmark::writeCSVHeader() {
 }
 
 std::string CompressorBenchmark::getCSVLine(const BenchmarkResult& result) const {
-    std::string line = std::format("{},{},{},{},{},{},{:.10f},{:.10f},{:.10f},{:.10f},{:.10f},{:.10f},{},",
+    std::string line = std::format("{},{},{},{},{},{},{:.10f},{:.10f},{:.10f},{:.10f},{:.10f},{},",
         getHost(),
         result.timestamp,
         result.inputSize,

@@ -9,11 +9,7 @@
 timestamp=$(date "+%Y-%m-%d %H:%M:%S")
 
 # Create log file
-logfile=$timestamp-benchmark-TruncCompressor.log
+logfile=$timestamp-benchmark-SZ3SanityCheck.log
 touch "$logfile"
 
-# Run benchmark
-data_dir="../data"
-for file in ${data_dir}/*; do
-    ../bin/benchmark-TruncCompressor --input-file "$file" >> "$logfile"
-done
+../bin/benchmark-SZ3SanityCheck --input-file "$file" >> "$logfile" 2>&1

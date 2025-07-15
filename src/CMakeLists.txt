@@ -32,6 +32,9 @@ find_package(SZ3 REQUIRED)
 add_library(utils STATIC utils/utils.cpp utils/utils.hpp)
 target_link_libraries(utils ROOT::Core ROOT::RIO ROOT::Tree)
 
+# Static library "datagen"
+add_library(datagen STATIC utils/datagen.cpp utils/datagen.hpp)
+
 # Static library "compressors"
 add_library(compressors STATIC 
     compressors/Compressor.hpp 
@@ -54,17 +57,25 @@ target_link_libraries(test-readVectorFloatBranchFromFiles utils)
 add_executable(test-writeFloatVectorToFile tests/test-writeFloatVectorToFile.cpp)
 target_link_libraries(test-writeFloatVectorToFile utils)
 
+add_executable(test-datagen tests/test-datagen.cpp)
+target_link_libraries(test-datagen datagen)
+
 add_executable(test-TruncCompressor tests/test-TruncCompressor.cpp)
 target_link_libraries(test-TruncCompressor compressors utils)
 
 add_executable(test-SZ3Compressor tests/test-SZ3Compressor.cpp)
 target_link_libraries(test-SZ3Compressor compressors utils)
 
-add_executable(benchmark-TruncCompressor benchmarking/benchmarkTruncCompressor.cpp)
+# Benchmark executables
+add_executable(benchmark-TruncCompressor benchmarking/benchmark-TruncCompressor.cpp)
 target_link_libraries(benchmark-TruncCompressor benchmarking)
 
-add_executable(benchmark-SZ3Compressor benchmarking/benchmarkSZ3Compressor.cpp)
+add_executable(benchmark-SZ3Compressor benchmarking/benchmark-SZ3Compressor.cpp)
 target_link_libraries(benchmark-SZ3Compressor benchmarking)
 
-add_executable(writeDecompressedData validation/writeDecompressedData.cpp)
-target_link_libraries(writeDecompressedData compressors utils)
+add_executable(benchmark-SZ3SanityCheck benchmarking/benchmark-SZ3SanityCheck.cpp)
+target_link_libraries(benchmark-SZ3SanityCheck benchmarking datagen)
+
+# Validation executables
+# add_executable(writeDecompressedData validation/writeDecompressedData.cpp)
+# target_link_libraries(writeDecompressedData compressors utils)

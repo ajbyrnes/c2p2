@@ -22,7 +22,8 @@ int main(int argc, char* argv[]) {
         f = dist(rng);
     }
 
-    CompressedData compressed = compressor.compress({data, "test_data"});
+    CompressedData compressed = compressor.compress({.data = data, .dataName = "test_data"});
+
     std::vector<float> decompressed = compressor.decompress(compressed);
 
     // Print compressor details

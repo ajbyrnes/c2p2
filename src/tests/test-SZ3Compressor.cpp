@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
         f = dist(rng);
     }
 
-    UncompressedData uncompressed{data, "test_data"};
+    UncompressedData uncompressed{.data = data, .dataName = "test_data"};
     CompressedData compressed = compressor.compress(uncompressed);
     std::vector<float> decompressed = compressor.decompress(compressed);
 
