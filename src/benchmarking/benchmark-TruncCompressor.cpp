@@ -27,9 +27,17 @@ int main(int argc, char* argv[]) {
     
     for (const std::string& branch : branches) {
         // Read data from input file
-        std::vector<float> data = readVectorFloatBranchFromFile(
+        std::vector<float> rawData = readVectorFloatBranchFromFile(
             args.inputFile, treename, branch, args.maxBytes
         );
+
+        UncompressedData inputData{
+            .data = rawData,
+            .dataName = branch,
+            .fileName = args.inputFile,
+            .dims = {rawData.size()},
+            .numFloats = rawData.size(),
+        };
 
         for (size_t i{0}; i < mantissaBits.size(); i++) {
             int bits = mantissaBits[i];
@@ -41,17 +49,16 @@ int main(int argc, char* argv[]) {
             std::shared_ptr<TruncCompressor> truncCompressor = std::dynamic_pointer_cast<TruncCompressor>(compressor);
 
             // Create benchmark instance
-            CompressorBenchmark benchmark(compressor, {.data = data, .dataName = branch, .fileName = args.inputFile}, outputFilename, args.iterations);
-            static bool header = false; // Static variable to ensure header is written only once
+            CompressorBenchmark benchmark(compressor, inputData, outputFilename, args.iterations);
+            static bool headerWritten = false; // Static variable to ensure header is written only once
 
-            if (!header) {
-                benchmark.writeCSVHeader();
-                header = true;
-            }
 
             std::cout << timeMessage(std::format("Running benchmark for branch '{}' with compression level {} and mantissa bits {}...", 
                                         branch, compressionLevel, bits)) << std::endl;
-            benchmark.run();
+            benchmark.run(!headerWritten);
+            if (!headerWritten) {
+                headerWritten = true;
+            }
             std::cout << timeMessage(std::format("Benchmark completed. Results written to '{}'", outputFilename)) << std::endl;
         }
     }

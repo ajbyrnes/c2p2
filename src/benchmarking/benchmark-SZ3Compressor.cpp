@@ -28,31 +28,38 @@ int main(int argc, char* argv[]) {
 
     for (const std::string& branch : branches) {
         // Read data from input file
-        std::vector<float> data = readVectorFloatBranchFromFile(
+        std::vector<float> rawData = readVectorFloatBranchFromFile(
             args.inputFile, treename, branch, args.maxBytes
         );
+
+        UncompressedData inputData{
+            .data = rawData,
+            .dataName = branch,
+            .fileName = args.inputFile,
+            .dims = {rawData.size()},
+            .numFloats = rawData.size()
+        };
 
         for (float relError : relErrorBounds) {
             for (int algo : algorithms) {
                 std::cout << timeMessage(std::format("Running benchmark for compressor 'SZ3Compressor' with algorithm {} and relative error bound {}...", algo, relError)) << std::endl;
 
                 // Create compressor
-                std::shared_ptr<Compressor> compressor = std::make_shared<SZ3Compressor>(algo, relError);
+                std::shared_ptr<Compressor> compressor = std::make_shared<SZ3Compressor>(relError, algo);
                 std::shared_ptr<SZ3Compressor> sz3Compressor = std::dynamic_pointer_cast<SZ3Compressor>(compressor);
 
                 // Create benchmark instance
-                CompressorBenchmark benchmark(compressor, {.data = data, .dataName = branch, .fileName = args.inputFile}, outputFilename, args.iterations);
-                static bool header = false; // Static variable to ensure header is written only once
-
-                if (!header) {
-                    benchmark.writeCSVHeader();
-                    header = true;
-                }
+                CompressorBenchmark benchmark(compressor, inputData, outputFilename, args.iterations);
+                static bool headerWritten = false; // Static variable to ensure header is written only once
 
                 std::cout << timeMessage(std::format("Running benchmark for branch '{}' with algorithm {} and relative error bound {}...", 
                                             branch, algo, relError)) << std::endl;
+
                 try {
-                    benchmark.run();
+                    benchmark.run(!headerWritten);
+                    if (!headerWritten) {
+                        headerWritten = true;
+                    }
                 } catch (const std::exception& e) {
                     std::cerr << timeMessage(std::format("Error during benchmark: {}", e.what())) << std::endl;
                     continue;
