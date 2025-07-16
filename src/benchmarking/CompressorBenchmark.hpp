@@ -10,21 +10,9 @@
 #include "../compressors/Compressor.hpp"
 
 struct BenchmarkResult {
-    std::string compressorName; 
     std::map<std::string, std::string> compressorConfig;
-    
-    std::string timestamp;
-    int inputSize;      // Bytes
-    int outputSize;     // Bytes
-    std::string fileName;
-    std::string dataName;
-
-    double compressionRatio;
-    double compressionTimeMs;
-    double decompressionTimeMs;
-    double rmse;
-    double avgRelativeError;
-    double maxRelativeError;
+    std::map<std::string, std::string> benchmarkMeta;
+    std::map<std::string, double> benchmarkStats;
 };
 
 class CompressorBenchmark {
@@ -32,7 +20,7 @@ public:
     CompressorBenchmark(std::shared_ptr<Compressor> compressor, const UncompressedData& data, const std::string& outputFile, int iterations = 1)
         : compressor_(std::move(compressor)), data_(data), iterations_(iterations), outputFile_(outputFile) {}
 
-    void run(bool writeOnIterationFinish = true);
+    void run(bool writeCSVHeader = false, bool writeOnIterationFinish = true);
     void writeCSVHeader();
     void writeResultsToCSV();
     void writeLastResultToCSV();

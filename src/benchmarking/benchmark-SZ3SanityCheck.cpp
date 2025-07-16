@@ -13,15 +13,11 @@
 
 void runBenchmark(const std::shared_ptr<Compressor>& compressor, const UncompressedData& data, const std::string& outputFile, int iterations) {
     CompressorBenchmark benchmark(compressor, data, outputFile, iterations);
-    static bool header = false; // Static variable to ensure header is written only once
+    static bool headerWritten = false; // Static variable to ensure header is written only once
 
-    if (!header) {
-        benchmark.writeCSVHeader();
-        header = true;
-    }
-    
     try {
-        benchmark.run();
+        benchmark.run(!headerWritten);
+        headerWritten = true; // Set to true after the first run
     } catch (const std::exception& e) {
         std::cerr << timeMessage(std::format("Error during benchmark: {}", e.what())) << std::endl;
         return;

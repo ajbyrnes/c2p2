@@ -1,11 +1,12 @@
 #include <iostream>
 #include <format>
 #include <cmath>
+#include <numeric>
 
 #include "CompressorBenchmark.hpp"
 #include "../utils/utils.hpp"
 
-void CompressorBenchmark::run(bool writeOnIterationFinish) {
+void CompressorBenchmark::run(bool writeCSVHeader, bool writeOnIterationFinish) {
     for (int i = 0; i < iterations_; ++i) {
         std::cout << timeMessage(std::format("Running benchmark iteration {}/{}", i + 1, iterations_)) << std::endl;
 
@@ -23,62 +24,101 @@ void CompressorBenchmark::run(bool writeOnIterationFinish) {
         // Calculate ratio of original data size to compressed data size
         double compressionRatio =  (data_.data.size() * sizeof(float)) / static_cast<double>(compressedData.data.size());
 
-        // Calculate average point-wise relative error
-        double avgRelativeError = 0.0;
-        if (decompressedData.size() == data_.data.size()) {
-            for (size_t j = 0; j < data_.data.size(); ++j) {
-                double originalValue = static_cast<double>(data_.data[j]);
-                if (originalValue != 0.0) {
-                    avgRelativeError += std::abs((static_cast<double>(decompressedData[j]) - originalValue) / originalValue);
-                }
-                // } else {
-                    // Handle case where original value is zero to avoid division by zero
-                //     if (decompressedData[j] != 0.0) {
-                //         avgRelativeError += std::abs(static_cast<double>(decompressedData[j]));
-                //     }
-                // }
-            }
-            avgRelativeError /= static_cast<double>(data_.data.size());
+        // Calculate pointwise abosolute and relative errors
+        std::vector<double> absErrors, relErrors;
+        absErrors.reserve(data_.numFloats);
+        relErrors.reserve(data_.numFloats);
+        for (size_t j = 0; j < data_.numFloats; ++j) {
+            double absDiff = std::abs(data_.data[j] - decompressedData[j]);
+            absErrors.push_back(absDiff);
+
+            double relError = (data_.data[j] != 0.0f) ? absDiff / data_.data[j] : absDiff;
+            relErrors.push_back(relError);
         }
 
-        // Calculate maximum point-wise relative error
-        double maxRelativeError = 0.0;
-        if (decompressedData.size() == data_.data.size()) {
-            for (size_t j = 0; j < data_.data.size(); ++j) {
-                double originalValue = static_cast<double>(data_.data[j]);
-                if (originalValue != 0.0) {
-                    double relativeError = std::abs((static_cast<double>(decompressedData[j]) - originalValue) / originalValue);
-                    if (relativeError > maxRelativeError) {
-                        maxRelativeError = relativeError;
-                    }
-                } else {
-                    // Handle case where original value is zero to avoid division by zero
-                    if (decompressedData[j] != 0.0) {
-                        maxRelativeError = std::max(maxRelativeError, std::abs(static_cast<double>(decompressedData[j])));
-                    }
-                }
-            }
+        // Sort errors
+        // This is necessary for quartiles and median calculations
+        std::sort(absErrors.begin(), absErrors.end());
+        std::sort(relErrors.begin(), relErrors.end());
+
+        // Calculate absolute error stats
+
+        if (absErrors.empty()) {
+            throw std::runtime_error("No absolute errors calculated, check data integrity");
+        }        
+
+        double maxAbsError = *std::max_element(absErrors.begin(), absErrors.end());
+        double minAbsError = *std::min_element(absErrors.begin(), absErrors.end());
+        double q1AbsError = absErrors[absErrors.size() / 4];
+        double q3AbsError = absErrors[3 * absErrors.size() / 4];
+        double medianAbsError = absErrors[absErrors.size() / 2];
+        double meanAbsError = std::accumulate(absErrors.begin(), absErrors.end(), 0.0) / data_.numFloats;
+        double stdDevAbsError = std::sqrt(std::accumulate(absErrors.begin(), absErrors.end(), 0.0, [](double sum, double val) {
+            return sum + (val * val);
+        }) / data_.numFloats - meanAbsError * meanAbsError);
+
+        // Calculate relative error stats
+
+        if (relErrors.empty()) {
+            throw std::runtime_error("No relative errors calculated, check data integrity");
         }
 
-        lastResult_ = {
-            .compressorName = compressor_->toString(),
-            .compressorConfig = compressor_->getConfig(),
+        double maxRelError = *std::max_element(relErrors.begin(), relErrors.end());
+        double minRelError = *std::min_element(relErrors.begin(), relErrors.end());
+        double q1RelError = relErrors[relErrors.size() / 4];
+        double q3RelError = relErrors[3 * relErrors.size() / 4];
+        double medianRelError = relErrors[relErrors.size() / 2];
+        double meanRelError = std::accumulate(relErrors.begin(), relErrors.end(), 0.0) / data_.numFloats;
+        double stdDevRelError = std::sqrt(std::accumulate(relErrors.begin(), relErrors.end(), 0.0, [](double sum, double val) {
+            return sum + (val * val);
+        }) / data_.numFloats - meanRelError * meanRelError);
 
-            .timestamp = getTimestamp(),
-            .inputSize = static_cast<int>(data_.data.size()) * sizeof(float),
-            .outputSize = static_cast<int>(compressedData.data.size()),
-            .fileName = data_.fileName,
-            .dataName = data_.dataName,
-
-            .compressionRatio = compressionRatio,
-            .compressionTimeMs = compressionTimeMs,
-            .decompressionTimeMs = decompressionTimeMs,
-            .rmse = rmse,
-            .avgRelativeError = avgRelativeError,
-            .maxRelativeError = maxRelativeError
+        // Package and write results
+        
+        std::map<std::string, std::string> compressorConfig = compressor_->getConfig();
+        std::map<std::string, std::string> benchmarkMeta = {
+            {"host", getHost()},
+            {"timestamp", getTimestamp()},
+            {"dataFile", data_.fileName},
+            {"dataName", data_.dataName},
+            {"compressor", compressor_->toString()},
         };
 
-        writeLastResultToCSV();
+        std::map<std::string, double> benchmarkStats = {
+            {"inputSizeBytes", static_cast<double>(data_.data.size() * sizeof(float))},
+            {"outputSizeBytes", static_cast<double>(compressedData.data.size())},
+            {"compressionRatio", compressionRatio},
+            {"compressionTimeMs", compressionTimeMs},
+            {"decompressionTimeMs", decompressionTimeMs},
+            {"maxAbsError", maxAbsError},
+            {"minAbsError", minAbsError},
+            {"q1AbsError", q1AbsError},
+            {"q3AbsError", q3AbsError},
+            {"medianAbsError", medianAbsError},
+            {"meanAbsError", meanAbsError},
+            {"stdDevAbsError", stdDevAbsError},
+            {"maxRelError", maxRelError},
+            {"minRelError", minRelError},
+            {"q1RelError", q1RelError},
+            {"q3RelError", q3RelError},
+            {"medianRelError", medianRelError},
+            {"meanRelError", meanRelError},
+            {"stdDevRelError", stdDevRelError},
+        };
+
+        lastResult_ = {
+            .compressorConfig = compressorConfig,
+            .benchmarkMeta = benchmarkMeta,
+            .benchmarkStats = benchmarkStats,
+        };
+
+        if (writeCSVHeader && i == 0) {
+            CompressorBenchmark::writeCSVHeader();
+        }
+
+        if (writeOnIterationFinish) {
+            writeLastResultToCSV();
+        }
     }
 }
 
@@ -91,42 +131,42 @@ void CompressorBenchmark::writeCSVHeader() {
         throw std::runtime_error("Failed to open output file for benchmark results");
     }
 
-    // Write header for benchmark results
-    outputStream_ << "host,timestamp,inputSizeBytes,outputSizeBytes,fileName,dataName,compressionRatio,compressionTimeMs,decompressionTimeMs,avgRelativeError,maxRelativeError,";
-
-    // Write header for compressor info
-    outputStream_ << "compressor,";
-
-    std::map<std::string, std::string> config = compressor_->getConfig();
-    for (const auto& [key, value] : config) {
+    // Write header for benchmark metadata
+    for (const auto& [key, value] : lastResult_.benchmarkMeta) {
         outputStream_ << key << ",";
     }
 
-    outputStream_ << std::endl;
+    // Write header for compressor config
+    for (const auto& [key, value] : lastResult_.compressorConfig) {
+        outputStream_ << key << ",";
+    }
+
+    // Write header for benchmark stats
+    for (const auto& [key, value] : lastResult_.benchmarkStats) {
+        outputStream_ << key << ",";
+    }
+
+    outputStream_ << std::endl; // End the header line
 
     // Close the output stream
     outputStream_.close();
 }
 
 std::string CompressorBenchmark::getCSVLine(const BenchmarkResult& result) const {
-    std::string line = std::format("{},{},{},{},{},{},{:.10f},{:.10f},{:.10f},{:.10f},{:.10f},{},",
-        getHost(),
-        result.timestamp,
-        result.inputSize,
-        result.outputSize,
-        result.fileName,
-        result.dataName,
-        result.compressionRatio,
-        result.compressionTimeMs,
-        result.decompressionTimeMs,
-        result.rmse,
-        result.avgRelativeError,
-        result.maxRelativeError,
-        result.compressorName
-    );
+    // Write benchmark metadata
+    std::string line;
+    for (const auto& [key, value] : result.benchmarkMeta) {
+        line += std::format("{},", value);
+    }
 
+    // Write compressor config
     for (const auto& [key, value] : result.compressorConfig) {
         line += std::format("{},", value);
+    }
+
+    // Write benchmark stats
+    for (const auto& [key, value] : result.benchmarkStats) {
+        line += std::format("{:.10f},", value);
     }
 
     return line;
