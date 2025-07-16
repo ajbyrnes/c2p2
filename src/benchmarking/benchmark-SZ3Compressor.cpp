@@ -13,7 +13,8 @@ int main(int argc, char* argv[]) {
     Args args{parseArgs(argc, argv)};
 
     // Parameter setup
-    std::string outputFilename = std::format("{}-{}", getTimestamp(), args.benchmarkOutputFile);
+    std::string outputCSV = std::format("{}-benchmark-SZ3Compressor.csv", getTimestamp());
+    std::string outputROOT = std::format("{}-benchmark-SZ3Compressor.root", getTimestamp());
 
     std::string treename{"CollectionTree"};
     std::vector<std::string> branches{
@@ -49,7 +50,7 @@ int main(int argc, char* argv[]) {
                 std::shared_ptr<SZ3Compressor> sz3Compressor = std::dynamic_pointer_cast<SZ3Compressor>(compressor);
 
                 // Create benchmark instance
-                CompressorBenchmark benchmark(compressor, inputData, outputFilename, args.iterations);
+                CompressorBenchmark benchmark(compressor, inputData, outputCSV, outputROOT, args.iterations);
                 static bool headerWritten = false; // Static variable to ensure header is written only once
 
                 std::cout << timeMessage(std::format("Running benchmark for branch '{}' with algorithm {} and relative error bound {}...", 
@@ -65,7 +66,7 @@ int main(int argc, char* argv[]) {
                     continue;
                 }
 
-                std::cout << timeMessage(std::format("Benchmark completed. Results written to '{}'", outputFilename)) << std::endl;
+                std::cout << timeMessage(std::format("Benchmark completed. Results written to '{}'", outputCSV)) << std::endl;
 
                 // Destroy compressor
                 compressor.reset();

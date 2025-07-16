@@ -11,8 +11,8 @@
 #include "../utils/utils.hpp"
 #include "../utils/datagen.hpp"
 
-void runBenchmark(const std::shared_ptr<Compressor>& compressor, const UncompressedData& data, const std::string& outputFile, int iterations) {
-    CompressorBenchmark benchmark(compressor, data, outputFile, iterations);
+void runBenchmark(const std::shared_ptr<Compressor>& compressor, const UncompressedData& data, const std::string& outputCSV, const std::string& outputROOT, int iterations) {
+    CompressorBenchmark benchmark(compressor, data, outputCSV, outputROOT, iterations);
     static bool headerWritten = false; // Static variable to ensure header is written only once
 
     try {
@@ -23,7 +23,7 @@ void runBenchmark(const std::shared_ptr<Compressor>& compressor, const Uncompres
         return;
     }
 
-    std::cout << timeMessage(std::format("Benchmark completed. Results written to '{}'", outputFile)) << std::endl;
+    std::cout << timeMessage(std::format("Benchmark completed. Results written to '{}'", outputCSV)) << std::endl;
 }
 
 int main() {
@@ -91,7 +91,8 @@ int main() {
     std::vector<float> relErrorBounds{5e-2, 5e-3, 5e-4, 5e-5};
     std::vector<int> algorithms{0, 1, 2, 3};
 
-    std::string outputFile = std::format("{}-benchmark-SZ3SanityCheck.csv", getTimestamp());
+    std::string outputCSV = std::format("{}-benchmark-SZ3SanityCheck.csv", getTimestamp());
+    std::string outputROOT = std::format("{}-benchmark-SZ3SanityCheck.root", getTimestamp());
 
     for (float relError : relErrorBounds) {
         for (int algo : algorithms) {
@@ -102,13 +103,13 @@ int main() {
             std::shared_ptr<SZ3Compressor> sz3Compressor = std::dynamic_pointer_cast<SZ3Compressor>(compressor);
 
             // Benchmark on constant data
-            runBenchmark(compressor, uncompressedConstantData, outputFile, 1);
+            runBenchmark(compressor, uncompressedConstantData, outputCSV, outputROOT, 1);
 
             // Benchmark on circular data
-            runBenchmark(compressor, uncompressedCircularData2D, outputFile, 1);
+            runBenchmark(compressor, uncompressedCircularData2D, outputCSV, outputROOT, 1);
 
             // Benchmark on smoke test data
-            runBenchmark(compressor, uncompressedSmokeData, outputFile, 1);
+            runBenchmark(compressor, uncompressedSmokeData, outputCSV, outputROOT, 1);
         }
     }
 

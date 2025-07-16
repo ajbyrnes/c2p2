@@ -32,7 +32,7 @@ void CompressorBenchmark::run(bool writeCSVHeader, bool writeOnIterationFinish) 
             double absDiff = std::abs(data_.data[j] - decompressedData[j]);
             absErrors.push_back(absDiff);
 
-            double relError = (data_.data[j] != 0.0f) ? absDiff / data_.data[j] : absDiff;
+            double relError = (data_.data[j] != 0.0f) ? absDiff / std::abs(data_.data[j]) : absDiff;
             relErrors.push_back(relError);
         }
 
@@ -112,6 +112,10 @@ void CompressorBenchmark::run(bool writeCSVHeader, bool writeOnIterationFinish) 
             .benchmarkStats = benchmarkStats,
         };
 
+        results_.push_back(lastResult_);
+
+        std::cout << timeMessage(std::format("Benchmark iteration {}/{} completed", i + 1, iterations_)) << std::endl;
+
         if (writeCSVHeader && i == 0) {
             CompressorBenchmark::writeCSVHeader();
         }
@@ -119,13 +123,19 @@ void CompressorBenchmark::run(bool writeCSVHeader, bool writeOnIterationFinish) 
         if (writeOnIterationFinish) {
             writeLastResultToCSV();
         }
+
+        if (outputROOT_ != "") {
+            std::string treename = std::format("{}_{}", data_.dataName, data_.fileName);
+            std::string branchname = compressor_->toString();
+            writeFloatVectorToFile(outputROOT_, decompressedData, treename, branchname, false);
+        }
     }
 }
 
 void CompressorBenchmark::writeCSVHeader() {
     // Open output stream in append mode
     std::ofstream outputStream_;
-    outputStream_.open(outputFile_, std::ios::out | std::ios::app);
+    outputStream_.open(outputCSV_, std::ios::out | std::ios::app);
 
     if (!outputStream_.is_open()) {
         throw std::runtime_error("Failed to open output file for benchmark results");
@@ -179,7 +189,7 @@ void CompressorBenchmark::writeLastResultToCSV() {
 
     // Open output stream in append mode
     std::ofstream outputStream_;
-    outputStream_.open(outputFile_, std::ios::out | std::ios::app);
+    outputStream_.open(outputCSV_, std::ios::out | std::ios::app);
 
     if (!outputStream_.is_open()) {
         throw std::runtime_error("Failed to open output file for benchmark results");
@@ -191,7 +201,7 @@ void CompressorBenchmark::writeLastResultToCSV() {
 
     // Close the output stream
     outputStream_.close();
-    std::cout << std::format("[{}] Last benchmark result written to '{}'", getTimestamp(), outputFile_) << std::endl;
+    std::cout << std::format("[{}] Last benchmark result written to '{}'", getTimestamp(), outputCSV_) << std::endl;
 }
 
 void CompressorBenchmark::writeResultsToCSV() {

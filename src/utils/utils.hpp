@@ -33,7 +33,6 @@ const std::vector<std::string> dataFiles = {
     "../data/DAOD_PHYSLITE.37019878._000002.pool.root.1",
     "../data/DAOD_PHYSLITE.37019878._000003.pool.root.1",
     "../data/DAOD_PHYSLITE.37019878._000004.pool.root.1",
-    // "../data/DAOD_PHYSLITE.37019878._000005.pool.root.1",
     "../data/DAOD_PHYSLITE.37019878._000006.pool.root.1",
     "../data/DAOD_PHYSLITE.37019878._000007.pool.root.1",
     "../data/DAOD_PHYSLITE.37019878._000008.pool.root.1",
@@ -48,7 +47,9 @@ const std::vector<std::string> dataFiles = {
     "../data/DAOD_PHYSLITE.37019878._000018.pool.root.1",
     "../data/DAOD_PHYSLITE.37019878._000019.pool.root.1",
     "../data/DAOD_PHYSLITE.37019878._000020.pool.root.1",
-    "../data/DAOD_PHYSLITE.37019878._000021.pool.root.1"
+    "../data/DAOD_PHYSLITE.37019878._000021.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000022.pool.root.1"
+    "../data/DAOD_PHYSLITE.37019878._000023.pool.root.1"
 };
 
 std::vector<float> readVectorFloatBranchFromFile(
@@ -70,5 +71,5 @@ void writeFloatVectorToFile(
     const std::vector<float>& data, 
     const std::string& treename,
     const std::string& branchname,
-    bool recreate = true
+    bool recreate = false
 );

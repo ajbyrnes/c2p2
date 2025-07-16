@@ -4,23 +4,23 @@
 #include <vector>
 
 #include "../utils/utils.hpp"
+#include "../utils/datagen.hpp"
 
 int main(int argc, char* argv[]) {
     std::string treename = "CollectionTree";
     std::string branchname = "AnalysisJetsAuxDyn.pt";
-    size_t maxBytes = 1'000'000'000; // 1 GB
 
     // Read treename, branchname, maxBytes from command line arguments
 
-    std::vector<float> data;
-
     try {
-        auto args = parseArgs(argc, argv);
-        std::vector<float> data = readVectorFloatBranchFromFiles(
-            {dataFiles[0]}, args.treename, args.branchname, args.maxBytes
+        std::vector<float> data1 = readVectorFloatBranchFromFile(
+            dataFiles[0], "CollectionTree", "AnalysisJetsAuxDyn.pt"
         );
 
-        writeFloatVectorToFile("test-output.root", data, treename, branchname);
+        std::vector<float> data2 = constant1D(1000, 42.0f);
+
+        writeFloatVectorToFile("test-output.root", data1, "OutputTree", "data1", false);
+        writeFloatVectorToFile("test-output.root", data2, "OutputTree", "data2", false);
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
         return 1;

@@ -55,7 +55,7 @@ add_executable(test-readVectorFloatBranchFromFiles tests/test-readVectorFloatBra
 target_link_libraries(test-readVectorFloatBranchFromFiles utils)
 
 add_executable(test-writeFloatVectorToFile tests/test-writeFloatVectorToFile.cpp)
-target_link_libraries(test-writeFloatVectorToFile utils)
+target_link_libraries(test-writeFloatVectorToFile utils datagen)
 
 add_executable(test-datagen tests/test-datagen.cpp)
 target_link_libraries(test-datagen datagen)

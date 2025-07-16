@@ -204,24 +204,28 @@ void writeFloatVectorToFile(
         throw std::runtime_error("Failed to open file for writing");
     }
 
-    // Create a new tree
-    TTree tree(treename.c_str(), "Tree containing float vector data");
+    // Write to existing tree or create a new one if it doesn't exist
+    TTree* tree = dynamic_cast<TTree*>(file.Get(treename.c_str()));
+    if (!tree) {
+        tree = new TTree(treename.c_str(), "Tree containing float vector data");
+        std::cout << timeMessage(std::format("Created new tree '{}' in file '{}'", treename, filename)) << std::endl;
+    }
 
-    // Create a branch for the vector<float>
-    std::vector<float>* entryData = new std::vector<float>(data);
-    tree.Branch(branchname.c_str(), &entryData);
+    // Create a local vector and set branch address for writing
+    std::vector<float> branchData = data;
+    tree->Branch(branchname.c_str(), &branchData);
 
-    // Fill the tree with the data
-    tree.Fill();
+    // Only fill the new branch (other branches' addresses are not set, so they are not filled)
+    tree->Fill();
 
     // Write the tree to the file
-    tree.Write();
+    tree->Write();
 
     // Close the file
     file.Close();
 
-    std::cout << std::format("[{}] Wrote {} values to branch '{}' in tree '{}' in file '{}'", 
-                            getTimestamp(), data.size(), branchname, treename, filename);
+    std::cout << std::format("[{}] Wrote {} values ({}) to branch '{}' in tree '{}' in file '{}'", 
+                            getTimestamp(), data.size(), getSizeString(data.size() * sizeof(float)), branchname, treename, filename);
     std::cout << std::endl;
 }
 

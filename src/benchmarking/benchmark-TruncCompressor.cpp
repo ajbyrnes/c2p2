@@ -13,7 +13,8 @@ int main(int argc, char* argv[]) {
     Args args{parseArgs(argc, argv)};
 
     // Parameter setup
-    std::string outputFilename = std::format("{}-{}", getTimestamp(), args.benchmarkOutputFile);
+    std::string outputCSV = std::format("{}-benchmark-TruncCompressor.csv", getTimestamp());
+    std::string outputROOT = std::format("{}-benchmark-TruncCompressor.root", getTimestamp());
 
     std::string treename{"CollectionTree"};
     std::vector<std::string> branches{
@@ -34,7 +35,7 @@ int main(int argc, char* argv[]) {
         UncompressedData inputData{
             .data = rawData,
             .dataName = branch,
-            .fileName = args.inputFile,
+            .fileName =  args.inputFile.substr(args.inputFile.find_last_of("/\\") + 1),
             .dims = {rawData.size()},
             .numFloats = rawData.size(),
         };
@@ -49,7 +50,7 @@ int main(int argc, char* argv[]) {
             std::shared_ptr<TruncCompressor> truncCompressor = std::dynamic_pointer_cast<TruncCompressor>(compressor);
 
             // Create benchmark instance
-            CompressorBenchmark benchmark(compressor, inputData, outputFilename, args.iterations);
+            CompressorBenchmark benchmark(compressor, inputData, outputCSV, outputROOT, args.iterations);
             static bool headerWritten = false; // Static variable to ensure header is written only once
 
 
@@ -59,7 +60,7 @@ int main(int argc, char* argv[]) {
             if (!headerWritten) {
                 headerWritten = true;
             }
-            std::cout << timeMessage(std::format("Benchmark completed. Results written to '{}'", outputFilename)) << std::endl;
+            std::cout << timeMessage(std::format("Benchmark completed. Results written to '{}'", outputCSV)) << std::endl;
         }
     }
 
