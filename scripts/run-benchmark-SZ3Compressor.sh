@@ -5,11 +5,14 @@
 # 32 MB = 32 * 1024 * 1024 bytes
 # 64 MB = 64 * 1024 * 1024 bytes
 
+# Make 'benchmark results' directory if it doesn't exist
+mkdir -p "../benchmark results"
+
 # Get timestamp
 timestamp=$(date "+%Y-%m-%d %H:%M:%S")
 
 # Create log file
-logfile=$timestamp-benchmark-SZ3Compressor.log
+logfile="../benchmark results/$timestamp-benchmark-SZ3Compressor.log"
 touch "$logfile"
 
 data_dir="../data"

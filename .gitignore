@@ -1,8 +1,10 @@
-data/
+# vscode settings
+.vscode/
+
+# Build files
 bin/
 build
 SZ3/
-.vscode/
 
 *.o
 lib*
@@ -10,6 +12,17 @@ Makefile
 CMakeCache.txt
 cmake_install.cmake
 
+*.pyc
+
+# Data files
+data/
+benchmark results/
+*.csv
+*.log
 *.root
 *.ipynb
 .ipynb_checkpoints/
+
+# Other
+*.png
+*.html

@@ -13,8 +13,8 @@ int main(int argc, char* argv[]) {
     Args args{parseArgs(argc, argv)};
 
     // Parameter setup
-    std::string outputCSV = std::format("{}-benchmark-SZ3Compressor.csv", getTimestamp());
-    std::string outputROOT = std::format("{}-benchmark-SZ3Compressor.root", getTimestamp());
+    std::string outputCSV = std::format("../benchmark results/{}_benchmark-SZ3Compressor.csv", getTimestamp(true));
+    std::string outputROOT = std::format("../benchmark results/{}_benchmark-SZ3Compressor.root", getTimestamp(true));
 
     std::string treename{"CollectionTree"};
     std::vector<std::string> branches{
@@ -25,7 +25,8 @@ int main(int argc, char* argv[]) {
 
     // std::vector<float> relErrorBounds{5e-3};
     std::vector<float> relErrorBounds{5e-2, 5e-3, 5e-4, 5e-5};
-    std::vector<int> algorithms{0, 1, 2, 3};
+    std::vector<int> algorithms{3};     // NOPRED only
+    // std::vector<int> algorithms{0, 1, 2, 3};
 
     for (const std::string& branch : branches) {
         // Read data from input file
@@ -33,6 +34,10 @@ int main(int argc, char* argv[]) {
             args.inputFile, treename, branch, args.maxBytes
         );
 
+        // Write original data to result tree
+        writeFloatVectorToFile(outputROOT, rawData, branch, "original", false);
+
+        // Package data for compressor
         UncompressedData inputData{
             .data = rawData,
             .dataName = branch,
@@ -41,6 +46,7 @@ int main(int argc, char* argv[]) {
             .numFloats = rawData.size()
         };
 
+        // Conduct benchmark over different compressor settings
         for (float relError : relErrorBounds) {
             for (int algo : algorithms) {
                 std::cout << timeMessage(std::format("Running benchmark for compressor 'SZ3Compressor' with algorithm {} and relative error bound {}...", algo, relError)) << std::endl;
@@ -56,6 +62,7 @@ int main(int argc, char* argv[]) {
                 std::cout << timeMessage(std::format("Running benchmark for branch '{}' with algorithm {} and relative error bound {}...", 
                                             branch, algo, relError)) << std::endl;
 
+                // Run benchmark
                 try {
                     benchmark.run(!headerWritten);
                     if (!headerWritten) {

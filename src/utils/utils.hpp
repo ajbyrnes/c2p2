@@ -23,7 +23,7 @@ struct Args {
 const Args parseArgs(int argc, char* argv[]);
 
 std::string getSizeString(size_t numBytes);
-std::string getTimestamp();
+std::string getTimestamp(bool filenameSafe = false);
 std::string getHost();
 
 std::string timeMessage(const std::string& message);

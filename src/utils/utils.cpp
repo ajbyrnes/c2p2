@@ -241,14 +241,20 @@ std::string getSizeString(size_t numBytes) {
     }
 }
 
-std::string getTimestamp() {
+std::string getTimestamp(bool filenameSafe) {
     auto now = std::chrono::system_clock::now();
     auto in_time_t = std::chrono::system_clock::to_time_t(now);
     
     std::tm tm = *std::localtime(&in_time_t);
     char buffer[100];
-    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &tm);
-    
+
+    if (filenameSafe) {
+        // Replace spaces with underscores for filename safety
+        std::strftime(buffer, sizeof(buffer), "%Y-%m-%d_%H-%M-%S", &tm);
+    } else {
+        std::strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &tm);
+    }
+
     return std::string(buffer);
 }
 

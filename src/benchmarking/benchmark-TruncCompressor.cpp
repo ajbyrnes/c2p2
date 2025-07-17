@@ -13,8 +13,8 @@ int main(int argc, char* argv[]) {
     Args args{parseArgs(argc, argv)};
 
     // Parameter setup
-    std::string outputCSV = std::format("{}-benchmark-TruncCompressor.csv", getTimestamp());
-    std::string outputROOT = std::format("{}-benchmark-TruncCompressor.root", getTimestamp());
+    std::string outputCSV = std::format("../benchmark results/{}_benchmark-TruncCompressor.csv", getTimestamp(true));
+    std::string outputROOT = std::format("../benchmark results/{}_benchmark-TruncCompressor.root", getTimestamp(true));
 
     std::string treename{"CollectionTree"};
     std::vector<std::string> branches{
@@ -22,9 +22,6 @@ int main(int argc, char* argv[]) {
         "AnalysisJetsAuxDyn.eta",
         "AnalysisJetsAuxDyn.phi"
     };
-
-    std::vector<int> mantissaBits{16, 15, 14, 13, 12, 11, 10, 9, 8};
-    int compressionLevel{5};
     
     for (const std::string& branch : branches) {
         // Read data from input file
@@ -32,6 +29,8 @@ int main(int argc, char* argv[]) {
             args.inputFile, treename, branch, args.maxBytes
         );
 
+
+        // Package data for compressor
         UncompressedData inputData{
             .data = rawData,
             .dataName = branch,
@@ -40,6 +39,10 @@ int main(int argc, char* argv[]) {
             .numFloats = rawData.size(),
         };
 
+        // Iterate over compressor settings
+        std::vector<int> mantissaBits{16, 15, 14, 13, 12, 11, 10, 9, 8};
+        int compressionLevel{5};
+        
         for (size_t i{0}; i < mantissaBits.size(); i++) {
             int bits = mantissaBits[i];
             std::cout << timeMessage(std::format("Running benchmark for compressor '{}' with compression level {} and mantissa bits {}...", 
@@ -53,13 +56,17 @@ int main(int argc, char* argv[]) {
             CompressorBenchmark benchmark(compressor, inputData, outputCSV, outputROOT, args.iterations);
             static bool headerWritten = false; // Static variable to ensure header is written only once
 
-
+            
+            // Run benchmark
             std::cout << timeMessage(std::format("Running benchmark for branch '{}' with compression level {} and mantissa bits {}...", 
                                         branch, compressionLevel, bits)) << std::endl;
+
             benchmark.run(!headerWritten);
+            
             if (!headerWritten) {
                 headerWritten = true;
             }
+
             std::cout << timeMessage(std::format("Benchmark completed. Results written to '{}'", outputCSV)) << std::endl;
         }
     }

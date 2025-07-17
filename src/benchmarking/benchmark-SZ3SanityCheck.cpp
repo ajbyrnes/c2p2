@@ -34,7 +34,7 @@ int main() {
 
     UncompressedData uncompressedConstantData{
         .data = constantData,
-        .dataName = "ConstantData",
+        .dataName = "constantData",
         .fileName = "generated",
         .dims = {constantData.size()},
         .numFloats = constantData.size()
@@ -85,14 +85,19 @@ int main() {
         .numFloats = smokeDims[0] * smokeDims[1] * smokeDims[2]
     };
 
+    // Write original data to ROOT file
+    std::string outputCSV = std::format("../benchmark results/{}_benchmark-SZ3SanityCheck.csv", getTimestamp(true));
+    std::string outputROOT = std::format("../benchmark results/{}_benchmark-SZ3SanityCheck.root", getTimestamp(true));
+
+    writeFloatVectorToFile(outputROOT, constantData, "constantData_generated", "original", false);
+    writeFloatVectorToFile(outputROOT, circularData2D, "circularData2D_generated", "original", false);
+    writeFloatVectorToFile(outputROOT, input_data, "smokeData_generated", "original", false);
+
     // Benchmark SZ3 compressor on the generated data
     std::cout << timeMessage("Benchmarking SZ3 compressor") << std::endl;
 
     std::vector<float> relErrorBounds{5e-2, 5e-3, 5e-4, 5e-5};
     std::vector<int> algorithms{0, 1, 2, 3};
-
-    std::string outputCSV = std::format("{}-benchmark-SZ3SanityCheck.csv", getTimestamp());
-    std::string outputROOT = std::format("{}-benchmark-SZ3SanityCheck.root", getTimestamp());
 
     for (float relError : relErrorBounds) {
         for (int algo : algorithms) {
