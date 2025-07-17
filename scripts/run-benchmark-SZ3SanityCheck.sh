@@ -9,10 +9,10 @@
 mkdir -p "../benchmark results"
 
 # Get timestamp
-timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+timestamp=$(date "+%Y-%m-%d_%H-%M-%S")
 
 # Create log file
-logfile="../benchmark results/$timestamp-benchmark-SZ3SanityCheck.log"
+logfile="../benchmark results/${timestamp}_benchmark-SZ3SanityCheck.log"
 touch "$logfile"
 
 ../bin/benchmark-SZ3SanityCheck --input-file "$file" >> "$logfile" 2>&1

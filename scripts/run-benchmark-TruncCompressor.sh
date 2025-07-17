@@ -9,10 +9,10 @@
 mkdir -p "../benchmark results"
 
 # Get timestamp
-timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+timestamp=$(date "+%Y-%m-%d_%H-%M-%S")
 
 # Create log file
-logfile="../benchmark results/$timestamp-benchmark-TruncCompressor.log"
+logfile="../benchmark results/${timestamp}_benchmark-TruncCompressor.log"
 touch "$logfile"
 
 # Run benchmark
