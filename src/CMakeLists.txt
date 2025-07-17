@@ -75,7 +75,3 @@ target_link_libraries(benchmark-SZ3Compressor benchmarking)
 
 add_executable(benchmark-SZ3SanityCheck benchmarking/benchmark-SZ3SanityCheck.cpp)
 target_link_libraries(benchmark-SZ3SanityCheck benchmarking datagen)
-
-# Validation executables
-# add_executable(writeDecompressedData validation/writeDecompressedData.cpp)
-# target_link_libraries(writeDecompressedData compressors utils)
