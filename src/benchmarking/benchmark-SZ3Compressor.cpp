@@ -23,11 +23,6 @@ int main(int argc, char* argv[]) {
         "AnalysisJetsAuxDyn.phi"
     };
 
-    // std::vector<float> relErrorBounds{5e-3};
-    std::vector<float> relErrorBounds{5e-2, 5e-3, 5e-4, 5e-5};
-    std::vector<int> algorithms{3};     // NOPRED only
-    // std::vector<int> algorithms{0, 1, 2, 3};
-
     for (const std::string& branch : branches) {
         // Read data from input file
         std::vector<float> rawData = readVectorFloatBranchFromFile(
@@ -41,26 +36,32 @@ int main(int argc, char* argv[]) {
         UncompressedData inputData{
             .data = rawData,
             .dataName = branch,
-            .fileName = args.inputFile,
+            .fileName = args.inputFile.substr(args.inputFile.find_last_of("/\\") + 1),
             .dims = {rawData.size()},
             .numFloats = rawData.size()
         };
 
         // Conduct benchmark over different compressor settings
-        for (float relError : relErrorBounds) {
+        std::vector<float> errorBounds{5, 1, 1e-2, 1e-4};
+        bool useAbsError = true;
+
+        std::vector<int> algorithms{3};     // NOPRED only
+        // std::vector<int> algorithms{0, 1, 2, 3};
+
+        for (float errorBound : errorBounds) {
             for (int algo : algorithms) {
-                std::cout << timeMessage(std::format("Running benchmark for compressor 'SZ3Compressor' with algorithm {} and relative error bound {}...", algo, relError)) << std::endl;
+                std::cout << timeMessage(std::format("Running benchmark for compressor 'SZ3Compressor' with algorithm {} and error bound {}...", algo, errorBound)) << std::endl;
 
                 // Create compressor
-                std::shared_ptr<Compressor> compressor = std::make_shared<SZ3Compressor>(relError, algo);
+                std::shared_ptr<Compressor> compressor = std::make_shared<SZ3Compressor>(algo, errorBound, useAbsError);
                 std::shared_ptr<SZ3Compressor> sz3Compressor = std::dynamic_pointer_cast<SZ3Compressor>(compressor);
 
                 // Create benchmark instance
                 CompressorBenchmark benchmark(compressor, inputData, outputCSV, outputROOT, args.iterations);
                 static bool headerWritten = false; // Static variable to ensure header is written only once
 
-                std::cout << timeMessage(std::format("Running benchmark for branch '{}' with algorithm {} and relative error bound {}...", 
-                                            branch, algo, relError)) << std::endl;
+                std::cout << timeMessage(std::format("Running benchmark for branch '{}' with algorithm {} and error bound {}...", 
+                                            branch, algo, errorBound)) << std::endl;
 
                 // Run benchmark
                 try {

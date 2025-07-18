@@ -27,36 +27,36 @@ void runBenchmark(const std::shared_ptr<Compressor>& compressor, const Uncompres
 }
 
 int main() {
-    // Generate constant dummy data
-    std::cout << timeMessage("Generating constant dummy data for SZ3 compressor validation") << std::endl;
+    // // Generate constant dummy data
+    // std::cout << timeMessage("Generating constant dummy data for SZ3 compressor validation") << std::endl;
     
-    std::vector<float> constantData(10'000'000, 1.0f);
+    // std::vector<float> constantData(10'000'000, 1.0f);
 
-    UncompressedData uncompressedConstantData{
-        .data = constantData,
-        .dataName = "constantData",
-        .fileName = "generated",
-        .dims = {constantData.size()},
-        .numFloats = constantData.size()
-    };
+    // UncompressedData uncompressedConstantData{
+    //     .data = constantData,
+    //     .dataName = "constantData",
+    //     .fileName = "generated",
+    //     .dims = {constantData.size()},
+    //     .numFloats = constantData.size()
+    // };
 
-    // Generate multidimensional dummy data
-    std::cout << timeMessage("Generating dummy data for SZ3 compressor validation") << std::endl;
+    // // Generate multidimensional dummy data
+    // std::cout << timeMessage("Generating dummy data for SZ3 compressor validation") << std::endl;
     
-    size_t n = 1000;
-    std::vector<float> circularData2D = data2D(n, n, [n](size_t i, size_t j) {
-        float x = indexToCoord(j, n);
-        float y = indexToCoord(i, n);
-        return x * x + y * y;
-    });
+    // size_t n = 1000;
+    // std::vector<float> circularData2D = data2D(n, n, [n](size_t i, size_t j) {
+    //     float x = indexToCoord(j, n);
+    //     float y = indexToCoord(i, n);
+    //     return x * x + y * y;
+    // });
 
-    UncompressedData uncompressedCircularData2D{
-        .data = circularData2D,
-        .dataName = "circularData2D",
-        .fileName = "generated",
-        .dims = {n, n},
-        .numFloats = n * n
-    };
+    // UncompressedData uncompressedCircularData2D{
+    //     .data = circularData2D,
+    //     .dataName = "circularData2D",
+    //     .fileName = "generated",
+    //     .dims = {n, n},
+    //     .numFloats = n * n
+    // };
 
     // Generate smoke test data
     std::vector<size_t> smokeDims({100, 200, 300});
@@ -89,29 +89,47 @@ int main() {
     std::string outputCSV = std::format("../benchmark results/{}_benchmark-SZ3SanityCheck.csv", getTimestamp(true));
     std::string outputROOT = std::format("../benchmark results/{}_benchmark-SZ3SanityCheck.root", getTimestamp(true));
 
-    writeFloatVectorToFile(outputROOT, constantData, "constantData_generated", "original", false);
-    writeFloatVectorToFile(outputROOT, circularData2D, "circularData2D_generated", "original", false);
+    // writeFloatVectorToFile(outputROOT, constantData, "constantData_generated", "original", false);
+    // writeFloatVectorToFile(outputROOT, circularData2D, "circularData2D_generated", "original", false);
     writeFloatVectorToFile(outputROOT, input_data, "smokeData_generated", "original", false);
 
     // Benchmark SZ3 compressor on the generated data
     std::cout << timeMessage("Benchmarking SZ3 compressor") << std::endl;
 
-    std::vector<float> relErrorBounds{5e-2, 5e-3, 5e-4, 5e-5};
+    std::vector<float> relErrorBounds{0.1, 0.05, 0.005, 0.0005};      // 10%, 5%, 0.5%, 0.05%
+    std::vector<float> absErrorBounds{10, 5, 1, 0.1}; // 10, 5, 1, 0.1
     std::vector<int> algorithms{0, 1, 2, 3};
 
-    for (float relError : relErrorBounds) {
+    for (int e = 0; e < 4; ++e) {
         for (int algo : algorithms) {
-            std::cout << timeMessage(std::format("Running benchmark for SZ3Compressor with algorithm {} and relative error bound {}...", algo, relError)) << std::endl;
+            float errorBound = relErrorBounds[e];
+            std::cout << timeMessage(std::format("Running benchmark for SZ3Compressor with algorithm {} and relative error bound {}...", algo, errorBound)) << std::endl;
 
             // Create compressor
-            std::shared_ptr<Compressor> compressor = std::make_shared<SZ3Compressor>(algo, relError);
+            std::shared_ptr<Compressor> compressor = std::make_shared<SZ3Compressor>(algo, errorBound, false);
             std::shared_ptr<SZ3Compressor> sz3Compressor = std::dynamic_pointer_cast<SZ3Compressor>(compressor);
 
             // Benchmark on constant data
-            runBenchmark(compressor, uncompressedConstantData, outputCSV, outputROOT, 1);
+            // runBenchmark(compressor, uncompressedConstantData, outputCSV, outputROOT, 1);
 
             // Benchmark on circular data
-            runBenchmark(compressor, uncompressedCircularData2D, outputCSV, outputROOT, 1);
+            // runBenchmark(compressor, uncompressedCircularData2D, outputCSV, outputROOT, 1);
+
+            // Benchmark on smoke test data
+            runBenchmark(compressor, uncompressedSmokeData, outputCSV, outputROOT, 1);
+
+            // Reset compressors and run benchmark using absolute error
+            errorBound = absErrorBounds[e];
+            std::cout << timeMessage(std::format("Running benchmark for SZ3Compressor with algorithm {} and absolute error bound {}...", algo, errorBound)) << std::endl;
+
+            compressor = std::make_shared<SZ3Compressor>(algo, errorBound, true);
+            sz3Compressor = std::dynamic_pointer_cast<SZ3Compressor>(compressor);
+
+            // Benchmark on constant data
+            // runBenchmark(compressor, uncompressedConstantData, outputCSV, outputROOT, 1);
+            
+            // Benchmark on circular data
+            // runBenchmark(compressor, uncompressedCircularData2D, outputCSV, outputROOT, 1);
 
             // Benchmark on smoke test data
             runBenchmark(compressor, uncompressedSmokeData, outputCSV, outputROOT, 1);

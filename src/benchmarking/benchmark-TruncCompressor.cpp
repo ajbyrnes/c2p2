@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
         UncompressedData inputData{
             .data = rawData,
             .dataName = branch,
-            .fileName =  args.inputFile.substr(args.inputFile.find_last_of("/\\") + 1),
+            .fileName = args.inputFile.substr(args.inputFile.find_last_of("/\\") + 1),
             .dims = {rawData.size()},
             .numFloats = rawData.size(),
         };

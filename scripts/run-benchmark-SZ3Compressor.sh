@@ -16,6 +16,8 @@ logfile="../benchmark results/${timestamp}_benchmark-SZ3Compressor.log"
 touch "$logfile"
 
 data_dir="../data"
-for file in ${data_dir}/*; do
-    ../bin/benchmark-SZ3Compressor --input-file "$file" >> "$logfile" 2>&1
-done
+file="${data_dir}/DAOD_PHYSLITE.37019878._000001.pool.root.1"
+../bin/benchmark-SZ3Compressor --input-file "$file" >> "$logfile" 2>&1
+# for file in ${data_dir}/*; do
+#     ../bin/benchmark-SZ3Compressor --input-file "$file" >> "$logfile" 2>&1
+# done

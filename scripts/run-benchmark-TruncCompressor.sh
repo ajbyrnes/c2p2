@@ -18,5 +18,5 @@ touch "$logfile"
 # Run benchmark
 data_dir="../data"
 for file in ${data_dir}/*; do
-    ../bin/benchmark-TruncCompressor --input-file "$file" >> "$logfile"
+    ../bin/benchmark-TruncCompressor --input-file "$file" >> "$logfile" 2>&1
 done
