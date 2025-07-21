@@ -17,6 +17,16 @@ struct UncompressedData {
 struct CompressedData {
     std::vector<uint8_t> data; // Compressed data
     size_t numFloats;          // Number of floats in the original data
+    std::string dataName;     // Name of the data
+    std::string ogDataFileName; // Name of the original data file (if applicable
+    std::vector<size_t> dims{};
+};
+
+struct DecompressedData {
+    std::vector<float> data; // Decompressed data
+    std::string compressor;  // Name of the compressor used
+    std::string dataName;
+    std::string ogDataFileName;    // Name of the file containing the decompressed data
 };
 
 // Abstract base class for a compressor
@@ -28,7 +38,7 @@ public:
     virtual CompressedData compress(const UncompressedData& data) = 0;
 
     // Decompress input data, returns decompressed data
-    virtual std::vector<float> decompress(const CompressedData& compressedData) = 0;
+    virtual DecompressedData decompress(const CompressedData& compressedData) = 0;
 
     // Reporting
     virtual std::map<std::string, std::string> getConfig() const = 0;

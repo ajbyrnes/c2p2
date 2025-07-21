@@ -13,8 +13,9 @@ int main(int argc, char* argv[]) {
     Args args{parseArgs(argc, argv)};
 
     // Parameter setup
-    std::string outputCSV = std::format("../benchmark results/{}_benchmark-TruncCompressor.csv", getTimestamp(true));
-    std::string outputROOT = std::format("../benchmark results/{}_benchmark-TruncCompressor.root", getTimestamp(true));
+    std::string inputFileName = args.inputFile.substr(args.inputFile.find_last_of("/\\") + 1);
+    std::string outputCSV = std::format("../benchmark results/{}_benchmark-TruncCompressor_{}.csv", inputFileName, getTimestamp(true));
+    std::string outputROOT = std::format("../benchmark results/{}_benchmark-TruncCompressor_{}.root", inputFileName, getTimestamp(true));
 
     std::string treename{"CollectionTree"};
     std::vector<std::string> branches{
@@ -34,7 +35,7 @@ int main(int argc, char* argv[]) {
         UncompressedData inputData{
             .data = rawData,
             .dataName = branch,
-            .fileName = args.inputFile.substr(args.inputFile.find_last_of("/\\") + 1),
+            .fileName = inputFileName,
             .dims = {rawData.size()},
             .numFloats = rawData.size(),
         };
@@ -42,7 +43,9 @@ int main(int argc, char* argv[]) {
         // Iterate over compressor settings
         std::vector<int> mantissaBits{16, 15, 14, 13, 12, 11, 10, 9, 8};
         int compressionLevel{5};
-        
+
+        std::vector<DecompressedData> decompressedBranch{};
+
         for (size_t i{0}; i < mantissaBits.size(); i++) {
             int bits = mantissaBits[i];
             std::cout << timeMessage(std::format("Running benchmark for compressor '{}' with compression level {} and mantissa bits {}...", 
@@ -53,7 +56,7 @@ int main(int argc, char* argv[]) {
             std::shared_ptr<TruncCompressor> truncCompressor = std::dynamic_pointer_cast<TruncCompressor>(compressor);
 
             // Create benchmark instance
-            CompressorBenchmark benchmark(compressor, inputData, outputCSV, outputROOT, args.iterations);
+            CompressorBenchmark benchmark(compressor, inputData, outputCSV, args.iterations);
             static bool headerWritten = false; // Static variable to ensure header is written only once
 
             
@@ -61,14 +64,29 @@ int main(int argc, char* argv[]) {
             std::cout << timeMessage(std::format("Running benchmark for branch '{}' with compression level {} and mantissa bits {}...", 
                                         branch, compressionLevel, bits)) << std::endl;
 
-            benchmark.run(!headerWritten);
-            
+            decompressedBranch.push_back(benchmark.run(!headerWritten));
+
             if (!headerWritten) {
                 headerWritten = true;
             }
 
             std::cout << timeMessage(std::format("Benchmark completed. Results written to '{}'", outputCSV)) << std::endl;
+        
+            // Destroy compressor
+            compressor.reset();
+            truncCompressor.reset();
         }
+
+        // Write decompressed branch data
+        decompressedBranch.push_back({
+            .data = inputData.data,
+            .compressor = "original",
+            .dataName = inputData.dataName,
+            .ogDataFileName = inputData.fileName
+        });
+
+        std::cout << timeMessage(std::format("Writing decompressed data to '{}'", outputROOT));
+        writeDecompressedDataToFile(outputROOT, inputData.dataName, decompressedBranch);
     }
 
     return 0;

@@ -191,41 +191,56 @@ std::vector<float> readVectorFloatBranchFromFiles(
     return flatData;
 }
 
-void writeFloatVectorToFile(
+void writeDecompressedDataToFile(
     const std::string& filename, 
-    const std::vector<float>& data, 
     const std::string& treename,
-    const std::string& branchname,
-    bool recreate)
+    const std::vector<DecompressedData>& data
+)
 {
+    size_t numDataSets = data.size();
+    size_t numEntries = data.front().data.size();
+
     // Open the ROOT file
-    TFile file(filename.c_str(), recreate ? "RECREATE" : "UPDATE");
+    TFile file(filename.c_str(), "UPDATE");
     if (!file.IsOpen()) {
         throw std::runtime_error("Failed to open file for writing");
     }
 
-    // Write to existing tree or create a new one if it doesn't exist
-    TTree* tree = dynamic_cast<TTree*>(file.Get(treename.c_str()));
-    if (!tree) {
-        tree = new TTree(treename.c_str(), "Tree containing float vector data");
-        std::cout << timeMessage(std::format("Created new tree '{}' in file '{}'", treename, filename)) << std::endl;
+    // Create TTree
+    // Tree name should be dataName_dataFile
+    // std::string treename = std::format("{}_{}", data.front().dataName, data.front().ogDataFileName);
+    TTree tree(treename.c_str(), "Decompressed Data");
+
+    // We are going to write one branch per set of DecompressedData
+    std::vector<float> branchEntries(data.size(), 0);
+
+    // Create branches for each DecompressedData
+    for (size_t d = 0; d < numDataSets; ++d) {
+        tree.Branch(data[d].compressor.c_str(), &branchEntries[d]);
     }
 
-    // Create a local vector and set branch address for writing
-    std::vector<float> branchData = data;
-    tree->Branch(branchname.c_str(), &branchData);
+    // Iterate over the decompressed data and fill the branches
+    for (size_t i = 0; i < numEntries; ++i) {
+        // Pull the next entries from each set of DecompressedData
+        for (size_t d = 0; d < numDataSets; ++d) {
+            branchEntries[d] = data[d].data[i];
+        }
 
-    // Only fill the new branch (other branches' addresses are not set, so they are not filled)
-    tree->Fill();
+        // Write to the tree
+        tree.Fill();
+        if (i % (data.front().data.size() / 10) == 0) {
+            std::cout << timeMessage(std::format("Wrote entry {} of {} to tree '{}'", i, data.front().data.size(), treename));
+            std::cout << std::endl;
+        }
+    }
 
-    // Write the tree to the file
-    tree->Write();
+    // Write the tree
+    tree.Write();
 
     // Close the file
     file.Close();
 
-    std::cout << std::format("[{}] Wrote {} values ({}) to branch '{}' in tree '{}' in file '{}'", 
-                            getTimestamp(), data.size(), getSizeString(data.size() * sizeof(float)), branchname, treename, filename);
+    std::cout << timeMessage(std::format("Wrote {} entries to tree '{}' in file '{}'", data.front().data.size(), treename, filename));
     std::cout << std::endl;
 }
 

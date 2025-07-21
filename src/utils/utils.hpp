@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "../compressors/Compressor.hpp"
+
 struct Args {
     std::string inputFile = "../data/DAOD_PHYSLITE.37019878._000001.pool.root.1"; // Default input file
     std::string treename = "CollectionTree"; // Default tree name
@@ -66,10 +68,8 @@ std::vector<float> readVectorFloatBranchFromFiles(
     size_t maxBytes = 1'000'000'000
 );
 
-void writeFloatVectorToFile(
+void writeDecompressedDataToFile(
     const std::string& filename, 
-    const std::vector<float>& data, 
     const std::string& treename,
-    const std::string& branchname,
-    bool recreate = false
-);
+    const std::vector<DecompressedData>& data
+);  

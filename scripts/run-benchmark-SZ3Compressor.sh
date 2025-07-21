@@ -12,12 +12,23 @@ mkdir -p "../benchmark results"
 timestamp=$(date "+%Y-%m-%d_%H-%M-%S")
 
 # Create log file
-logfile="../benchmark results/${timestamp}_benchmark-SZ3Compressor.log"
+logfile="../benchmark results/benchmark-SZ3Compressor_${timestamp}.log"
 touch "$logfile"
 
 data_dir="../data"
-file="${data_dir}/DAOD_PHYSLITE.37019878._000001.pool.root.1"
-../bin/benchmark-SZ3Compressor --input-file "$file" >> "$logfile" 2>&1
-# for file in ${data_dir}/*; do
-#     ../bin/benchmark-SZ3Compressor --input-file "$file" >> "$logfile" 2>&1
-# done
+
+# Small file
+# file="${data_dir}/DAOD_PHYSLITE.37019878._000001.pool.root.1"
+# ../bin/benchmark-SZ3Compressor --input-file "$file" >> "$logfile" 2>&1
+
+# # Medium file
+# file="${data_dir}/DAOD_PHYSLITE.37019878._000022.pool.root.1"
+# ../bin/benchmark-SZ3Compressor --input-file "$file" >> "$logfile" 2>&1
+
+# # Big file
+# file="${data_dir}/DAOD_PHYSLITE.37019878._000009.pool.root.1"
+# ../bin/benchmark-SZ3Compressor --input-file "$file" >> "$logfile" 2>&1
+
+for file in ${data_dir}/*; do
+    ../bin/benchmark-SZ3Compressor --input-file "$file" >> "$logfile" 2>&1
+done

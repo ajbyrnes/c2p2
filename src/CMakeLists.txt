@@ -28,10 +28,6 @@ find_package(ROOT 6.30 CONFIG REQUIRED)
 set(SZ3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SZ3/SZ3_install/lib/cmake/SZ3")
 find_package(SZ3 REQUIRED)
 
-# Static library "utils"
-add_library(utils STATIC utils/utils.cpp utils/utils.hpp)
-target_link_libraries(utils ROOT::Core ROOT::RIO ROOT::Tree)
-
 # Static library "datagen"
 add_library(datagen STATIC utils/datagen.cpp utils/datagen.hpp)
 
@@ -42,6 +38,10 @@ add_library(compressors STATIC
     compressors/SZ3Compressor.cpp compressors/SZ3Compressor.hpp
 )
 target_link_libraries(compressors ZLIB::ZLIB SZ3::SZ3)
+
+# Static library "utils"
+add_library(utils STATIC utils/utils.cpp utils/utils.hpp compressors/Compressor.hpp)
+target_link_libraries(utils compressors ROOT::Core ROOT::RIO ROOT::Tree)
 
 # Static library "benchmark"
 add_library(benchmarking STATIC 

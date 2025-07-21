@@ -22,9 +22,9 @@ int main(int argc, char* argv[]) {
         f = dist(rng);
     }
 
-    UncompressedData uncompressed{.data = data, .dataName = "test_data"};
+    UncompressedData uncompressed{.data = data, .dataName = "test_data", .dims = {static_cast<size_t>(data.size())}, .numFloats = data.size()};
     CompressedData compressed = compressor.compress(uncompressed);
-    std::vector<float> decompressed = compressor.decompress(compressed);
+    DecompressedData decompressed = compressor.decompress(compressed);
 
     // Print compressor details
     std::cout << "Compressor: SZCompressor (relError=" << compressor.getRelError() << ")\n\n";
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
     // Print original vs decompressed data side-by-side
     std::cout << std::format("{:<20} {:<20}\n", "Original", "Decompressed");
     for (size_t i = 0; i < 10; ++i) {
-        std::cout << std::format("{:<20.10f} {:<20.10f}", data[i], decompressed[i]) << std::endl;
+        std::cout << std::format("{:<20.10f} {:<20.10f}", data[i], decompressed.data[i]) << std::endl;
     }
 
     return 0;

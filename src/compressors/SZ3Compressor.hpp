@@ -9,7 +9,7 @@ public:
     SZ3Compressor(int algorithm = 0, double errorBound = 1e-5, bool absError = false);
 
     CompressedData compress(const UncompressedData& data) override;
-    std::vector<float> decompress(const CompressedData& compressed) override;
+    DecompressedData decompress(const CompressedData& compressed) override;
 
     double getRelError() const;
     void setRelError(double relError);

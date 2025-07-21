@@ -28,7 +28,7 @@ public:
     CompressedData compress(const UncompressedData& data) override;
 
     // Decompress input data, returns decompressed data
-    std::vector<float> decompress(const CompressedData& compressedData) override;
+    DecompressedData decompress(const CompressedData& compressedData) override;
 
 private:
     int mantissaBits_ = 8; // Number of mantissa bits to keep (0-23 for float)

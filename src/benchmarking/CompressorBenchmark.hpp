@@ -17,10 +17,10 @@ struct BenchmarkResult {
 
 class CompressorBenchmark {
 public:
-    CompressorBenchmark(std::shared_ptr<Compressor> compressor, const UncompressedData& data, const std::string& outputCSV, const std::string& outputROOT = "", int iterations = 1)
-        : compressor_(std::move(compressor)), data_(data), iterations_(iterations), outputCSV_(outputCSV), outputROOT_(outputROOT) {}
+    CompressorBenchmark(std::shared_ptr<Compressor> compressor, const UncompressedData& data, const std::string& outputCSV, int iterations = 1)
+        : compressor_(std::move(compressor)), data_(data), iterations_(iterations), outputCSV_(outputCSV) {}
 
-    void run(bool writeCSVHeader = false, bool writeOnIterationFinish = true);
+    DecompressedData run(bool writeCSVHeader = false, bool writeOnIterationFinish = true);
 
 
 private:

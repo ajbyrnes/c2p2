@@ -1,10 +1,8 @@
 #include "SZ3Compressor.hpp"
 #include <SZ3/api/sz.hpp>
 
-SZ3::Config makeConfig(const UncompressedData& data) {
-    std::vector<size_t> dims = data.dims;
-
-    switch (data.dims.size()) {
+SZ3::Config makeConfig(std::vector<size_t> dims) {
+    switch (dims.size()) {
         case 1:
             return SZ3::Config({dims[0]});
         case 2:
@@ -12,7 +10,7 @@ SZ3::Config makeConfig(const UncompressedData& data) {
         case 3:
             return SZ3::Config({dims[0], dims[1], dims[2]});
         default:
-            throw std::invalid_argument("Unsupported number of dimensions: " + std::to_string(data.dims.size()));
+            throw std::invalid_argument("Unsupported number of dimensions: " + std::to_string(dims.size()));
     }
 }
 
@@ -35,8 +33,8 @@ SZ3Compressor::SZ3Compressor(int algorithm, double errorBound, bool absError) {
 }
 
 CompressedData SZ3Compressor::compress(const UncompressedData& data) {
-    SZ3::Config config = makeConfig(data);
-    
+    SZ3::Config config = makeConfig(data.dims);
+
     config.lossless = false;
     config.dataType = SZ_FLOAT;
     config.cmprAlgo = static_cast<SZ3::ALGO>(algorithm_);
@@ -68,37 +66,47 @@ CompressedData SZ3Compressor::compress(const UncompressedData& data) {
     // std::cout << "[DEBUG] About to allocate compressedData vector of size: " << cmpSize << std::endl;
     // Move compressed data to CompressedData struct
     std::vector<uint8_t> compressedData(cmpData, cmpData + cmpSize);
-    CompressedData compressed;
-    compressed.data = compressedData;
-    compressed.numFloats = data.data.size();
 
     // Free the compressed data pointer
     free(cmpData);
 
-    return compressed;
+    return {
+        .data = compressedData,
+        .numFloats = data.data.size(),
+        .dataName = data.dataName,
+        .ogDataFileName = data.fileName,
+        .dims = data.dims
+    };
 }
 
-std::vector<float> SZ3Compressor::decompress(const CompressedData& compressed) {
+DecompressedData SZ3Compressor::decompress(const CompressedData& compressed) {
     // std::cout << "[DEBUG] Compressed data length: " << compressed.data.size() << std::endl;
     // std::cout << "[DEBUG] Number of floats to decompress: " << compressed.numFloats << std::endl;
 
-    // Config
-    std::vector<size_t> dims{compressed.numFloats};
-    SZ3::Config config({dims[0]});
+    // Create config as in compress (using dims from compressed.numFloats)
+    SZ3::Config config = makeConfig(compressed.dims);
 
     config.lossless = false;
     config.dataType = SZ_FLOAT;
-    config.errorBoundMode = SZ3::EB_REL; // Relative error bound
-    config.relErrorBound = relError_;
     config.cmprAlgo = static_cast<SZ3::ALGO>(algorithm_);
+
+    if (relError_ == -1) {      // Use absolute error bound
+        config.errorBoundMode = SZ3::EB_ABS;
+        config.absErrorBound = absError_;
+    }
+    else {
+        config.errorBoundMode = SZ3::EB_REL; // Use relative error bound
+        config.relErrorBound = relError_;
+    }
+
     // Allocate output buffer
     float* dec_data_p = nullptr;
 
-    // Call SZ_decompress as in the smoke test
+    // Call SZ_decompress
     SZ_decompress(
         config,
         reinterpret_cast<const char*>(compressed.data.data()),
-        compressed.numFloats,
+        compressed.data.size(), // Pass compressed buffer size in bytes
         dec_data_p
     );
     // std::cout << "[DEBUG] SZ_decompress returned dec_data_p=" << static_cast<void*>(dec_data_p) << std::endl;
@@ -108,8 +116,13 @@ std::vector<float> SZ3Compressor::decompress(const CompressedData& compressed) {
     // std::cout << "[DEBUG] About to allocate dec_data vector of size: " << compressed.numFloats << std::endl;
     std::vector<float> dec_data(dec_data_p, dec_data_p + compressed.numFloats);
     free(dec_data_p); // Free the decompressed data pointer
-    
-    return dec_data;
+
+    return {
+        .data = dec_data,
+        .compressor = this->toString(),
+        .dataName = compressed.dataName, // Assuming compressed.dataName is set correctly
+        .ogDataFileName = compressed.ogDataFileName // Assuming compressed.ogDataFileName is set correctly
+    };
 }
 
 
@@ -124,12 +137,12 @@ void SZ3Compressor::setAlgorithm(int algorithm) { algorithm_ = algorithm; }
 
 std::map<std::string, std::string> SZ3Compressor::getConfig() const {
     return {
-        {"relError", std::format("{:.10f}", relError_)},
-        {"absError", std::format("{:.10f}", absError_)},
+        {"relBound", std::format("{:.6f}", relError_)},
+        {"absBound", std::format("{:.6f}", absError_)},
         {"algorithm", std::to_string(algorithm_)}
     };
 }
 
 std::string SZ3Compressor::toString() const {
-    return "SZ3Compressor{" + std::format("rel={:.10f};abs={:.10f};algo={}", relError_, absError_, algorithm_) + "}";
+    return "SZ3Compressor{" + std::format("rel={:.6f};abs={:.6f};algo={}", relError_, absError_, algorithm_) + "}";
 }

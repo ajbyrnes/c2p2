@@ -58,10 +58,15 @@ CompressedData TruncCompressor::compress(const UncompressedData& data) {
     }
 
     output.resize(output_size);
-    return CompressedData{output, data.data.size()};
+    return {
+        .data = output,
+        .numFloats = truncated.size(),
+        .dataName = data.dataName, // Assuming data.dataName is set correctly
+        .ogDataFileName = data.fileName // Assuming data.fileName is set correctly
+    };
 }
 
-std::vector<float> TruncCompressor::decompress(const CompressedData& compressedData) {
+DecompressedData TruncCompressor::decompress(const CompressedData& compressedData) {
     std::vector<float> output(compressedData.numFloats);
     uLongf output_size{compressedData.numFloats * sizeof(float)};
 
@@ -75,7 +80,12 @@ std::vector<float> TruncCompressor::decompress(const CompressedData& compressedD
     if (output_size != compressedData.numFloats * sizeof(float)) {
         throw std::runtime_error("Decompressed size mismatch");
     }
-    return output;
+    return {
+        .data = output,
+        .compressor = this->toString(),
+        .dataName = compressedData.dataName, // Assuming compressedData.dataName is set correctly
+        .ogDataFileName = compressedData.ogDataFileName // Assuming compressedData.ogDataFileName is set correctly
+    };
 }
 
 std::vector<float> TruncCompressor::truncate_mantissas(const std::vector<float>& values, int mantissaBits) {

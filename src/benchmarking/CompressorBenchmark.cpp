@@ -6,7 +6,11 @@
 #include "CompressorBenchmark.hpp"
 #include "../utils/utils.hpp"
 
-void CompressorBenchmark::run(bool writeCSVHeader, bool writeOnIterationFinish) {
+// All of the compressors are deterministic
+// The only purpose of the iterations is to average over *time*
+DecompressedData CompressorBenchmark::run(bool writeCSVHeader, bool writeOnIterationFinish) {
+    DecompressedData decompressedData;
+
     for (int i = 0; i < iterations_; ++i) {
         std::cout << timeMessage(std::format("Running benchmark iteration {}/{}", i + 1, iterations_)) << std::endl;
 
@@ -15,7 +19,7 @@ void CompressorBenchmark::run(bool writeCSVHeader, bool writeOnIterationFinish) 
         auto endCompression = std::chrono::high_resolution_clock::now();
 
         auto startDecompression = std::chrono::high_resolution_clock::now();
-        std::vector<float> decompressedData = compressor_->decompress(compressedData);
+        decompressedData = compressor_->decompress(compressedData);
         auto endDecompression = std::chrono::high_resolution_clock::now();
 
         double compressionTimeMs = std::chrono::duration<double, std::milli>(endCompression - startCompression).count();
@@ -29,10 +33,10 @@ void CompressorBenchmark::run(bool writeCSVHeader, bool writeOnIterationFinish) 
         absErrors.reserve(data_.numFloats);
         relErrors.reserve(data_.numFloats);
         for (size_t j = 0; j < data_.numFloats; ++j) {
-            double absDiff = std::abs(data_.data[j] - decompressedData[j]);
+            double absDiff = std::abs(data_.data[j] - decompressedData.data[j]);
             absErrors.push_back(absDiff);
 
-            double relError = (data_.data[j] != 0.0f) ? absDiff / std::abs(data_.data[j]) : absDiff;
+            double relError = (data_.data[j] != 0.0f) ? (absDiff * 100) / std::abs(data_.data[j]) : absDiff * 100;
             relErrors.push_back(relError);
         }
 
@@ -97,13 +101,13 @@ void CompressorBenchmark::run(bool writeCSVHeader, bool writeOnIterationFinish) 
             {"medianAbsError", medianAbsError},
             {"meanAbsError", meanAbsError},
             {"stdDevAbsError", stdDevAbsError},
-            {"maxRelError", maxRelError},
-            {"minRelError", minRelError},
-            {"q1RelError", q1RelError},
-            {"q3RelError", q3RelError},
-            {"medianRelError", medianRelError},
-            {"meanRelError", meanRelError},
-            {"stdDevRelError", stdDevRelError},
+            {"maxRelErrorPct", maxRelError},
+            {"minRelErrorPct", minRelError},
+            {"q1RelErrorPct", q1RelError},
+            {"q3RelErrorPct", q3RelError},
+            {"medianRelErrorPct", medianRelError},
+            {"meanRelErrorPct", meanRelError},
+            {"stdDevRelErrorPct", stdDevRelError},
         };
 
         lastResult_ = {
@@ -123,13 +127,9 @@ void CompressorBenchmark::run(bool writeCSVHeader, bool writeOnIterationFinish) 
         if (writeOnIterationFinish) {
             writeLastResultToCSV();
         }
-
-        if (outputROOT_ != "") {
-            std::string treename = std::format("{}_{}", data_.dataName, data_.fileName);
-            std::string branchname = compressor_->toString();
-            writeFloatVectorToFile(outputROOT_, decompressedData, treename, branchname, false);
-        }
     }
+
+    return decompressedData;
 }
 
 void CompressorBenchmark::writeCSVHeader() {

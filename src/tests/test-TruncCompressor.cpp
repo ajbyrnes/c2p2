@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
 
     CompressedData compressed = compressor.compress({.data = data, .dataName = "test_data"});
 
-    std::vector<float> decompressed = compressor.decompress(compressed);
+    DecompressedData decompressed = compressor.decompress(compressed);
 
     // Print compressor details
     std::cout << "Compressor: " << compressor.toString() << "\n\n";
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
     // Print original vs decompressed data side-by-side
     std::cout << std::format("{:<20} {:<20}\n", "Original", "Decompressed");
     for (size_t i = 0; i < data.size(); ++i) {
-        std::cout << std::format("{:<20.10f} {:<20.10f}", data[i], decompressed[i]) << std::endl;
+        std::cout << std::format("{:<20.10f} {:<20.10f}", data[i], decompressed.data[i]) << std::endl;
     }
 
     return 0;
