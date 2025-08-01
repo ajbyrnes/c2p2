@@ -22,6 +22,7 @@ benchmark results/
 *.root
 *.ipynb
 .ipynb_checkpoints/
+*.zip
 
 # Other
 *.png
