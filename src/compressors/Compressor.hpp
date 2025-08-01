@@ -1,3 +1,8 @@
+
+/**
+ * @file Compressor.hpp
+ * @brief Abstract base class for data compressors.
+ */
 #pragma once
 
 #include <map>
@@ -6,41 +11,45 @@
 
 #include <cstdint>
 
-struct UncompressedData {
-    std::vector<float> data{}; // Uncompressed data
-    std::string dataName{};
-    std::string fileName{}; // Name of the file containing the data
-    std::vector<size_t> dims{};
-    size_t numFloats = 0;
-};
+#include "../utils/compression.hpp"
 
-struct CompressedData {
-    std::vector<uint8_t> data; // Compressed data
-    size_t numFloats;          // Number of floats in the original data
-    std::string dataName;     // Name of the data
-    std::string ogDataFileName; // Name of the original data file (if applicable
-    std::vector<size_t> dims{};
-};
 
-struct DecompressedData {
-    std::vector<float> data; // Decompressed data
-    std::string compressor;  // Name of the compressor used
-    std::string dataName;
-    std::string ogDataFileName;    // Name of the file containing the decompressed data
-};
-
-// Abstract base class for a compressor
+/**
+ * @class Compressor
+ * @brief Abstract base class for data compressors.
+ *
+ * Defines the interface for compression and decompression of data, as well as reporting configuration.
+ */
 class Compressor {
 public:
+    /**
+     * @brief Virtual destructor.
+     */
     virtual ~Compressor() = default;
 
-    // Compress input data, returns compressed data
+    /**
+     * @brief Compress input data.
+     * @param data Uncompressed data to compress.
+     * @return CompressedData containing compressed result.
+     */
     virtual CompressedData compress(const UncompressedData& data) = 0;
 
-    // Decompress input data, returns decompressed data
+    /**
+     * @brief Decompress input data.
+     * @param compressedData Compressed data to decompress.
+     * @return DecompressedData containing decompressed result.
+     */
     virtual DecompressedData decompress(const CompressedData& compressedData) = 0;
 
-    // Reporting
+    /**
+     * @brief Get configuration as a map of key-value pairs.
+     * @return Map of configuration options.
+     */
     virtual std::map<std::string, std::string> getConfig() const = 0;
+
+    /**
+     * @brief Get a string representation of the compressor.
+     * @return String describing the compressor.
+     */
     virtual std::string toString() const = 0;
 };

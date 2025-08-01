@@ -1,3 +1,8 @@
+
+/**
+ * @file CompressorBenchmark.cpp
+ * @brief Implementation of CompressorBenchmark for benchmarking data compressors and recording results.
+ */
 #include <iostream>
 #include <format>
 #include <cmath>

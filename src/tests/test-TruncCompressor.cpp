@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "../utils/cli.hpp"
+#include "../utils/compression.hpp"
 #include "../utils/utils.hpp"
 #include "../compressors/TruncCompressor.hpp"
 

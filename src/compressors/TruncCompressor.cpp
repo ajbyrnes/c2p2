@@ -1,3 +1,8 @@
+
+/**
+ * @file TruncCompressor.cpp
+ * @brief Implementation of TruncCompressor for lossy float compression using mantissa truncation and zlib.
+ */
 #include "TruncCompressor.hpp"
 #include <format>
 #include <stdexcept>

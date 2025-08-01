@@ -1,3 +1,8 @@
+
+/**
+ * @file SZ3Compressor.cpp
+ * @brief Implementation of SZ3Compressor for scientific data compression using SZ3 library.
+ */
 #include "SZ3Compressor.hpp"
 #include <SZ3/api/sz.hpp>
 

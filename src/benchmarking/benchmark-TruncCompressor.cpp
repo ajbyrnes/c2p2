@@ -7,6 +7,8 @@
 #include "CompressorBenchmark.hpp"
 #include "../compressors/TruncCompressor.hpp"
 #include "../utils/utils.hpp"
+#include "../utils/root.hpp"
+#include "../utils/cli.hpp"
 
 int main(int argc, char* argv[]) {
     // Read parameters from command line arguments
@@ -24,9 +26,11 @@ int main(int argc, char* argv[]) {
         "AnalysisJetsAuxDyn.phi"
     };
     
+    // std::vector<std::string> branches = branchNames;
+
     for (const std::string& branch : branches) {
         // Read data from input file
-        std::vector<float> rawData = readVectorFloatBranchFromFile(
+        std::vector<float> rawData = readVectorFloatBranchFromRootFile(
             args.inputFile, treename, branch, args.maxBytes
         );
 
@@ -86,7 +90,7 @@ int main(int argc, char* argv[]) {
         });
 
         std::cout << timeMessage(std::format("Writing decompressed data to '{}'", outputROOT));
-        writeDecompressedDataToFile(outputROOT, inputData.dataName, decompressedBranch);
+        writeDecompressedDataToRootFile(outputROOT, inputData.dataName, decompressedBranch);
     }
 
     return 0;

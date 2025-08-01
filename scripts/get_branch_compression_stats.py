@@ -3,7 +3,7 @@ import sys
 
 import uproot
     
-data_dir = "../data"
+data_dir = "../134G-data"
 
 print("filename,branch_name,branch_type,compressor,compressed_bytes,uncompressed_bytes,compression_ratio")
 

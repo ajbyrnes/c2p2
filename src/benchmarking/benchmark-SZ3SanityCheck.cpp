@@ -9,7 +9,8 @@
 #include "../compressors/Compressor.hpp"
 #include "../compressors/SZ3Compressor.hpp"
 #include "../utils/utils.hpp"
-#include "../utils/datagen.hpp"
+#include "../utils/root.hpp"
+#include "../utils/cli.hpp"
 
 DecompressedData runBenchmark(const std::shared_ptr<Compressor>& compressor, const UncompressedData& data, const std::string& outputCSV, const std::string& outputROOT, int iterations) {
     CompressorBenchmark benchmark(compressor, data, outputCSV, iterations);
@@ -30,24 +31,6 @@ DecompressedData runBenchmark(const std::shared_ptr<Compressor>& compressor, con
 }
 
 int main() {
-    // Generate multidimensional dummy data
-    std::cout << timeMessage("Generating dummy data for SZ3 compressor validation") << std::endl;
-    
-    size_t n = 1000;
-    std::vector<float> circularData2D = data2D(n, n, [n](size_t i, size_t j) {
-        float x = indexToCoord(j, n);
-        float y = indexToCoord(i, n);
-        return x * x + y * y;
-    });
-
-    UncompressedData uncompressedCircularData2D{
-        .data = circularData2D,
-        .dataName = "circularData2D",
-        .fileName = "generated",
-        .dims = {n, n},
-        .numFloats = n * n
-    };
-
     // Generate smoke test data
     std::vector<size_t> smokeDims({100, 200, 300});
 
@@ -102,9 +85,6 @@ int main() {
             auto compressor = std::make_shared<SZ3Compressor>(algo, errorBound, false);
             auto sz3Compressor = std::dynamic_pointer_cast<SZ3Compressor>(compressor);
 
-            // Benchmark on circular data
-            // runBenchmark(compressor, uncompressedCircularData2D, outputCSV, outputROOT, 1);
-
             // Benchmark on smoke test data
             runBenchmark(compressor, uncompressedSmokeData, outputCSV, outputROOT, 1);
         }
@@ -120,9 +100,6 @@ int main() {
             auto compressor = std::make_shared<SZ3Compressor>(algo, errorBound, true);
             auto sz3Compressor = std::dynamic_pointer_cast<SZ3Compressor>(compressor);
 
-            // Benchmark on circular data
-            // runBenchmark(compressor, uncompressedCircularData2D, outputCSV, outputROOT, 1);
-
             // Benchmark on smoke test data
             decompressedSmoke.push_back(runBenchmark(compressor, uncompressedSmokeData, outputCSV, outputROOT, 1));
         }
@@ -137,7 +114,7 @@ int main() {
     });
 
     std::cout << timeMessage("Writing decompressed data to ROOT file") << std::endl;
-    writeDecompressedDataToFile(outputROOT, uncompressedSmokeData.dataName, decompressedSmoke);
+    writeDecompressedDataToRootFile(outputROOT, uncompressedSmokeData.dataName, decompressedSmoke);
 
     return 0;
 }
