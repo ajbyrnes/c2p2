@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
 
         // Conduct benchmark over different compressor settings
         std::vector<float> absErrorBounds{
-            10, 5, 2, 1, 0.75, 0.5, 0.25, 
+            1, 0.75, 0.5, 0.25, 
             0.1, 0.01, 0.001, 0.0001, 0.00001, 0.000001
         };
 
@@ -77,12 +77,13 @@ int main(int argc, char* argv[]) {
 
                 // Run benchmark
                 try {
-                    if (algo == 3) {
-                        decompressedBranch.push_back(benchmark.run(!headerWritten));
-                    }
-                    else {
-                        benchmark.run(!headerWritten);
-                    }
+                    decompressedBranch.push_back(benchmark.run(!headerWritten));
+                    // if (algo == 3) {
+                    //     decompressedBranch.push_back(benchmark.run(!headerWritten));
+                    // }
+                    // else {
+                    //     benchmark.run(!headerWritten);
+                    // }
 
                     if (!headerWritten) {
                         headerWritten = true;

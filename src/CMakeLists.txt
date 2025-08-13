@@ -25,8 +25,13 @@ find_package(ZLIB REQUIRED)
 find_package(ROOT 6.30 CONFIG REQUIRED)
 
 # Add SZ3
-set(SZ3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SZ3/SZ3_install/lib/cmake/SZ3")
+set(SZ3_DIR "~/lib/SZ3/SZ3_install/lib/cmake/SZ3")
 find_package(SZ3 REQUIRED)
+
+# # Add ZSTD
+# NVM currently using ZSTD built into SZ3
+# find_package(PkgConfig REQUIRED)
+# pkg_check_modules(ZSTD REQUIRED zstd)
 
 # Add utility libraries
 add_library(utils STATIC 

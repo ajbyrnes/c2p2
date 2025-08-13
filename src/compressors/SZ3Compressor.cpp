@@ -40,7 +40,7 @@ SZ3Compressor::SZ3Compressor(int algorithm, double errorBound, bool absError) {
 CompressedData SZ3Compressor::compress(const UncompressedData& data) {
     SZ3::Config config = makeConfig(data.dims);
 
-    config.lossless = false;
+    // config.lossless = false;
     config.dataType = SZ_FLOAT;
     config.cmprAlgo = static_cast<SZ3::ALGO>(algorithm_);
 
@@ -91,7 +91,7 @@ DecompressedData SZ3Compressor::decompress(const CompressedData& compressed) {
     // Create config as in compress (using dims from compressed.numFloats)
     SZ3::Config config = makeConfig(compressed.dims);
 
-    config.lossless = false;
+    // config.lossless = false;
     config.dataType = SZ_FLOAT;
     config.cmprAlgo = static_cast<SZ3::ALGO>(algorithm_);
 
