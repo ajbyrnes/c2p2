@@ -1,0 +1,1 @@
+/home/ajbyrnes/lib/SZ3/build/tools/H5Z-SZ3/test/h5repack.sh

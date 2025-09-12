@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
 
     for (const std::string& branch : branches) {
         // Read data from input file
-        std::vector<float> rawData = readVectorFloatBranchFromRootFile(
+        std::vector<float> rawData = readVectorFloatBranch(
             args.inputFile, treename, branch, args.maxBytes
         );
 

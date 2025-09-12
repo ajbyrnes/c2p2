@@ -1,2 +1,0 @@
-/home/ajbyrnes/c2p2/cmake-test/CMakeFiles/edit_cache.dir
-/home/ajbyrnes/c2p2/cmake-test/CMakeFiles/rebuild_cache.dir
