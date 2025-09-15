@@ -48,8 +48,8 @@ std::string TruncCompressor::toString() const {
     return "TruncCompressor{" + std::format("bits={};lvl={}", mantissaBits_, compressionLevel_) + "}";
 }
 
-CompressedData TruncCompressor::compress(const UncompressedData& data) {
-    std::vector<float> truncated{truncate_mantissas(data.data, mantissaBits_)};
+CompressedData TruncCompressor::compress(const std::vector<float>& data) {
+    std::vector<float> truncated{truncate_mantissas(data, mantissaBits_)};
 
     const uint8_t* input = reinterpret_cast<const uint8_t*>(truncated.data());
     uLong input_size = truncated.size() * sizeof(float);
@@ -63,15 +63,11 @@ CompressedData TruncCompressor::compress(const UncompressedData& data) {
     }
 
     output.resize(output_size);
-    return {
-        .data = output,
-        .numFloats = truncated.size(),
-        .dataName = data.dataName, // Assuming data.dataName is set correctly
-        .ogDataFileName = data.fileName // Assuming data.fileName is set correctly
-    };
+
+    return CompressedData{std::move(output), data.size(), getConfig()};
 }
 
-DecompressedData TruncCompressor::decompress(const CompressedData& compressedData) {
+std::vector<float> TruncCompressor::decompress(const CompressedData& compressedData) {
     std::vector<float> output(compressedData.numFloats);
     uLongf output_size{compressedData.numFloats * sizeof(float)};
 
@@ -85,16 +81,12 @@ DecompressedData TruncCompressor::decompress(const CompressedData& compressedDat
     if (output_size != compressedData.numFloats * sizeof(float)) {
         throw std::runtime_error("Decompressed size mismatch");
     }
-    return {
-        .data = output,
-        .compressor = this->toString(),
-        .dataName = compressedData.dataName, // Assuming compressedData.dataName is set correctly
-        .ogDataFileName = compressedData.ogDataFileName // Assuming compressedData.ogDataFileName is set correctly
-    };
+    
+    return output;
 }
 
 std::vector<float> TruncCompressor::truncate_mantissas(const std::vector<float>& values, int mantissaBits) {
-    if (mantissaBits < 0 || mantissaBits > 22) {
+    if (mantissaBits < 0 || mantissaBits > 23) {
         return values; // No truncation needed
     }
 

@@ -39,14 +39,14 @@ public:
      * @param data Uncompressed data to compress.
      * @return CompressedData containing compressed result.
      */
-    CompressedData compress(const UncompressedData& data) override;
+    CompressedData compress(const std::vector<float>& data) override;
 
     /**
      * @brief Decompress input data.
      * @param compressedData Compressed data to decompress.
-     * @return DecompressedData containing decompressed result.
+     * @return Decompressed float vector containing decompressed result.
      */
-    DecompressedData decompress(const CompressedData& compressedData) override;
+    std::vector<float> decompress(const CompressedData& compressedData) override;
 
 private:
     int mantissaBits_ = 8; ///< Number of mantissa bits to keep (0-23 for float)

@@ -32,59 +32,18 @@ const Args parseArgs(int argc, char* argv[]) {
 
     for (int i = 1; i < argc; ++i) {
         std::string arg = argv[i];
-        if (arg == "--input-file") {
+        if (arg == "--data") {
             if (i + 1 < argc) {
-                args.inputFile = argv[++i];
+                args.data = argv[++i];
             } else {
-                throw std::runtime_error("Error: --input-file requires a value");
+                throw std::runtime_error("Error: --data requires a value");
             }
         }
-        else if (arg == "--tree") {
+        else if (arg == "--config") {
             if (i + 1 < argc) {
-                args.treename = argv[++i];
+                args.config = argv[++i];
             } else {
-                throw std::runtime_error("Error: --tree requires a value");
-            }
-        }
-        else if (arg == "--branch") {
-            if (i + 1 < argc) {
-                args.branchname = argv[++i];
-            } else {
-                throw std::runtime_error("Error: --branch requires a value");
-            }
-        }
-        else if (arg == "--max-bytes") {
-            if (i + 1 < argc) {
-                args.maxBytes = std::stoul(argv[++i]);
-            } else {
-                throw std::runtime_error("Error: --max-bytes requires a value");
-            }
-        }
-        else if (arg == "--compressor") {
-            if (i + 1 < argc) {
-                args.compressor = argv[++i];
-            } else {
-                throw std::runtime_error("Error: --compressor requires a value");
-            }
-        }
-        else if (arg == "--iterations") {
-            if (i + 1 < argc) {
-                args.iterations = std::stoi(argv[++i]);
-            } else {
-                throw std::runtime_error("Error: --iterations requires a value");
-            }
-        }
-        else if (arg == "--mantissa-bits") {
-            if (i + 1 < argc) {
-                args.mantissaBits = std::stoi(argv[++i]);
-            } else {
-                throw std::runtime_error("Error: --mantissa-bits requires a value");
-            }
-        } else if (arg == "--compression-level") {
-            if (i + 1 < argc) {
-                args.compressionLevel = std::stoi(argv[++i]);
-            } else {
-                throw std::runtime_error("Error: --compression-level requires a value");
+                throw std::runtime_error("Error: --config requires a value");
             }
         } else {
             throw std::runtime_error("Unknown argument: " + arg);

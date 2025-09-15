@@ -1,11 +1,14 @@
 # utils/CMakeLists.txt
 
-# Regular utilities
+
 add_library(utils STATIC
     utils.hpp utils.cpp
     cli.hpp cli.cpp
+    root.hpp root.cpp
 )
 
-# Utilities for interacting with ROOT files
-add_library(root-utils STATIC root.cpp root.hpp)
-target_link_libraries(root-utils utils ROOT::Core ROOT::RIO ROOT::Tree)
+target_link_libraries(
+    utils INTERFACE
+    ROOT::Core ROOT::RIO ROOT::Tree
+    nlohmann_json::nlohmann_json
+)

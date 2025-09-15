@@ -11,6 +11,8 @@
 
 #include <unistd.h>
 
+#include <TTreeReader.h>
+#include <TTreeReaderValue.h>
 #include <TFile.h>
 #include <TError.h>
 #include <TTree.h>
@@ -84,94 +86,29 @@ std::vector<std::vector<float>> readVectorFloatBranch(
     Long64_t bytesRead{0};
     Long64_t totalValues{0};
 
-    for (Long64_t i = 0; i < nEntries; ++i) {
-        tree->GetEntry(i);
+    // Use TTreeReader for efficient reading
+    TTreeReader reader(tree);
+    TTreeReaderValue<std::vector<float>> branch(reader, branchname.c_str());
 
-        // Check if data in entry would push us over maxBytes
-        if (bytesRead + (entryData->size() * sizeof(float)) > maxBytes) {
+    std::cout << timeMessage(std::format("Reading entries from branch '{}' in file '{}'", branchname, filename));
+    std::cout << std::endl;
+
+    while (reader.Next()) {
+        if (bytesRead + (branch->size() * sizeof(float)) > maxBytes) {
             std::cout << timeMessage(std::format(
                 "Reached maxBytes limit ({} bytes), stopping read after {} entries", 
-                getSizeString(maxBytes), i - 1
+                getSizeString(maxBytes), entries.size()
             ));
             std::cout << std::endl;
             break;
         }
-
-        entries.push_back(*entryData);
-        totalValues += static_cast<Long64_t>(entryData->size());
-        bytesRead += static_cast<Long64_t>(entryData->size() * sizeof(float));
+        entries.push_back(*branch);
+        totalValues += static_cast<Long64_t>(branch->size());
+        bytesRead += static_cast<Long64_t>(branch->size() * sizeof(float));
     }
 
     file->Close();
     delete file;
-    delete tree;
-    delete entryData;
-
-    // Size can be reported in GB, MB, KB, or bytes
-    int numBytes = totalValues * sizeof(float);
-    std::cout << timeMessage(
-        std::format(
-            "Read {} values ({}) from {} entries from branch '{}'", 
-            totalValues, getSizeString(bytesRead), entries.size(), branchname
-        )
-    );
-    std::cout << std::endl;
 
     return entries;
-}
-
-void writeVectorFloatBranch(
-    const std::string filename,
-    const std::string treename,
-    const std::string branchname,
-    const std::vector<std::vector<float>>& data
-)
-{
-    // Create or open the ROOT file
-    TFile* file{TFile::Open(filename.c_str(), "UPDATE")};
-    if (!file || file->IsZombie()) {
-        throw std::runtime_error("Failed to open file for writing");
-        exit(1);
-    }
-
-    // Create or get the tree from the file
-    TTree* tree{dynamic_cast<TTree*>(file->Get(treename.c_str()))};
-    bool newTree{false};
-    if (!tree) {
-        newTree = true;
-        tree = new TTree(treename.c_str(), "A tree with float vector branch");
-    }
-
-    // Create the branch
-    // If its the first branch in the tree we don't need to iterate over existing entries
-    std::vector<float>* branchData{nullptr};
-
-    if (!newTree) {
-        tree->Branch(branchname.c_str(), &branchData);
-        for (int i = 0; i < data.size(); ++i) {
-            branchData = &data[i];
-            tree->Fill();
-        }
-
-    }
-    else {
-        // Create branch
-        TBranch* branch = tree->Branch(branchname.c_str(), &branchData);
-
-        // Disable other branches
-        tree->SetBranchStatus("*", 0);
-        tree->SetBranchStatus(branchname.c_str(), 1);
-        
-        for (int i = 0; i < data.size(); ++i) {
-            tree->GetEntry(i);
-            branchData = &data[i];
-            branch->Fill();
-        }
-    }
-
-    tree->Write();
-    file->Close();
-    delete file;
-    delete tree;
-    delete branchData;
 }

@@ -3,29 +3,30 @@
 #include <random>
 #include <string>
 #include <vector>
+#include <chrono>
 
 #include "../utils/cli.hpp"
 #include "../utils/utils.hpp"
 #include "../compressors/TruncCompressor.hpp"
 
 int main(int argc, char* argv[]) {
-    // Read parameters from command line arguments
-    Args args{parseArgs(argc, argv)};
-
     // Create compressor
-    TruncCompressor compressor(args.compressionLevel, args.mantissaBits);
+    int compressionLevel{5};
+    int mantissaBits{13};
 
-    // Generate random floats
-    std::vector<float> data(10);
-    std::mt19937 rng(std::random_device{}());
-    std::uniform_real_distribution<float> dist(100.0f);
-    for (float& f : data) {
-        f = dist(rng);
+    TruncCompressor compressor{compressionLevel, mantissaBits};
+
+    // Generate random dummy data
+    std::mt19937 gen(42); // Fixed seed for reproducibility
+    std::uniform_real_distribution<float> dis(0.0f, 10.0f);
+    std::vector<float> data(10000);
+    for (auto& val : data) {
+        val = dis(gen);
     }
 
-    CompressedData compressed = compressor.compress({.data = data, .dataName = "test_data"});
-
-    DecompressedData decompressed = compressor.decompress(compressed);
+    // Compress and decompress
+    CompressedData compressed = compressor.compress(data);
+    std::vector<float> decompressed = compressor.decompress(compressed);
 
     // Print compressor details
     std::cout << "Compressor: " << compressor.toString() << "\n\n";
@@ -36,8 +37,8 @@ int main(int argc, char* argv[]) {
 
     // Print original vs decompressed data side-by-side
     std::cout << std::format("{:<20} {:<20}\n", "Original", "Decompressed");
-    for (size_t i = 0; i < data.size(); ++i) {
-        std::cout << std::format("{:<20.10f} {:<20.10f}", data[i], decompressed.data[i]) << std::endl;
+    for (size_t i = 0; i < 10; ++i) {
+        std::cout << std::format("{:<20.10f} {:<20.10f}", data[i], decompressed[i]) << std::endl;
     }
 
     return 0;
