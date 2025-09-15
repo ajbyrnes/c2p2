@@ -62,33 +62,13 @@ std::vector<std::vector<float>> readVectorFloatBranch(
         exit(1);
     }
 
-    // Get the tree from the file
-    TTree* tree{dynamic_cast<TTree*>(file->Get(treename.c_str()))};
-    if (!tree) {
-        throw std::runtime_error("Failed to get tree");
-        exit(2);
-    }
-
-    // Enable only the desired branch
-    tree->SetBranchStatus("*", 0);
-    tree->SetBranchStatus(branchname.c_str(), 1);
-
-    // Set the branch address to read the vector<float> entries
-    std::vector<float>* entryData = nullptr;
-
-    tree->SetBranchAddress(branchname.c_str(), &entryData);    
-    Long64_t nEntries = tree->GetEntries();
-
-    std::cout << timeMessage(std::format("Reading {} entries from branch '{}' in file '{}'", nEntries, branchname, filename));
-    std::cout << std::endl;
+    // Use TTreeReader for efficient reading
+    TTreeReader reader(treename.c_str(), file);
+    TTreeReaderValue<std::vector<float>> branch(reader, branchname.c_str());
 
     std::vector<std::vector<float>> entries;
     Long64_t bytesRead{0};
     Long64_t totalValues{0};
-
-    // Use TTreeReader for efficient reading
-    TTreeReader reader(tree);
-    TTreeReaderValue<std::vector<float>> branch(reader, branchname.c_str());
 
     std::cout << timeMessage(std::format("Reading entries from branch '{}' in file '{}'", branchname, filename));
     std::cout << std::endl;
