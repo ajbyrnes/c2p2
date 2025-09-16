@@ -11,7 +11,7 @@ int main() {
     // Open ROOT file
     std::string filename = "/home/ajbyrnes/data/data16_13TeV/DAOD_PHYSLITE.37019878/DAOD_PHYSLITE.37019878._000009.pool.root.1";
     std::string treename = "CollectionTree";
-    std::string branchname = "AnalysisJetsAuxDyn.pt";
+    std::string branchname = "AnalysisJetsAuxDyn.phi";
     
     try {
         auto start = std::chrono::steady_clock::now();

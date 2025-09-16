@@ -1,5 +1,4 @@
 # tests/CMakeLists.txt
-
 add_executable(test-TruncCompressor test-TruncCompressor.cpp)
 target_link_libraries(test-TruncCompressor compressors utils)
 
